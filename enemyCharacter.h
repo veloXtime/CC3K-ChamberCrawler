@@ -7,7 +7,7 @@ class PlayerCharacter;
 class EnemyCharacter: public Living {
     public:
         // Attacking another character
-        void attack(Living &c);
+        void attack(PlayerCharacter &pc);
 
         // Attacked by a PC
         void attackedBy(PlayerCharacter &pc);

@@ -18,6 +18,12 @@ class gameElement {
 
         // Display the game element
         void display() const;
+
+        // Notifying its observers (virtual?)
+        void notify();
+
+        // Get notified (virtual?)
+        void getNotified();
 };
 
 #endif

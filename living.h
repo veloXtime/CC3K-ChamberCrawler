@@ -6,7 +6,6 @@
 class Living: public gameElement {
     std::string race;
     int hp,atk,def,max_hp;
-    char c;
 
     public:
         // Retreive the hp of the living object
@@ -33,8 +32,6 @@ class Living: public gameElement {
         // Retreive the race of the living object
         std::string getRace() const;
 
-        // Notifying its observers
-        void notify();
 
 };
 
