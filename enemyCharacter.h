@@ -4,6 +4,7 @@
 
 class PlayerCharacter;
 
+// abstract, no instance of EnemyCharacter will be created
 class EnemyCharacter: public Living {
     public:
         // Attacking another character

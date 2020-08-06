@@ -4,6 +4,9 @@
 
 class BoostAtk: public Potion {
     public:
+        // Costructor
+        BoostAtk(int x, int y, char c = 'P');
+
         virtual void effect() override;
 };
 

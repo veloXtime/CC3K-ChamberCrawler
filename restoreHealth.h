@@ -4,6 +4,9 @@
 
 class RestoreHealth: public Potion {
     public:
+        // Costructor
+        RestoreHealth(int x, int y, char c = 'P');
+
         virtual void effect() override;
 };
 

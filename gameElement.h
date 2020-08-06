@@ -1,7 +1,8 @@
 #ifndef GAME_ELEMENT_H
 #define GAME_ELEMENT_H
 
-class gameElement {
+// abstract, no instance of GameElement will be created
+class GameElement {
     int x, y;
     char c;
 

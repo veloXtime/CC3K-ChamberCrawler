@@ -12,6 +12,9 @@ class Halfling;
 
 class Vampire: public PlayerCharacter {
     public:
+        // Constructor
+        Vampire(int x, int y, char c = '@', std::string race = "vampire", int hp = 50, int atk = 25, int def = 25, int max_hp = ???);
+
         // Attacked by a human
         virtual void attackedBy(Human &human) override;
 

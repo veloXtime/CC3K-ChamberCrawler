@@ -8,6 +8,10 @@ class DragonHoard: public Treasure {
 
     // Determine if the associated dragon is alive
     bool dragonAlive();
+    
+    public:
+        // Costructor
+        DragonHoard(int x, int y, char c = 'G', int amount = 6);
 };
 
 #endif

@@ -12,6 +12,9 @@ class Halfling;
 
 class Goblin: public PlayerCharacter {
     public:
+        // Constructor
+        Goblin(int x, int y, char c = '@', std::string race = "goblin", int hp = 110, int atk = 15, int def = 20, int max_hp = 125);
+
         // Attacked by a human
         virtual void attackedBy(Human &human) override;
 

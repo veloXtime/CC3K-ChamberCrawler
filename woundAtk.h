@@ -4,6 +4,9 @@
 
 class WoundAtk: public Potion {
     public:
+        // Costructor
+        WoundAtk(int x, int y, char c = 'P');
+
         virtual void effect() override;
 };
 

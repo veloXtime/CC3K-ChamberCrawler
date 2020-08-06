@@ -3,11 +3,15 @@
 #include <string>
 #include "gameElement.h"
 
-class Living: public gameElement {
+// abstract, no instance of Living will be created
+class Living: public GameElement {
     std::string race;
     int hp,atk,def,max_hp;
 
     public:
+        // Destructor
+        ~Living();
+
         // Retreive the hp of the living object
         int getHp() const;
         

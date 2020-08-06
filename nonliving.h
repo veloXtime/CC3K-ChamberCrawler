@@ -2,8 +2,10 @@
 #define NON_LIVING_H
 #include "gameElement.h"
 
-class NonLiving: public gameElement {
-    
+// abstract, no instance of NonLiving will be created
+class NonLiving: public GameElement {
+    public:
+        ~NonLiving();
 };
 
 #endif

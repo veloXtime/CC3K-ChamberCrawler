@@ -4,6 +4,9 @@
 
 class PoisonHealth: public Potion {
     public:
+        // Costructor
+        PoisonHealth(int x, int y, char c = 'P');
+
         virtual void effect() override;
 };
 

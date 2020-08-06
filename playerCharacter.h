@@ -10,6 +10,7 @@ class Merchant;
 class Dragon;
 class Halfling;
 
+// abstract, no instance of PlayerCharacter will be created
 class PlayerCharacter: public Living {
     public:
         // Attacking another character
