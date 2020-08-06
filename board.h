@@ -2,9 +2,12 @@
 #define BOARD_H
 #include <vector>
 #include <string>
+#include <memory>
+#include <map>
 #include "gameElement.h"
 
-public Board
+class EnemyCharacter;
+class Board
 {
 	private:
 		std::vector<std::vector<std::vector<std::shared_ptr<GameElement>>>> board;
@@ -20,6 +23,6 @@ public Board
 		void spawnItem();
 		void moveEnemy();
 		std::vector<std::string> getEnemyList();
-}
+};
 
 #endif
