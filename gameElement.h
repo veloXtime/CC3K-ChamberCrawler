@@ -14,7 +14,7 @@ class GameElement {
         // Retreive x-coordinate of the game element
         int getYCoordinate() const;
 
-        // ???
+        // Retreive the character representing the game element on the board
         int getChar() const;
 
         // Display the game element
