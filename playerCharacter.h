@@ -1,5 +1,7 @@
 #ifndef PLAYER_CHARACTER_H
 #define PLAYER_CHARACTER_H
+#include <memory>
+#include "potion.h"
 #include "living.h"
 
 class Human;
@@ -10,9 +12,38 @@ class Merchant;
 class Dragon;
 class Halfling;
 
+
 // abstract, no instance of PlayerCharacter will be created
-class PlayerCharacter: public Living {
+class PlayerCharacter: public Living 
+{
+    protected:
+        int HP, Atk, Def;
+
+        std::unique_ptr<Potion> potions;
+
+        void changeHP(int);
+        void changeAtk(int);
+        void changeDef(int);
     public:
+        //initialize pointers to the potions component
+        PlayerCharacter();
+        PlayerCharacter(int, int, int); //the three stats?
+
+        /* The chain of decorators will return aa 3-tuple
+         * which corresponds to the offset of (HP, ATK, DEF)*/
+        int getHP();
+        int getAtk();
+        int getDef();
+        
+        
+        //what notifies PC?
+        void notify(GameElement*);
+
+        /* when player decides to drink a potion 
+         * adds the potion to the decorator chain*/
+        void drink(std::unique_ptr<Potion>&);
+
+
         // Attacking another character
         void attack(Living &c);
 
