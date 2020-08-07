@@ -17,8 +17,7 @@ class EnemyCharacter;
 class Board
 {
 	private:
-		int level;
-
+		int level = 0;
 		vector<vector<vector<shared_ptr<GameElement>>>> floor;
 		vector<shared_ptr<EnemyCharacter>, int, int> enemyList;
 

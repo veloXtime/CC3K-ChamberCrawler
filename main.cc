@@ -15,6 +15,25 @@ int main(int argc, char* argv[])
 	while (board.getLevel() <= 5)
 	{
 		GC.setFloor(*in);	// contains display
+		
+		string line;
+		while (getline(cin, line))
+		{
+			istringstream iss{line};
+			char race;
+			iss >> race;
+			if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
+			{
+				GC.setPC(race);
+				break;
+			}
+			if (race == 'q')
+			{
+				return 1;
+			}
+		}
+		if(cin.eof()) { return 1; }
+
 		if (board.getLevel == 1) { GC.choosePC(); }
 		GC.setGameElement();	// contains display
 
@@ -28,18 +47,26 @@ int main(int argc, char* argv[])
 			if (checkDirection(inp))
 			{
 				GC.movePC(inp);
-				//	if PC.getPCXCoordinate == getStairX
-				//	break;
-				if (!stillMode) { GC.moveEnemy(); }
+				if (GC.levelComplete()) 
+				{
+					break; 
+				}
+				if (!stillMode) 
+				{
+					GC.moveEnemy(); 
+				}
 			}
 			else if (inp == "u")
 			{
 				iss >> arg;
-				if (checkDirection(arg))
+				if (checkDirection(arg)) 
 				{
-					GC.drinkPotion(string arg);
+					GC.drinkPotion(string arg); 
 				}
-				if (!stillMode) { GC.moveEnemy(); }
+				if (!stillMode) 
+				{
+					GC.moveEnemy(); 
+				}
 			}
 			else if (inp == "a")
 			{
@@ -48,12 +75,18 @@ int main(int argc, char* argv[])
 				{
 					GC.attackEnemy(string arg);
 				}
-				if (!stillMode) { GC.moveEnemy(); }
+				if (!stillMode) 
+				{
+					GC.moveEnemy(); 
+				}
 			}
 			else if (inp == "f")
 			{
 				stillMode = 1 - stillMode;
-				if (!stillMode) { GC.moveEnemy(); }
+				if (!stillMode) 
+				{
+					GC.moveEnemy(); 
+				}
 			}
 			else if (inp == "r")
 			{
@@ -67,7 +100,7 @@ int main(int argc, char* argv[])
 				GC.displayLose();
 				return 0;
 			}
-			GC.newboard(board.getLevel()+1);
+			GC.newBoard(board.getLevel()+1);
 		}
 	}
 	GC.displayWin();
