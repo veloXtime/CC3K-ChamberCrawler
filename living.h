@@ -9,8 +9,7 @@ class Living: public GameElement {
     int hp,atk,def,max_hp;
 
     public:
-        // Destructor
-        ~Living();
+        Living(int, int, char);
 
         // Retreive the hp of the living object
         int getHp() const;

@@ -6,10 +6,10 @@ class PotionDef: public Potion
 {
     public:
         // Costructor
-        PotionDef(int x, int y, int val, std::unique_ptr<Potion>, char c = 'P');
+        PotionDef(int x, int y, int val, std::shared_ptr<Potion>);
         
 
-        virtual int effect() override;
+        std::pair<int,int> effect() override;
 };
 
 #endif

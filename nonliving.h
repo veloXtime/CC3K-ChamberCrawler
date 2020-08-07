@@ -5,7 +5,7 @@
 // abstract, no instance of NonLiving will be created
 class NonLiving: public GameElement {
     public:
-        ~NonLiving();
+        NonLiving(int, int, char);
 };
 
 #endif

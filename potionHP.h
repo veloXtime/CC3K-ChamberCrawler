@@ -4,11 +4,13 @@
 
 class PotionHP: public Potion 
 {
+    
     public:
         // Costructor
-        PotionHP(int x, int y, int val, std::unique_ptr<Potion>, char c = 'P');
+        PotionHP(int x, int y, int val, std::shared_ptr<Potion>);
 
-        virtual int effect() override;
+        void drink(PlayerCharacter*) override;
+        std::pair<int,int> effect() override;
 };
 
 #endif

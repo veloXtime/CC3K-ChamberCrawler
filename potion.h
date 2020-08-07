@@ -2,18 +2,22 @@
 #define POTION_H
 #include <memory>
 #include "nonliving.h"
-using std::shared_ptr;
+#include "playerCharacter.h"
+
 
 //abstract component class, to simplify things 
 //decorator and component is the same class
 class Potion: public NonLiving 
 {
-    
+    friend PlayerCharacter;
     protected:
         int val;
+        std::shared_ptr<Potion> next;
     public:
-        Potion(); //there is nothing to return
-        virtual int effect(); //an instance of this baseclass always return 0
+        Potion(int x, int y, int val, std::shared_ptr<Potion>); 
+        virtual void drink(PlayerCharacter*);
+        
+        virtual std::pair<int,int> effect(); //an instance of this baseclass always return 0
 };
 
 #endif
