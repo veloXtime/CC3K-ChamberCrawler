@@ -17,27 +17,33 @@ class EnemyCharacter;
 class Board
 {
 	private:
-		//The third vector is a collection of game elements on the corresponding coordinate
-		//Using fixed length array is probably easier
-		vector<vector<array<shared_ptr<GameElement>, 3>>> board;
-		
-		std::map<shared_ptr<EnemyCharacter>, int> enemyList;
+		int level;
 
-		void swap(int x1, int y1, int x2, int y2); // swap two items
+		vector<vector<vector<shared_ptr<GameElement>>>> floor;
+		vector<shared_ptr<EnemyCharacter>, int, int> enemyList;
+
 		void spawnEnemy();
 		void spawnItem();
+		void spawnStair();
+		void spawnPC();
 		void moveEnemy();
-	public:
-		~Board();
+		void moveSingleEnemy(std::shared_ptr<EnemyCharacter> e);
+		void movePC();
+		void revert(std::shared_ptr<GameElement> ge);
+		void replace(std::shared_ptr<GameElement> ge);
 
-		string getType(int x, int y); // get game element type at (x,y)
-		int getFloor();
-		
+	public:
+		Board();
+
+		int getLevel();
+		char getChar(int x, int y); // get game element type at (x,y)
+		int getChamberInd(int x, int y);
+		void pushRow(vector<vector<shared_ptr<GameElement>>> newRow);
 		vector<string> getEnemyList();
 
 		friend GameController;
 };
 
 
-extern Board board;
+extern Board board {};
 #endif

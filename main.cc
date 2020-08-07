@@ -12,12 +12,10 @@ int main(int argc, char* argv[])
 
 	bool stillModeOn = 0;
 	GameController GC;
-	int level = 1;
 	while (board.getLevel() <= 5)
 	{
-		level = board.getLevel();
 		GC.setFloor(*in);	// contains display
-		if (level == 1) { GC.choosePC(); }
+		if (board.getLevel == 1) { GC.choosePC(); }
 		GC.setGameElement();	// contains display
 
 		string line;
@@ -61,7 +59,7 @@ int main(int argc, char* argv[])
 			{
 				level = 1;
 				bool stillModeOn = 0;
-				GC.newBoard(1);
+				GC.setLevel(0);
 				break;
 			}
 			else if (inp == "q")
@@ -69,7 +67,7 @@ int main(int argc, char* argv[])
 				GC.displayLose();
 				return 0;
 			}
-			GC.newboard(level+1);
+			GC.newboard(board.getLevel()+1);
 		}
 	}
 	GC.displayWin();
