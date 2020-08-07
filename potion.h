@@ -18,6 +18,9 @@ class Potion: public NonLiving
         virtual void drink(PlayerCharacter*);
         
         virtual std::pair<int,int> effect(); //an instance of this baseclass always return 0
+
+        //get called when PC is nearyby
+        void notify(PlayerCharacter*);
 };
 
 #endif

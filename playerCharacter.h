@@ -2,7 +2,6 @@
 #define PLAYER_CHARACTER_H
 #include <memory>
 #include <utility>
-#include "potion.h"
 #include "living.h"
 
 class Human;
@@ -13,6 +12,9 @@ class Merchant;
 class Dragon;
 class Halfling;
 
+class Potion;
+class Treasure;
+
 
 // abstract, no instance of PlayerCharacter will be created
 class PlayerCharacter: public Living 
@@ -21,7 +23,7 @@ class PlayerCharacter: public Living
     protected:
     
         int HP, Atk, Def;
-
+        int score;
         /* The chain of decorators will return a pair
          * which corresponds to the offset of (ATK, DEF)*/
         std::shared_ptr<Potion> potions;
@@ -41,6 +43,7 @@ class PlayerCharacter: public Living
         virtual int getAtk();
         virtual int getDef();
 
+        virtual int getScore();
         //void attach(std::shared_ptr<Potion>);
         
         
@@ -51,6 +54,7 @@ class PlayerCharacter: public Living
          * adds the potion to the decorator chain */
         void drink(std::shared_ptr<Potion>);
 
+        void pickup(std::shared_ptr<Treasure>);
 
         // Attacking another character
         void attack(Living &c);
