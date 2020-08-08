@@ -1,21 +1,53 @@
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 #include "board.h"
+#include "enemyCharacter.h"
+#include "architect.h"
+using namespace std;
+
+void Board::spawnItem()
+{
+	
+}
 
 void Board::spawnEnemy()
 {
+	int row = board.floor.size();
+	int col = board.floor[0].size();
+	srand (time(NULL));
+	int x = 0;
+	int y = 0;
+	while (floor[x][y].back()->getChar() != '.')
+	{
+		x = rand() % row;
+		y = rand() % col;
+	}
 }
 
-void Board::spawnItem();
+// helper struct for use of sorting algorithm
+struct sortCompare 
+{
+	bool operator()(shared_ptr<EnemyCharacter> e1, shared_ptr<EnemyCharacter> e2) 
+	{
+		int x1 = e1->getXCoordinate();
+		int y1 = e1->getYCoordinate();
+		int x2 = e2->getXCoordinate();
+		int y2 = e2->getYCoordinate();
+		if (x1 < x2)
+		{
+			return true;
+		}
+		if (x1 == x2)
+		{
+			return (y1 < y2);
+		}
+		return false;
+	}
+} compare;
 
-void Board::spawnStair();
 
-void spawnPC();
-
-void movePC();
-
-
-void Board::moveEnemy()
+void Board::moveEnemy(int pc_x, int pc_y)
 {
 	int x = 0;
 	int y = 0;
@@ -23,47 +55,69 @@ void Board::moveEnemy()
 	{
 		x = e->getXCoordinate();
 		y = e->getYCoordinate();
-		revert(x,y);
+		if (x >= pc_x+1 || x <= pc_x-1 || y >= pc_y+1 || y <= pc_y-1)
+		// if enemy is not near pc, then move
+		{
+			revert(e);
+		}
 	}
 	for (auto &e: enemyList)
 	{
-		moveSingleEnemy(e);
+		moveOneEnemy(e);
 	}
+	sort(enemyList.begin(), enemyList.end(), compare);
 }
 
-void Board::moveSingleEnemy(std::shared_ptr<Enemy> e)
+void Board::moveOneEnemy(std::shared_ptr<EnemyCharacter> e)
 {
 	int x = e->getXCoordinate();	// x and y will never be at border
 	int y = e->getYCoordinate();
-	
-	int left = ((board[x-1][y]->getChar() == '.') ? 1 : 0); // 1
-	int right = ((board[x+1][y]->getChar() == '.') ? 1 : 0); // 2
-	int up = ((board[x][y-1]->getChar() == '.') ? 1 : 0); // 3
-	int down = ((board[x][y+1]->getChar() == '.') ? 1 : 0); // 4
-	int count = left+right+up+down;
-
+	if (getChar(x, y) == e->getChar())	// enemy was near pc, no change
+	{
+		return;
+	}
+	else
+	{
+		vector<pair<int,int>> unoccupied;
+		if (getChar(x, y-1) == '.') unoccupied.push_back(make_pair(x,y-1));
+		if (getChar(x, y+1) == '.') unoccupied.push_back(make_pair(x, y+1));
+		if (getChar(x-1, y) == '.') unoccupied.push_back(make_pair(x-1, y));
+		if (getChar(x+1, y) == '.') unoccupied.push_back(make_pair(x+1, y));
+		if (getChar(x-1, y+1) == '.') unoccupied.push_back(make_pair(x-1, y+1));
+		if (getChar(x-1, y-1) == '.') unoccupied.push_back(make_pair(x-1, y-1));
+		if (getChar(x+1, y+1) == '.') unoccupied.push_back(make_pair(x+1, y+1));
+		if (getChar(x+1, y-1) == '.') unoccupied.push_back(make_pair(x+1, y-1));
+		int count = unoccupied.size();
+		if (count != 0)
+		{
+			srand (time(NULL));
+			int random = rand() % count;
+			x = unoccupied[random].first;
+			y = unoccupied[random].second;
+		}
+	}
+	e->setXCoordinate(x);
+	e->setYCoordinate(y);
+	replace(e);
 }
 
-void revert(int x, int y)	// revert board at position (x,y) to floor 
+void Board::revert(std::shared_ptr<GameElement> ge)
 // change return type to gameElement?
-{
-	board[x][y].pop();
-}
-
-void replace(std::shared_ptr<GameElement> ge)
 {
 	int x = ge->getXCoordinate();
 	int y = ge->getYCoordinate();
-	board[x][y].push_back(ge);
+	floor[x][y].pop_back();
 }
 
-void GameElement::pushRow(vector<vector<shared_ptr<GameElement>>> newRow)
+void Board::replace(std::shared_ptr<GameElement> ge)
 {
-	board.push_back(newRow);
+	int x = ge->getXCoordinate();
+	int y = ge->getYCoordinate();
+	floor[x][y].push_back(ge);
 }
 
 
-int Borad::getLevel()
+int Board::getLevel()
 {
 	return level;
 }
@@ -82,15 +136,13 @@ int Board::getChamberInd(int x, int y)
 {
 	if (floor[x][y].back()->getChar() == '.')
 	{
-		return floor[x][y].back()->getChamberInd();
+		shared_ptr<Architect> tile = dynamic_pointer_cast<Architect>(floor[x][y].back());
+		return tile->getChamberInd();
 	}
-	else
-	{
-		return 0;
-	}
+	return 0;
 }
 
-void pushRow(vector<vector<shared_ptr<GameElement>>> newRow)
+void Board::setRow(vector<vector<shared_ptr<GameElement>>> newRow)
 {
 	floor.push_back(newRow);
 }

@@ -17,17 +17,21 @@ class GameElement
         // Retreive x-coordinate of the game element
         int getYCoordinate() const;
 
+        void setXCoordinate(int x);
+
+        void setYCoordinate(int y);
+
         // Retreive the character representing the game element on the board
         int getChar() const;
 
         // Display the game element
         void display() const;
 
-        // Notifying its observers (virtual?)
-        void notify();
+        // Notifying its observers (virtual?)	// make method virual to make gameElement polymorphic
+        virtual void notify();
 
         // Get notified (virtual?)
-        void getNotified();
+        virtual void getNotified();
 };
 
 #endif

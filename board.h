@@ -3,8 +3,6 @@
 #include <vector>
 #include <string>
 #include <memory>
-#include <map>
-#include <array>
 #include "gameElement.h"
 
 using std::vector;
@@ -19,24 +17,24 @@ class Board
 	private:
 		int level = 1;
 		vector<vector<vector<shared_ptr<GameElement>>>> floor;
-		vector<shared_ptr<EnemyCharacter>, int, int> enemyList;
+		vector<shared_ptr<EnemyCharacter>> enemyList;
 
-		void spawnEnemy();
-		void spawnItem();	// potion then gold
-		void spawnStair();
-		void moveEnemy();
-		void moveSingleEnemy(std::shared_ptr<EnemyCharacter> e);
-		void movePC();
-		void revert(std::shared_ptr<GameElement> ge);
-		void replace(std::shared_ptr<GameElement> ge);
+		void spawnItem();	//
+		void spawnEnemy();	//
+
+		void moveEnemy(int pc_x, int pc_y);	// complete
+		void moveOneEnemy(std::shared_ptr<EnemyCharacter> e);	// complete
+		// void movePC();
+		void revert(std::shared_ptr<GameElement> ge);		// complete
+		void replace(std::shared_ptr<GameElement> ge);		// complete
+
+		void setLevel(int lv);	// complete
+		void setRow(vector<vector<shared_ptr<GameElement>>> newRow);// complete
 
 	public:
-		int getLevel();
-		void setLevel();
-		char getChar(int x, int y); // get game element type at (x,y)
-		int getChamberInd(int x, int y);
-		void pushRow(vector<vector<shared_ptr<GameElement>>> newRow);
-		vector<string> getEnemyList();
+		int getLevel();		// complete
+		int getChamberInd(int x, int y);	// complete
+		char getChar(int x, int y); // get game element type at (x,y), complete
 
 		friend GameController;
 };
