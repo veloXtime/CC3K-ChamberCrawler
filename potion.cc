@@ -5,7 +5,7 @@
 
 
 Potion::Potion(int x, int y, int val, std::shared_ptr<Potion> p) 
-: NonLiving(x, y, c), val{val}, next{nullptr}
+: NonLiving(x, y, 'P'), val{val}, next{nullptr}
 {
 
 }
