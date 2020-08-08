@@ -2,54 +2,56 @@
 
 bool checkDirection(string inp)
 {
-	return (inp == "no" || inp == "so" || inp == "ea" || inp == "we" 
-				|| inp == "ne" || inp == "nw" || inp == "se" || inp == "sw");
+	return (inp == "no" || inp == "so"
+			|| inp == "ea" || inp == "we" 
+			|| inp == "ne" || inp == "nw" 
+			|| inp == "se" || inp == "sw");
 }
+
 int main(int argc, char* argv[])
 {
 	string fname = (argc > 1) ? argv[1] : "default.txt";
 	auto in = make_shared<ifstream>(fname);
-
 	bool stillModeOn = 0;
 	GameController GC;
+	string line;
+
 	while (board.getLevel() <= 5)
 	{
 		GC.setFloor(*in);	// contains display
 		
-		string line;
-		while (getline(cin, line))
+		if (board.getLevel == 1)
 		{
-			istringstream iss{line};
-			char race;
-			iss >> race;
-			if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
+			while (getline(cin, line))
 			{
-				GC.setPC(race);
-				break;
-			}
-			if (race == 'q')
-			{
-				return 1;
-			}
+				istringstream iss{line};
+				char race;
+				iss >> race;
+				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
+				{
+					GC.spawnPC(race);
+					break;
+				}
+				if (race == 'q')
+				{
+					return 1;
+				}
+				if (cin.eof()) { return 1; }
 		}
-		if(cin.eof()) { return 1; }
 
-		if (board.getLevel == 1) { GC.choosePC(); }
 		GC.setGameElement();	// contains display
 
-		string line;
 		while (getline(cin, line))
 		{
 			istringstream iss{line};
 			string inp, arg;
 			iss >> inp;
-
 			if (checkDirection(inp))
 			{
 				GC.movePC(inp);
-				if (GC.levelComplete()) 
+				if (GC.levelComplete())
 				{
-					break; 
+					break;
 				}
 				if (!stillMode) 
 				{
@@ -100,8 +102,8 @@ int main(int argc, char* argv[])
 				GC.displayLose();
 				return 0;
 			}
-			GC.newBoard(board.getLevel()+1);
 		}
+		GC.setLevel(board.getLevel()+1);
 	}
 	GC.displayWin();
 }

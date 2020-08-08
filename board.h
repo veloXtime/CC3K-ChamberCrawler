@@ -17,14 +17,13 @@ class EnemyCharacter;
 class Board
 {
 	private:
-		int level = 0;
+		int level = 1;
 		vector<vector<vector<shared_ptr<GameElement>>>> floor;
-		vector<shared_ptr<EnemyCharacter>, int> enemyList;
+		vector<shared_ptr<EnemyCharacter>, int, int> enemyList;
 
 		void spawnEnemy();
-		void spawnItem();
+		void spawnItem();	// potion then gold
 		void spawnStair();
-		void spawnPC();
 		void moveEnemy();
 		void moveSingleEnemy(std::shared_ptr<EnemyCharacter> e);
 		void movePC();
@@ -32,9 +31,8 @@ class Board
 		void replace(std::shared_ptr<GameElement> ge);
 
 	public:
-		Board();
-
 		int getLevel();
+		void setLevel();
 		char getChar(int x, int y); // get game element type at (x,y)
 		int getChamberInd(int x, int y);
 		void pushRow(vector<vector<shared_ptr<GameElement>>> newRow);
