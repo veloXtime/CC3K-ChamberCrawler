@@ -1,7 +1,4 @@
 #include "potion.h"
-#include "potionHP.h"
-#include "potionAtk.h"
-#include "potionDef.h"
 
 
 Potion::Potion(int x, int y, int val, std::shared_ptr<Potion> p) 

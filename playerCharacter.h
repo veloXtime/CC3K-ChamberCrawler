@@ -44,7 +44,6 @@ class PlayerCharacter: public Living
         virtual int getDef();
 
         virtual int getScore();
-        //void attach(std::shared_ptr<Potion>);
         
         
         //what notifies PC?

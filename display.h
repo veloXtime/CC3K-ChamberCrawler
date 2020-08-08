@@ -11,12 +11,22 @@ class display
      std::string race, hp, atk, action; //floor is in the same line as race
 
     public:
-    //These may need add an getName method or something?
-    void notify(Potion *);
-    void notify(PlayerCharacter*);
-    void notify(Enemy*); 
 
-    void notify(Treasure*); //technically we can tell what type it is by getting amount
 
+        //called by a potion
+        void notify(Potion *);
+
+        //called when PC moves
+        void notify(PlayerCharacter*);
+
+        //called when Enemy moves
+        void notify(Enemy*); 
+
+        //called when a Treasure is picked up
+        void notify(Treasure*); //technically we can tell what type it is by getting amount
+
+        //combat
+        void notify(PlayerCharacter*, Enemy*);
+        void notify(Enemy*, PlayerCharacter*);
 
 };
