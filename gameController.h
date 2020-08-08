@@ -9,12 +9,12 @@ class GameController
 {
 	private:
 		std::shared_ptr<PlayerCharacter> pc;
-		void spawnEnemy(Board & board);	// also changes the enemyList
-		void spawnItem(Board & board);
+		//void spawnEnemy(Board & board);	// also changes the enemyList
+		//void spawnItem(Board & board);
 
 	public:
-		void setFloor(istream & in);
-		void setLevel(int lv);
+		void resetFloor(istream & in);
+		void setLevel(int lvl)
 		void spawnPC(char c);
 		void setGameElement();
 		void moveEnemy();
