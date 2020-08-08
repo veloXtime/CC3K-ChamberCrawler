@@ -6,9 +6,10 @@ class PotionAtk: public Potion
 {
     public:
         // Costructor
-        PotionAtk(int x, int y, int val, std::unique_ptr<Potion>, char c = 'P');
+        PotionAtk(int x, int y, int val, std::shared_ptr<Potion>);
 
-        virtual int effect() override;
+        //void drink(PlayerCharacter*) override;
+        std::pair<int,int> effect() override;
 };
 
 #endif

@@ -2,12 +2,15 @@
 #define GAME_ELEMENT_H
 
 // abstract, no instance of GameElement will be created
-class GameElement {
-    int x, y;
-    char c;
+class GameElement 
+{
+    protected:
+        int x, y;
+        char c;
 
 
     public:
+        GameElement(int x, int y, char c);
         // Retreive x-coordinate of the game element
         int getXCoordinate() const;
 

@@ -19,7 +19,7 @@ class Board
 	private:
 		int level = 1;
 		vector<vector<vector<shared_ptr<GameElement>>>> floor;
-		vector<shared_ptr<EnemyCharacter>, int, int> enemyList;
+		vector<shared_ptr<EnemyCharacter>, int> enemyList;
 
 		void spawnEnemy();
 		void spawnItem();
@@ -44,5 +44,5 @@ class Board
 };
 
 
-extern Board board {};
+extern Board board;
 #endif
