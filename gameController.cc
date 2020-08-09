@@ -16,14 +16,14 @@ void GameController::pcNotifyAround()
 {
 	int x = pc->getXCoordinate();
 	int y = pc->getYCoordinate();
-	pc.notify(board.floor[x+1][y].back());
-	pc.notify(board.floor[x-1][y].back());
-	pc.notify(board.floor[x][y-1].back());
-	pc.notify(board.floor[x][y+1].back());
-	pc.notify(board.floor[x-1][y-1].back());
-	pc.notify(board.floor[x-1][y+1].back());
-	pc.notify(board.floor[x+1][y-1].back());
-	pc.notify(board.floor[x+1][y+1].back());
+	pc->notify(board.floor[x+1][y].back());
+	pc->notify(board.floor[x-1][y].back());
+	pc->notify(board.floor[x][y-1].back());
+	pc->notify(board.floor[x][y+1].back());
+	pc->notify(board.floor[x-1][y-1].back());
+	pc->notify(board.floor[x-1][y+1].back());
+	pc->notify(board.floor[x+1][y-1].back());
+	pc->notify(board.floor[x+1][y+1].back());
 }
 
 void GameController::spawnStair()
@@ -200,7 +200,7 @@ void GameController::drinkPotion(string direc)
 
 	if (board.getChar(x, y) == 'P')
 	{
-		pc.drink(board.floor[x][y].back());
+		pc->drink(board.floor[x][y].back());
 	}
 }
 
@@ -220,7 +220,7 @@ void GameController::attackEnemy(string direc)
 
 	if (board.getChar(x, y) == 'E')
 	{
-		pc.attack(board.floor[x][y].back());
+		pc->attack(board.floor[x][y].back());
 	}
 }
 
