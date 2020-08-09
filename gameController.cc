@@ -5,6 +5,20 @@
 
 using namespace std;
 
+void GameController::pcNotifyAround()
+{
+	int x = pc->getXCoordinate();
+	int y = pc->getYCoordinate();
+	pc.notify(board.floor[x+1][y].back());
+	pc.notify(board.floor[x-1][y].back());
+	pc.notify(board.floor[x][y-1].back());
+	pc.notify(board.floor[x][y+1].back());
+	pc.notify(board.floor[x-1][y-1].back());
+	pc.notify(board.floor[x-1][y+1].back());
+	pc.notify(board.floor[x+1][y-1].back());
+	pc.notify(board.floor[x+1][y+1].back());
+}
+
 void GameController::spawnStair()
 {
 	srand(time(NULL));
@@ -121,6 +135,7 @@ void GameController::setGameElement();
 	spawnStair();
 	board.spawnItem();	// potion then gold
 	board.spawnEnemy();
+	pcNotifyAround();
 }
 
 void GameController::moveEnemy()
@@ -135,42 +150,14 @@ void GameController::movePC(string direc)
 	int x = pc->getXCoordinate();
 	int y = pc->getYCoordinate();
 
-	if (direc == "no")
-	{
-		--x;
-	}
-	else if (direc == "so")
-	{
-		++x;
-	}
-	else if (direc == "ea")
-	{
-		++y;
-	}
-	else if (direc == "we")
-	{
-		--y;
-	}
-	else if (direc == "ne")
-	{
-		--x;
-		++y;
-	}
-	else if (direc == "nw")
-	{
-		--x;
-		--y;
-	}
-	else if (direc == "se")
-	{
-		++x;
-		++y;
-	}
-	else if (direc == "sw")
-	{
-		++x;
-		--y;
-	}
+	if (direc == "no") { --x; }
+	else if (direc == "so") { ++x; }
+	else if (direc == "ea") { ++y; }
+	else if (direc == "we") { --y; }
+	else if (direc == "ne") { --x; ++y; }
+	else if (direc == "nw") { --x; --y; }
+	else if (direc == "se") { ++x; ++y; }
+	else if (direc == "sw") { ++x; --y; }
 
 	char c = board.getChar(x,y);
 	setPCChamber(board.getChamberInd(x,y));

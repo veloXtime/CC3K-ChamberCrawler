@@ -20,7 +20,7 @@ class Potion: public NonLiving
         virtual std::pair<int,int> effect(); //an instance of this baseclass always return 0
 
         //get called when PC is nearyby
-        void notify(PlayerCharacter*);
+        void getNotified(PlayerCharacter*);
 };
 
 class PotionAtk: public Potion 

@@ -18,7 +18,7 @@ int main(int argc, char* argv[])
 
 	while (board.getLevel() <= 5)
 	{
-		GC.setFloor(*in);	// contains display
+		GC.resetFloor(*in);	// contains display
 		
 		if (board.getLevel == 1)
 		{

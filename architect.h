@@ -8,6 +8,7 @@ class Architect: public GameElement {
 	public:
 		Architect(int x, int y, char c, int chamberInd);
 		int getChamberInd();
+		void getNotified(PlayCharacter & pc) override;
 };
 
 #endif

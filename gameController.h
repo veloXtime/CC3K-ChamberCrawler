@@ -5,6 +5,7 @@
 #include <iostream>
 #include <istream>
 #include <sstream>
+#include <fstream>
 
 class GameController
 {
@@ -17,6 +18,7 @@ class GameController
 		int stairY;
 
 		void spawnStair();	// complete
+		void pcNotifyAround();	// complete
 
 	public:
 		void resetFloor(std::istream & in);	// complete
