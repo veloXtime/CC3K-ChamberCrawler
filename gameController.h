@@ -11,9 +11,9 @@ class GameController
 {
 	private:
 		std::shared_ptr<PlayerCharacter> pc;
-		//void spawnEnemy(Board & board);	// also changes the enemyList
-		//void spawnItem(Board & board);
 		int pcChamber = 0;
+		// the chamber of which pc is spawned into, initialized as 0
+
 		int stairX;
 		int stairY;
 
@@ -29,8 +29,8 @@ class GameController
 		void moveEnemy();				// complete
 
 		void movePC(std::string direc);	// complete
-		void drinkPotion(std::string direc);
-		void attackEnemy(std::string direc);
+		void drinkPotion(std::string direc);	// complete
+		void attackEnemy(std::string direc);	// complete
 		void displayLose();
 		void displayWin();
 		//void newBoard(int level);

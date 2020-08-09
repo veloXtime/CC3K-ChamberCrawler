@@ -11,7 +11,8 @@
 
 using namespace std;
 
-void GameController::pcNotifyAround()
+void GameController::pcNotifyAround()	
+// pc will notify around when a round is finished
 {
 	int x = pc->getXCoordinate();
 	int y = pc->getYCoordinate();
@@ -139,7 +140,8 @@ void GameController::spawnPC(char c)
 void GameController::setGameElement()
 {
 	spawnStair();
-	board.spawnItem();	// potion then gold
+	board.spawnPotion();	// potion then gold
+	board.spawnGold();
 	board.spawnEnemy();
 	pcNotifyAround();
 }
@@ -149,6 +151,7 @@ void GameController::moveEnemy()
 	int pc_x = pc->getXCoordinate();
 	int pc_y = pc->getYCoordinate();
 	board.moveEnemy(pc_x, pc_y);
+	pcNotifyAround();
 }
 
 void GameController::movePC(string direc)
@@ -183,6 +186,22 @@ void GameController::movePC(string direc)
 
 void GameController::drinkPotion(string direc)
 {
+	int x = pc->getXCoordinate();
+	int y = pc->getYCoordinate();
+
+	if (direc == "no") { --x; }
+	else if (direc == "so") { ++x; }
+	else if (direc == "ea") { ++y; }
+	else if (direc == "we") { --y; }
+	else if (direc == "ne") { --x; ++y; }
+	else if (direc == "nw") { --x; --y; }
+	else if (direc == "se") { ++x; ++y; }
+	else if (direc == "sw") { ++x; --y; }
+
+	if (board.getChar(x, y) == 'P')
+	{
+		pc.drink(board.floor[x][y].back());
+	}
 }
 
 void GameController::attackEnemy(string direc)
@@ -190,43 +209,19 @@ void GameController::attackEnemy(string direc)
 	int x = pc->getXCoordinate();
 	int y = pc->getYCoordinate();
 
-	if (direc == "no")
-	{
-		--x;
-	}
-	else if (direc == "so")
-	{
-		++x;
-	}
-	else if (direc == "ea")
-	{
-		++y;
-	}
-	else if (direc == "we")
-	{
-		--y;
-	}
-	else if (direc == "ne")
-	{
-		--x;
-		++y;
-	}
-	else if (direc == "nw")
-	{
-		--x;
-		--y;
-	}
-	else if (direc == "se")
-	{
-		++x;
-		++y;
-	}
-	else if (direc == "sw")
-	{
-		++x;
-		--y;
-	}
+	if (direc == "no") { --x; }
+	else if (direc == "so") { ++x; }
+	else if (direc == "ea") { ++y; }
+	else if (direc == "we") { --y; }
+	else if (direc == "ne") { --x; ++y; }
+	else if (direc == "nw") { --x; --y; }
+	else if (direc == "se") { ++x; ++y; }
+	else if (direc == "sw") { ++x; --y; }
 
+	if (board.getChar(x, y) == 'E')
+	{
+		pc.attack(board.floor[x][y].back());
+	}
 }
 
 void GameController::displayLose()

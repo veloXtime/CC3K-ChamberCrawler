@@ -4,26 +4,15 @@
 #include "board.h"
 #include "enemyCharacter.h"
 #include "architect.h"
+#include "human.h"
+#include "halfling.h"
+#include "orcs.h"
+#include "elf.h"
+#include "dwarf.h"
+#include "merchant.h"
+#include "dragon.h"
+#include "treasure.h"
 using namespace std;
-
-void Board::spawnItem()
-{
-	
-}
-
-void Board::spawnEnemy()
-{
-	int row = board.floor.size();
-	int col = board.floor[0].size();
-	srand (time(NULL));
-	int x = 0;
-	int y = 0;
-	while (floor[x][y].back()->getChar() != '.')
-	{
-		x = rand() % row;
-		y = rand() % col;
-	}
-}
 
 // helper struct for use of sorting algorithm
 struct sortCompare 
@@ -45,6 +34,160 @@ struct sortCompare
 		return false;
 	}
 } compare;
+
+void Board::spawnOnePotion(int x, int y, int prob)
+{
+	if (prob == 1)
+	{
+		auto potion = ; // Restore health (RH)
+	}
+	if (prob == 2)
+	{
+		auto potion = ; // Boost Atk (BA): increase ATK by 5
+	}
+	if (prob == 3)
+	{
+		auto potion = ; // Boost Def (BD): increase Def by 5
+	}
+	if (prob == 4)
+	{
+		auto potion = ; // Poison health (PH): lose up to 10 HP 
+	}
+	if (prob == 5)
+	{
+		auto potion = ; // Wound Atk (WA): decrease Atk by 5
+	}
+	else	
+	{
+		auto potion = ; // Wound Def (WD): decrease Def by 5
+	}
+	floor[x][y].push_back(potion);
+}
+
+
+void Board::spawnPotion()
+{
+	srand(time(NULL));
+	for (int i = 0; i < 10; ++i)
+	{
+		int prob = rand() % 6 + 1;
+		int chamberId = rand() % 5 + 1;
+		int x = rand() % floor.size();
+		int y = rand() % floor[0].size();
+		while (getChamberInd(x,y) != chamberId)
+		{
+			x = rand() % floor.size();
+			y = rand() % floor[0].size();
+		}
+		spawnOnePotion(x, y, prob);
+	}
+}
+
+void Board::spawnGold()
+{
+	srand(time(NULL));
+	for (int i = 0; i < 10; ++i)
+	{
+		int prob = rand() % 8 + 1;
+		int chamberInd = rand() % 5 + 1;
+		int x = rand() % floor.size();
+		int y = rand() % floor[0].size();
+		while (getChamberInd(x,y) != chamberInd)
+		{
+			x = rand() % floor.size();
+			y = rand() % floor[0].size();
+		}
+		if (prob <= 5)
+		{
+			auto gold = make_shared<Treasure>(x, y, TreasureType::NORMAL_PILE);
+			floor[x][y].push_back(gold);
+		}
+		if (prob <= 6)
+		{
+			vector<pair<int, int>> unoccupied;
+			while (true)
+			{
+				if (getChar(x, y-1) == '.') unoccupied.push_back(make_pair(x,y-1));
+				if (getChar(x, y+1) == '.') unoccupied.push_back(make_pair(x, y+1));
+				if (getChar(x-1, y) == '.') unoccupied.push_back(make_pair(x-1, y));
+				if (getChar(x+1, y) == '.') unoccupied.push_back(make_pair(x+1, y));
+				if (getChar(x-1, y+1) == '.') unoccupied.push_back(make_pair(x-1, y+1));
+				if (getChar(x-1, y-1) == '.') unoccupied.push_back(make_pair(x-1, y-1));
+				if (getChar(x+1, y+1) == '.') unoccupied.push_back(make_pair(x+1, y+1));
+				if (getChar(x+1, y-1) == '.') unoccupied.push_back(make_pair(x+1, y-1));
+				if (unoccupied.size() > 0) break;
+				x = rand() % floor.size();
+				y = rand() % floor[0].size();
+				while (getChamberInd(x,y) != chamberInd)
+				{
+					x = rand() % floor.size();
+					y = rand() % floor[0].size();
+				}
+			}
+			auto gold = make_shared<DragonHoard>(x, y);
+			floor[x][y].push_back(gold);
+			int dra_x = unoccupied[0].first;
+			int dra_y = unoccupied[0].second;
+			auto dragon = make_shared<Dragon>(dra_x, dra_y);
+			floor[dra_x][dra_y].push_back(dragon);
+		}
+		else
+		{
+			auto gold = make_shared<Treasure>(x, y, TreasureType::SMALL_PILE);
+			floor[x][y].push_back(gold);
+		}
+	}
+}
+
+
+void Board::spawnOneEnemy(int x, int y, int prob)
+{
+	if (prob <= 4)
+	{
+		auto enemy = make_shared<Human>(x, y);
+	}
+	if (prob <= 7)
+	{
+		auto enemy = make_shared<Dwarf>(x, y);
+	}
+	if (prob <= 12)
+	{
+		auto enemy = make_shared<Halfling>(x, y);
+	}
+	if (prob <= 14)
+	{
+		auto enemy = make_shared<Elf>(x, y);
+	}
+	if (prob <= 16)
+	{
+		auto enemy = make_shared<Orcs>(x, y);
+	}
+	else 
+	{
+		auto enemy = make_shared<Merchant>(x, y);
+	}
+	floor[x][y].push_back(enemy);
+	enemyList.push_back(enemy);
+}
+
+void Board::spawnEnemy()
+{
+	srand(time(NULL));
+	for (int i = 0; i < 20; ++i)
+	{
+		int prob = rand() % 18 + 1;
+		int chamberId = rand() % 5 + 1;
+		int x = rand() % floor.size();
+		int y = rand() % floor[0].size();
+		while (getChamberInd(x,y) != chamberId)
+		{
+			x = rand() % floor.size();
+			y = rand() % floor[0].size();
+		}
+		spawnOneEnemy(x, y, prob);
+	}
+	sort(enemyList.begin(), enemyList.end(), compare);
+}
 
 
 void Board::moveEnemy(int pc_x, int pc_y)
