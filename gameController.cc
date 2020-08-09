@@ -2,6 +2,12 @@
 #include <ctime>
 #include <algorithm>
 #include "gameController.h"
+#include "shade.h"
+#include "drow.h"
+#include "vampire.h"
+#include "troll.h"
+#include "goblin.h"
+#include "architect.h"
 
 using namespace std;
 
@@ -130,7 +136,7 @@ void GameController::spawnPC(char c)
 	board.replace(pc);
 }
 
-void GameController::setGameElement();
+void GameController::setGameElement()
 {
 	spawnStair();
 	board.spawnItem();	// potion then gold
