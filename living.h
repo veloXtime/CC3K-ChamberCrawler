@@ -6,36 +6,38 @@
 // abstract, no instance of Living will be created
 class Living: public GameElement {
     std::string race;
-    int hp,atk,def,max_hp;
+    int hp,max_hp;
+
+    protected:
+        int atk,def;
 
     public:
-        Living(int, int, char);
+        Living(int x, int y, char c, std::string race, int hp, int atk, int def, int max_hp);
 
         // Retreive the hp of the living object
         int getHp() const;
-        
-        // Set hp to value v
-        void setHp(int v);
 
         // Get max hp of the living object
         int getMaxHp() const;
 
+        // Retreive the race of the living object
+        std::string getRace() const;
+
         // Retreive the atk of the living object
-        int getAtk() const;
-        
-        // Set atk to value v
-        void setAtk(int v);
+        virtual int getAtk() const;
 
         // Retreive the def of the living object
-        int getDef() const;
+        virtual int getDef() const;
+
+        // Set hp to value v
+        void setHp(int v);
+
+        // Set atk to value v
+        void setAtk(int v);
         
         // Set def to value v
         void setDef(int v);
         
-        // Retreive the race of the living object
-        std::string getRace() const;
-
-
 };
 
 #endif

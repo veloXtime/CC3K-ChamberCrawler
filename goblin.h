@@ -15,27 +15,11 @@ class Goblin: public PlayerCharacter {
         // Constructor
         Goblin(int x, int y, char c = '@', std::string race = "goblin", int hp = 110, int atk = 15, int def = 20, int max_hp = 125);
 
-        // Attacked by a human
-        virtual void attackedBy(Human &human) override;
-
-        // Attacked by a dwarf
-        virtual void attackedBy(Dwarf &dwarf) override;
-
-        // Attacked by an elf
-        virtual void attackedBy(Elf &elf) override;
-        
         // Attacked by an orcs
         virtual void attackedBy(Orcs &orcs) override;
 
-        // Attacked by a merchant
-        virtual void attackedBy(Merchant &merchant) override;
-
-        // Attacked by a dragon
-        virtual void attackedBy(Dragon &dragon) override;
-        
-        // Attacked by a halfling
-        virtual void attackedBy(Halfling &halfling) override;
-        
+        // Override slain
+        virtual void slain() override;
 };
 
 #endif

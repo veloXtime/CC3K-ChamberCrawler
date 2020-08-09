@@ -4,6 +4,7 @@
 #include <utility>
 #include "living.h"
 
+class EnemyCharacter;
 class Human;
 class Dwarf;
 class Elf;
@@ -20,9 +21,9 @@ class Treasure;
 class PlayerCharacter: public Living 
 {
     friend class Potion;
+
     protected:
     
-        int HP, Atk, Def;
         int score;
         /* The chain of decorators will return a pair
          * which corresponds to the offset of (ATK, DEF)*/
@@ -31,20 +32,13 @@ class PlayerCharacter: public Living
 
     public:
         //initialize pointers to the potions component
-        PlayerCharacter(int x, int y, char c, 
-                        int HP, int Atk, int Def);
+        PlayerCharacter(int x, int y, char c, std::string race, int hp, int atk, int def, int max_hp);
 
         
-
-        void changeHP(int);
-        void changeAtk(int);
-        void changeDef(int);
-        virtual int getHP();
-        virtual int getAtk();
-        virtual int getDef();
-
+        virtual int getAtk() const override;
+        virtual int getDef() const override;
         virtual int getScore();
-        
+        int setScore(int v);
         
         //what notifies PC?
         void notify(GameElement*);
@@ -56,7 +50,7 @@ class PlayerCharacter: public Living
         void pickup(std::shared_ptr<Treasure>);
 
         // Attacking another character
-        void attack(Living &c);
+        void attack(EnemyCharacter &c);
 
         // Attacked by a human
         virtual void attackedBy(Human &human);
@@ -79,7 +73,8 @@ class PlayerCharacter: public Living
         // Attacked by a halfling
         virtual void attackedBy(Halfling &halfling);
 
-
+        // Slains an enemy
+        virtual void slain();
         
 };
 

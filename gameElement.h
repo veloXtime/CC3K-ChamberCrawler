@@ -22,7 +22,7 @@ class GameElement
         void setYCoordinate(int y);
 
         // Retreive the character representing the game element on the board
-        int getChar() const;
+        char getChar() const;
 
         // Display the game element
         void display() const;
