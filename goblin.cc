@@ -1,5 +1,7 @@
 #include "goblin.h"
 #include <math.h>
+#include <cstdlib>
+#include <ctime>
 #include "orcs.h"
 
 // Constructor
@@ -15,6 +17,7 @@ void Goblin::attackedBy(Orcs &orcs) {
 
 // Override slain
 void Goblin::slain() {
+    srand (time(NULL));
     int gold = rand() % 2 + 1;
     this->setScore(score + gold + 5);
 }

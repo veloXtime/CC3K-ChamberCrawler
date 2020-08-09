@@ -1,6 +1,8 @@
 #ifndef GAME_ELEMENT_H
 #define GAME_ELEMENT_H
 
+class PlayerCharacter;
+
 // abstract, no instance of GameElement will be created
 class GameElement 
 {
@@ -8,9 +10,10 @@ class GameElement
         int x, y;
         char c;
 
-
     public:
+        // Constructor
         GameElement(int x, int y, char c);
+
         // Retreive x-coordinate of the game element
         int getXCoordinate() const;
 
@@ -27,11 +30,8 @@ class GameElement
         // Display the game element
         void display() const;
 
-        // Notifying its observers (virtual?)	// make method virual to make gameElement polymorphic
-        virtual void notify();
-
         // Get notified (virtual?)
-        virtual void getNotified();
+        virtual void getNotified(PlayerCharacter & pc) = 0;
 };
 
 #endif

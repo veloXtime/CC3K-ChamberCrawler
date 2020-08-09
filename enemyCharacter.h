@@ -35,7 +35,9 @@ class EnemyCharacter: public Living {
 
         // Upon death of an enemy slained by pc
         virtual void death(PlayerCharacter &pc);
-   
+
+        // Get notified by a pc
+        virtual void getNotified(PlayerCharacter & pc) override;
 };
 
 #endif

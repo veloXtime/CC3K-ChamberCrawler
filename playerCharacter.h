@@ -40,8 +40,8 @@ class PlayerCharacter: public Living
         virtual int getScore();
         int setScore(int v);
         
-        //what notifies PC?
-        void notify(GameElement*);
+        // Notify a game element
+        void notify(std::shared_ptr<GameElement> ge);
 
         /* when player decides to drink a potion 
          * adds the potion to the decorator chain */

@@ -48,8 +48,14 @@ void EnemyCharacter::attackedBy(Goblin &goblin){
     this->setHp(this->getHp() - dmg);
 }
 
-
 // Upon death of an enemy slained by pc
 void EnemyCharacter::death(PlayerCharacter &pc){
     pc.slain();
+}
+
+// Get notified by a pc
+void EnemyCharacter::getNotified(PlayerCharacter & pc){
+    this->attack(pc);
+
+    // display message
 }

@@ -3,6 +3,7 @@
 #include "treasure.h"
 #include <math.h>
 #include <cstdlib>
+#include <ctime>
 #include "human.h"
 #include "dwarf.h"
 #include "elf.h"
@@ -46,10 +47,10 @@ void PlayerCharacter::pickup(std::shared_ptr<Treasure> p)
     //should it also be responsible for removing p from the board?
 }
 
-//what notifies PC?
-void PlayerCharacter::notify(GameElement*)
+// Notify a game element
+void PlayerCharacter::notify(std::shared_ptr<GameElement> ge)
 {
-
+    ge->getNotified(*this);
 }
 
 // Attacking another character
@@ -108,6 +109,7 @@ void PlayerCharacter::attackedBy(Halfling &halfling)
 }
 
 void PlayerCharacter::slain(){
+    srand (time(NULL));
     int gold = rand() % 2 + 1;
     this->setScore(score + gold);
 }
