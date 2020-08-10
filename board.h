@@ -21,6 +21,9 @@ class Board
 
 		void spawnItem();	//
 		void spawnEnemy();	//
+		void spawnOnePotion(int x, int y, int prob);
+		void spawnGold();
+		void spawnOneEnemy(int x, int y, int prob);
 
 		void moveEnemy(int pc_x, int pc_y);	// complete
 		void moveOneEnemy(std::shared_ptr<EnemyCharacter> e);	// complete

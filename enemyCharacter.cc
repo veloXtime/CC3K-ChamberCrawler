@@ -6,6 +6,13 @@
 #include "vampire.h"
 #include "troll.h"
 #include "goblin.h"
+#include "human.h"
+#include "dwarf.h"
+#include "elf.h"
+#include "orcs.h"
+#include "merchant.h"
+#include "dragon.h"
+#include "halfling.h"
 
 // Constructor
 EnemyCharacter::EnemyCharacter(int x, int y, char c, std::string race, 
@@ -14,7 +21,35 @@ EnemyCharacter::EnemyCharacter(int x, int y, char c, std::string race,
 
 // Attacking another character
 void EnemyCharacter::attack(PlayerCharacter &pc){
-    pc.attackedBy(*this);
+    if (this->getChar() == 'H'){
+        Human& human = dynamic_cast<Human&> (*this);
+        pc.attackedBy(human);
+    }
+    else if (this->getChar() == 'W'){
+        Dwarf& dwarf = dynamic_cast<Dwarf&> (*this);
+        pc.attackedBy(dwarf);
+    }
+    else if (this->getChar() == 'E'){
+        Elf& elf = dynamic_cast<Elf&> (*this);
+        pc.attackedBy(elf);
+    }
+    else if (this->getChar() == 'O'){
+        Orcs& orcs = dynamic_cast<Orcs&> (*this);
+        pc.attackedBy(orcs);
+    }
+    else if (this->getChar() == 'M'){
+        Merchant& merchant = dynamic_cast<Merchant&> (*this);
+        pc.attackedBy(merchant);
+    }
+    else if (this->getChar() == 'D'){
+        Dragon& dragon = dynamic_cast<Dragon&> (*this);
+        pc.attackedBy(dragon);
+    }
+    else if (this->getChar() == 'L'){
+        Halfling& halfling = dynamic_cast<Halfling&> (*this);
+        pc.attackedBy(halfling);
+    }
+    
 }
 
 // Attacked by a shade
