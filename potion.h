@@ -14,7 +14,7 @@ class Potion: public NonLiving
         int val;
         std::shared_ptr<Potion> next;
     public:
-        Potion(int x, int y, int val, std::shared_ptr<Potion>); 
+        Potion(int x, int y, int val); 
         virtual void drink(PlayerCharacter*);
         
         virtual std::pair<int,int> effect(); //an instance of this baseclass always return 0
@@ -27,7 +27,7 @@ class PotionAtk: public Potion
 {
     public:
         // Costructor
-        PotionAtk(int x, int y, int val, std::shared_ptr<Potion>);
+        PotionAtk(int x, int y, int val);
 
         //void drink(PlayerCharacter*) override;
         std::pair<int,int> effect() override;
@@ -37,7 +37,7 @@ class PotionDef: public Potion
 {
     public:
         // Costructor
-        PotionDef(int x, int y, int val, std::shared_ptr<Potion>);
+        PotionDef(int x, int y, int val);
         
 
         std::pair<int,int> effect() override;
@@ -48,7 +48,7 @@ class PotionHP: public Potion
     
     public:
         // Costructor
-        PotionHP(int x, int y, int val, std::shared_ptr<Potion>);
+        PotionHP(int x, int y, int val);
 
         void drink(PlayerCharacter*) override;
         std::pair<int,int> effect() override;

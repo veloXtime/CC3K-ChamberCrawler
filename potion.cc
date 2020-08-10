@@ -1,7 +1,7 @@
 #include "potion.h"
 
 
-Potion::Potion(int x, int y, int val, std::shared_ptr<Potion> p) 
+Potion::Potion(int x, int y, int val) 
 : NonLiving(x, y, 'P'), val{val}, next{nullptr}
 {
 
@@ -20,8 +20,8 @@ void Potion::drink(PlayerCharacter* p)
 
 
 /* HP potion */
-PotionHP::PotionHP(int x, int y, int val, std::shared_ptr<Potion> p)
-:Potion(x,y,val, nullptr)
+PotionHP::PotionHP(int x, int y, int )
+:Potion(x,y,val)
 {
 }
 
@@ -37,8 +37,8 @@ void PotionHP::drink(PlayerCharacter* p)
 /* HP potion */
 
 /* Atk Potion */
-PotionAtk::PotionAtk(int x, int y, int val, std::shared_ptr<Potion> p)
-:Potion(x,y,val, nullptr)
+PotionAtk::PotionAtk(int x, int y, int val)
+:Potion(x,y,val)
 {
 }
 
@@ -51,8 +51,8 @@ std::pair<int, int> PotionAtk::effect()
 /* Atk Potion */
 
 /* Def Potion */
-PotionDef::PotionDef(int x, int y, int val, std::shared_ptr<Potion> p)
-:Potion(x,y,val, nullptr)
+PotionDef::PotionDef(int x, int y, int val)
+:Potion(x,y,val)
 {
 }
 
