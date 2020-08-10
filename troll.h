@@ -18,6 +18,8 @@ class Troll: public PlayerCharacter {
         // Increase hp of troll by 5
         void incHp();
         
+        // Destructor
+        ~Troll();
 };
 
 #endif

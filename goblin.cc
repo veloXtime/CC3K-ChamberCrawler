@@ -21,3 +21,6 @@ void Goblin::slain() {
     int gold = rand() % 2 + 1;
     this->setScore(score + gold + 5);
 }
+
+// Destructor
+Goblin::~Goblin() {}

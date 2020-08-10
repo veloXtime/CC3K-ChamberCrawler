@@ -21,3 +21,6 @@ void Merchant::death(PlayerCharacter &pc){
 void Merchant::getNotified(PlayerCharacter &pc) {
     if (slained) this->attack(pc);
 }
+
+// Destructor
+Merchant::~Merchant() {}

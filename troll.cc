@@ -10,3 +10,6 @@ Troll::Troll(int x, int y, char c = '@', std::string race = "troll",
 void Troll::incHp(){
     this->setHp(this->getHp() + 5);
 }
+
+// Destructor
+Troll::~Troll() {}

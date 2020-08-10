@@ -9,3 +9,6 @@ Dragon::Dragon(int x, int y, char c = 'D', std::string race = "dragon",
 void Dragon::DGetNotified(DragonHoard & dh){
     
 }
+
+// Destructor
+Dragon::~Dragon() {}

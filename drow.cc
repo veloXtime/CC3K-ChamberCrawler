@@ -12,3 +12,6 @@ void Drow::attackedBy(Elf &elf) {
     int dmg = ceil(100/(100 + this->getDef()) * elf.getAtk());
     this->setHp(this->getHp() - dmg);
 }
+
+// Destructor
+Drow::~Drow() {}

@@ -17,6 +17,8 @@ class Vampire: public PlayerCharacter {
         Vampire(int x, int y, char c = '@', std::string race = "vampire", 
                 int hp = 50, int atk = 25, int def = 25, int max_hp = std::numeric_limits<int>::max());
         
+        // Destructor
+        ~Vampire();
 };
 
 #endif

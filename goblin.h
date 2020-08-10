@@ -20,6 +20,9 @@ class Goblin: public PlayerCharacter {
 
         // Override slain
         virtual void slain() override;
+
+        // Destructor
+        ~Goblin();
 };
 
 #endif
