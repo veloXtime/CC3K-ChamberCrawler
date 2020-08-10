@@ -2,6 +2,7 @@
 #define LIVING_H
 #include <string>
 #include "gameElement.h"
+#include "playerCharacter.h"
 
 // abstract, no instance of Living will be created
 class Living: public GameElement {
@@ -37,6 +38,8 @@ class Living: public GameElement {
         
         // Set def to value v
         void setDef(int v);
+
+        virtual void getNotified(PlayerCharacter & pc) = 0;
         
 };
 
