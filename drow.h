@@ -19,7 +19,7 @@ class Drow: public PlayerCharacter {
         virtual void attackedBy(Elf &elf) override;
 
         // Destructor
-        ~Drow();
+        virtual ~Drow();
         
         
 };

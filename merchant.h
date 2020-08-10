@@ -19,7 +19,7 @@ class Merchant: public EnemyCharacter {
         virtual void getNotified(PlayerCharacter &pc) override;
 
         // Destructor
-        ~Merchant();
+        virtual ~Merchant();
 };
 
 #endif

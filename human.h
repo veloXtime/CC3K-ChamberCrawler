@@ -8,7 +8,7 @@ class Human: public EnemyCharacter {
         Human(int x, int y, char c = 'H', std::string race = "human", int hp = 140, int atk = 20, int def = 20, int max_hp = 140);
 
         // Destructor
-        ~Human();
+        virtual ~Human();
 };
 
 #endif

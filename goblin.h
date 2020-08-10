@@ -22,7 +22,7 @@ class Goblin: public PlayerCharacter {
         virtual void slain() override;
 
         // Destructor
-        ~Goblin();
+        virtual ~Goblin();
 };
 
 #endif

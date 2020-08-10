@@ -18,7 +18,7 @@ class Vampire: public PlayerCharacter {
                 int hp = 50, int atk = 25, int def = 25, int max_hp = std::numeric_limits<int>::max());
         
         // Destructor
-        ~Vampire();
+        virtual ~Vampire();
 };
 
 #endif

@@ -13,7 +13,7 @@ class Dragon: public EnemyCharacter {
         void DGetNotified(DragonHoard & dh);
 
         // Destructor
-        ~Dragon();
+        virtual ~Dragon();
 };
 
 #endif

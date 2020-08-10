@@ -11,7 +11,7 @@ class Dwarf: public EnemyCharacter {
         virtual void attackedBy(Vampire &vampire) override;
 
         // Destructor
-        ~Dwarf();
+        virtual ~Dwarf();
 };
 
 #endif

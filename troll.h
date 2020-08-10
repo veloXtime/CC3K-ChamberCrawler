@@ -19,7 +19,7 @@ class Troll: public PlayerCharacter {
         void incHp();
         
         // Destructor
-        ~Troll();
+        virtual ~Troll();
 };
 
 #endif
