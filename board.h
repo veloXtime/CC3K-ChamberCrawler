@@ -12,6 +12,7 @@ using std::string;
 
 class GameController;
 class EnemyCharacter;
+
 class Board
 {
 	private:
@@ -19,12 +20,17 @@ class Board
 		vector<vector<vector<shared_ptr<GameElement>>>> floor;
 		vector<shared_ptr<EnemyCharacter>> enemyList;
 
-		void spawnItem();	//
-		void spawnEnemy();	//
+		void spawnPotion();	// 
+		void spawnOnePotion(int x, int y, int prob);
+
+		void spawnGold();
+
+		void spawnEnemy();	// complete
+		void spawnOneEnemy(int x, int y, int prob);	// complete
 
 		void moveEnemy(int pc_x, int pc_y);	// complete
 		void moveOneEnemy(std::shared_ptr<EnemyCharacter> e);	// complete
-		// void movePC();
+
 		void revert(std::shared_ptr<GameElement> ge);		// complete
 		void replace(std::shared_ptr<GameElement> ge);		// complete
 
@@ -39,6 +45,6 @@ class Board
 		friend GameController;
 };
 
-
 extern Board board;
+
 #endif
