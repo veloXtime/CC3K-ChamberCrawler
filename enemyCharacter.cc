@@ -22,31 +22,31 @@ EnemyCharacter::EnemyCharacter(int x, int y, char c, std::string race,
 // Attacking another character
 void EnemyCharacter::attack(PlayerCharacter &pc){
     if (this->getChar() == 'H'){
-        Human& human = dynamic_cast<Human&> (*this);
+        Human& human = static_cast<Human&> (*this);
         pc.attackedBy(human);
     }
     else if (this->getChar() == 'W'){
-        Dwarf& dwarf = dynamic_cast<Dwarf&> (*this);
+        Dwarf& dwarf = static_cast<Dwarf&> (*this);
         pc.attackedBy(dwarf);
     }
     else if (this->getChar() == 'E'){
-        Elf& elf = dynamic_cast<Elf&> (*this);
+        Elf& elf = static_cast<Elf&> (*this);
         pc.attackedBy(elf);
     }
     else if (this->getChar() == 'O'){
-        Orcs& orcs = dynamic_cast<Orcs&> (*this);
+        Orcs& orcs = static_cast<Orcs&> (*this);
         pc.attackedBy(orcs);
     }
     else if (this->getChar() == 'M'){
-        Merchant& merchant = dynamic_cast<Merchant&> (*this);
+        Merchant& merchant = static_cast<Merchant&> (*this);
         pc.attackedBy(merchant);
     }
     else if (this->getChar() == 'D'){
-        Dragon& dragon = dynamic_cast<Dragon&> (*this);
+        Dragon& dragon = static_cast<Dragon&> (*this);
         pc.attackedBy(dragon);
     }
     else if (this->getChar() == 'L'){
-        Halfling& halfling = dynamic_cast<Halfling&> (*this);
+        Halfling& halfling = static_cast<Halfling&> (*this);
         pc.attackedBy(halfling);
     }
     

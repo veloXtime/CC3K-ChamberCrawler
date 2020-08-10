@@ -61,29 +61,29 @@ void PlayerCharacter::notify(std::shared_ptr<GameElement> ge)
 // Attacking another character
 void PlayerCharacter::attack(EnemyCharacter &c)
 {
-	if (race == "shade")
+	if (this->getRace() == "shade")
 	{
-		Shade & s = dynamic_cast<Shade &> (*this);
+		Shade & s = static_cast<Shade &> (*this);
 		c.attackedBy(s);
 	}
-	else if (race == "drow")
+	else if (this->getRace() == "drow")
 	{
-		Drow & d = dynamic_cast<Drow &> (*this);
+		Drow & d = static_cast<Drow &> (*this);
 		c.attackedBy(d);
 	}
-	else if (race == "vampire")
+	else if (this->getRace() == "vampire")
 	{
-		Vampire & v = dynamic_cast<Vampire &> (*this);
+		Vampire & v = static_cast<Vampire &> (*this);
 		c.attackedBy(v);
 	}
-	else if (race == "troll")
+	else if (this->getRace() == "troll")
 	{
-		Troll & t = dynamic_cast<Troll &> (*this);
+		Troll & t = static_cast<Troll &> (*this);
 		c.attackedBy(t);
 	}
-	else if (race == "goblin")
+	else if (this->getRace() == "goblin")
 	{
-		Goblin & g = dynamic_cast<Goblin &> (*this);
+		Goblin & g = static_cast<Goblin &> (*this);
 		c.attackedBy(g);
 	}
 }
