@@ -94,3 +94,5 @@ void EnemyCharacter::getNotified(PlayerCharacter & pc){
 
     // display message
 }
+
+EnemyCharacter::~EnemyCharacter() {}

@@ -38,6 +38,8 @@ class EnemyCharacter: public Living {
 
         // Get notified by a pc
         virtual void getNotified(PlayerCharacter & pc) override;
+        
+        virtual ~EnemyCharacter();
 };
 
 #endif

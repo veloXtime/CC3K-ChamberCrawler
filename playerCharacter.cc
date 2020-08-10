@@ -63,7 +63,7 @@ void PlayerCharacter::attack(EnemyCharacter &c)
 {
 	if (race == "shade")
 	{
-		Shade & s = dynamic_cast<Human &> (*this);
+		Shade & s = dynamic_cast<Shade &> (*this);
 		c.attackedBy(s);
 	}
 	else if (race == "drow")
