@@ -32,7 +32,7 @@ std::pair<int, int> PotionHP::effect()
 
 void PotionHP::drink(PlayerCharacter* p)
 {
-    p->changeHP(p->getHP() + val);
+    p->setHp(p->getHp() + val);
 }
 /* HP potion */
 
