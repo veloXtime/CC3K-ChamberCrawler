@@ -4,6 +4,11 @@
 #include <math.h>
 #include <cstdlib>
 #include <ctime>
+#include "shade.h"
+#include "drow.h"
+#include "vampire.h"
+#include "troll.h"
+#include "goblin.h"
 #include "human.h"
 #include "dwarf.h"
 #include "elf.h"
@@ -56,7 +61,31 @@ void PlayerCharacter::notify(std::shared_ptr<GameElement> ge)
 // Attacking another character
 void PlayerCharacter::attack(EnemyCharacter &c)
 {
-    c.attackedBy(*this);
+	if (race == "shade")
+	{
+		Shade & s = dynamic_cast<Human &> (*this);
+		c.attackedBy(s);
+	}
+	else if (race == "drow")
+	{
+		Drow & d = dynamic_cast<Drow &> (*this);
+		c.attackedBy(d);
+	}
+	else if (race == "vampire")
+	{
+		Vampire & v = dynamic_cast<Vampire &> (*this);
+		c.attackedBy(v);
+	}
+	else if (race == "troll")
+	{
+		Troll & t = dynamic_cast<Troll &> (*this);
+		c.attackedBy(t);
+	}
+	else if (race == "goblin")
+	{
+		Goblin & g = dynamic_cast<Goblin &> (*this);
+		c.attackedBy(g);
+	}
 }
 
 // Attacked by a human
