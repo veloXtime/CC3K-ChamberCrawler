@@ -18,9 +18,13 @@ void Potion::drink(PlayerCharacter* p)
     p->potions = std::shared_ptr<Potion>(this);
 }
 
+void Potion::getNotified(PlayerCharacter& p)
+{
+    
+}
 
 /* HP potion */
-PotionHP::PotionHP(int x, int y, int )
+PotionHP::PotionHP(int x, int y, int val)
 :Potion(x,y,val)
 {
 }

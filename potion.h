@@ -1,7 +1,7 @@
 #ifndef POTION_H
 #define POTION_H
 #include <memory>
-#include "nonliving.h"
+#include "nonliving.h"s
 #include "playerCharacter.h"
 
 
@@ -20,7 +20,7 @@ class Potion: public NonLiving
         virtual std::pair<int,int> effect(); //an instance of this baseclass always return 0
 
         //get called when PC is nearyby
-        void getNotified(PlayerCharacter*);
+        void getNotified(PlayerCharacter&) override;
 };
 
 class PotionAtk: public Potion 

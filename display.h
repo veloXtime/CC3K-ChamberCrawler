@@ -1,5 +1,11 @@
 #include <string>
+#include <vector>
+#include <memory>
 
+using std::shared_ptr;
+using std::vector;
+
+class GameElement;
 class Potion;
 class PlayerCharacter;
 class Enemy;
@@ -12,15 +18,12 @@ class display
 
     public:
 
-
+        void move(vector<vector<vector<shared_ptr<GameElement>>>>);
         //called by a potion
-        void notify(Potion *);
+        void notify(Potion*);
 
         //called when PC moves
         void notify(PlayerCharacter*);
-
-        //called when Enemy moves
-        void notify(Enemy*); 
 
         //called when a Treasure is picked up
         void notify(Treasure*); //technically we can tell what type it is by getting amount
