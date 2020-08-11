@@ -19,7 +19,7 @@ class Goblin: public PlayerCharacter {
         virtual void attackedBy(Orcs &orcs) override;
 
         // Override slain
-        virtual void slain() override;
+        virtual void slain(char race) override;
 
         // Destructor
         virtual ~Goblin();

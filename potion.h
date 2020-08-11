@@ -1,7 +1,7 @@
 #ifndef POTION_H
 #define POTION_H
 #include <memory>
-#include "nonliving.h"s
+#include "nonliving.h"
 #include "playerCharacter.h"
 
 
@@ -14,6 +14,7 @@ class Potion: public NonLiving
         int val;
         std::shared_ptr<Potion> next;
     public:
+        Potion();
         Potion(int x, int y, int val); 
         virtual void drink(PlayerCharacter*);
         

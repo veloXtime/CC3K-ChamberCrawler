@@ -1,4 +1,4 @@
-#ifndef SAHDE_H
+#ifndef SHADE_H
 #define SHADE_H
 #include "playerCharacter.h"
 

@@ -8,6 +8,10 @@ Potion::Potion(int x, int y, int val)
 
 }
 
+Potion::Potion()
+: NonLiving(-1, -1, 'P'), val{0}, next{nullptr}
+{}
+
 std::pair<int, int> Potion::effect()
 {
     return std::make_pair<int,int>(0, 0);

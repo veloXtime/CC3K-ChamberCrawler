@@ -11,7 +11,7 @@ class Human: public EnemyCharacter {
         virtual ~Human();
 
         // Upon death of a human slained by pc
-        virtual void Human::death(PlayerCharacter &pc) override;
+        virtual void death(PlayerCharacter &pc) override;
 };
 
 #endif

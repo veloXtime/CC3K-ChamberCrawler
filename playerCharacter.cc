@@ -38,7 +38,8 @@ int PlayerCharacter::getScore()
     return score;
 }
 
-int PlayerCharacter::setScore(int v){
+int PlayerCharacter::setScore(int v)
+{
     score = v;
 }
 
