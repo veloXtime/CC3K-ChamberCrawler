@@ -16,6 +16,28 @@ class PlayerCharacter;
 class Enemy;
 class Treasure;
 
+enum class ACTION 
+ {
+ 	MoveEA,
+ 	MoveWE,
+ 	MoveNO,
+ 	MoveSO, 
+ 	MoveNE,
+ 	MoveNW,
+ 	MoveSE,
+ 	MoveSW,
+ 	ReachStair,
+ 	SeePotion,
+ 	SeeGold,
+ 	SeeEnemy,
+ 	Win,
+ 	Die,
+ 	AtkEnemy,
+ 	GotAtk,
+ 	DrinkP,
+ 	PickG,
+ };
+
 class display
 {
     //char board[20][80];
