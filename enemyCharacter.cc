@@ -122,6 +122,7 @@ void EnemyCharacter::attackedBy(Goblin &goblin){
 // Upon death of an enemy slained by pc
 void EnemyCharacter::death(PlayerCharacter &pc){
     pc.slain(this->getChar());
+    board.revert(x, y);
 }
 
 // Get notified by a pc

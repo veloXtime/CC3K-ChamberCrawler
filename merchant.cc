@@ -19,6 +19,11 @@ void Merchant::death(PlayerCharacter &pc){
 
     std::string s = "Some gold is left on the floor. All merchants are now hostile to PC. ";
     gameDisplay.newAction(s);
+
+    board.revert(x, y);
+
+	auto mh = std::make_shared<Treasure>(x, y, TreasureType::Merchant);
+    board.replace(mh);
 }
 
 // Override notify

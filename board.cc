@@ -260,6 +260,11 @@ void Board::moveOneEnemy(std::shared_ptr<EnemyCharacter> e)
 	replace(e);
 }
 
+void Board::revert(int x, int y)
+{
+	floor[x][y].pop_back();
+}
+
 void Board::revert(std::shared_ptr<GameElement> ge)
 // change return type to gameElement?
 {

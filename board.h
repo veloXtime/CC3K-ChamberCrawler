@@ -32,6 +32,7 @@ class Board
 		void moveOneEnemy(std::shared_ptr<EnemyCharacter> e);	// complete
 
 		void revert(std::shared_ptr<GameElement> ge);		// complete
+		void revert(int x, int y);		// complete
 		void replace(std::shared_ptr<GameElement> ge);		// complete
 
 		void setLevel(int lv);	// complete
