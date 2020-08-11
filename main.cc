@@ -12,7 +12,7 @@ int main(int argc, char* argv[])
 {
 	string fname = (argc > 1) ? argv[1] : "default.txt";
 	auto in = std::make_shared<std::ifstream>(fname);
-	bool stillModeOn = 0;
+	int stillMode = 0;
 	GameController GC;
 	string line;
 
@@ -37,6 +37,7 @@ int main(int argc, char* argv[])
 					return 1;
 				}
 				if (std::cin.eof()) { return 1; }
+			}
 		}
 
 		GC.setGameElement();	// contains display
@@ -92,8 +93,8 @@ int main(int argc, char* argv[])
 			}
 			else if (inp == "r")
 			{
-				level = 1;
-				bool stillModeOn = 0;
+				GC.setLevel(0);
+				stillMode = 0;
 				GC.setLevel(0);
 				break;
 			}
