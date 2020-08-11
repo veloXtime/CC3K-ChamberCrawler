@@ -1,8 +1,8 @@
 #include "halfling.h"
 
 // Constructor
-Halfling::Halfling(int x, int y, char c = 'L', std::string race = "halfling", 
-                   int hp = 100, int atk = 15, int def = 20, int max_hp = 100)
+Halfling::Halfling(int x, int y, char c, std::string race, 
+                   int hp, int atk, int def, int max_hp)
                    : EnemyCharacter(x, y, c, race, hp, atk, def, max_hp) {}
 
 // Destructor

@@ -3,9 +3,8 @@
 #include "display.h"
 
 // Constructor
-Merchant::Merchant(int x, int y, char c = 'M', std::string race = "merchant", 
-                   int hp = 30, int atk = 70, int def = 5, int max_hp = 30)
-                   : EnemyCharacter(x, y, c, race, hp, atk, def, max_hp) {slained = false;}
+Merchant::Merchant(int x, int y, char c, std::string race, int hp, int atk, int def, int max_hp)
+: EnemyCharacter(x, y, c, race, hp, atk, def, max_hp) {slained = false;}
 
 // If any merchant has been slained
 bool Merchant::getSlained(){

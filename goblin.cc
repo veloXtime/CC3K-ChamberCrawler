@@ -5,8 +5,8 @@
 #include "orcs.h"
 
 // Constructor
-Goblin::Goblin(int x, int y, char c = '@', std::string race = "goblin", 
-               int hp = 110, int atk = 15, int def = 20, int max_hp = 125)
+Goblin::Goblin(int x, int y, char c, std::string race, 
+               int hp, int atk, int def, int max_hp)
                : PlayerCharacter{x, y, c, race, hp, atk, def, max_hp} {}
 
 // Attacked by an orcs
