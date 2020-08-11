@@ -9,6 +9,9 @@ class Halfling: public EnemyCharacter {
 
         // Destructor
         virtual ~Halfling();
+
+        // Get notified by a pc
+        virtual void getNotified(PlayerCharacter & pc) override;
 };
 
 #endif

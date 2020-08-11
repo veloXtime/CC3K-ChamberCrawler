@@ -7,3 +7,8 @@ Halfling::Halfling(int x, int y, char c = 'L', std::string race = "halfling",
 
 // Destructor
 Halfling::~Halfling() {}
+
+// Get notified by a pc
+void Halfling::getNotified(PlayerCharacter & pc){
+    this->attack(pc);
+}

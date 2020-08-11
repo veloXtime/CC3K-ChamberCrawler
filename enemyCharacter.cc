@@ -1,5 +1,7 @@
 #include "enemyCharacter.h"
 #include <cmath>
+#include <cstdlib>
+#include <ctime>
 #include "playerCharacter.h"
 #include "shade.h"
 #include "drow.h"
@@ -127,7 +129,15 @@ void EnemyCharacter::death(PlayerCharacter &pc){
 
 // Get notified by a pc
 void EnemyCharacter::getNotified(PlayerCharacter & pc){
-    this->attack(pc);
+    srand (time(NULL));
+    int success = rand() % 2;
+    if (success = 1) this->attack(pc);
+    else{
+        std::string s = "";
+        s.push_back(this->getChar());
+        s += " misses attack on PC. ";
+        gameDisplay.newAction(s);
+    }
 }
 
 EnemyCharacter::~EnemyCharacter() {}
