@@ -24,7 +24,7 @@ class display
     
     public:
 
-        void move(vector<vector<vector<shared_ptr<GameElement>>>>);
+        void move(vector<vector<vector<shared_ptr<GameElement>>>>&);
 
         // called when the status line changes
         void getNotified(PlayerCharacter*);
@@ -40,6 +40,8 @@ class display
 
 		// return the corresponding string of act
         std::string interpAction(ACTION act);
+
+        void flush();
 
 
 };

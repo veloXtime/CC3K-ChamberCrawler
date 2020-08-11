@@ -11,7 +11,7 @@ bool checkDirection(string inp)
 int main(int argc, char* argv[])
 {
 	string fname = (argc > 1) ? argv[1] : "default.txt";
-	auto in = make_shared<ifstream>(fname);
+	auto in = std::make_shared<std::ifstream>(fname);
 	bool stillModeOn = 0;
 	GameController GC;
 	string line;
@@ -20,11 +20,11 @@ int main(int argc, char* argv[])
 	{
 		GC.resetFloor(*in);	// contains display
 		
-		if (board.getLevel == 1)
+		if (board.getLevel() == 1)
 		{
-			while (getline(cin, line))
+			while (std::getline(std::cin, line))
 			{
-				istringstream iss{line};
+				std::istringstream iss{line};
 				char race;
 				iss >> race;
 				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
@@ -36,14 +36,14 @@ int main(int argc, char* argv[])
 				{
 					return 1;
 				}
-				if (cin.eof()) { return 1; }
+				if (std::cin.eof()) { return 1; }
 		}
 
 		GC.setGameElement();	// contains display
 
-		while (getline(cin, line))
+		while (std::getline(std::cin, line))
 		{
-			istringstream iss{line};
+			std::istringstream iss{line};
 			string inp, arg;
 			iss >> inp;
 			if (checkDirection(inp))
@@ -63,7 +63,7 @@ int main(int argc, char* argv[])
 				iss >> arg;
 				if (checkDirection(arg)) 
 				{
-					GC.drinkPotion(string arg); 
+					GC.drinkPotion(arg); 
 				}
 				if (!stillMode) 
 				{
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
 				iss >> arg;
 				if (checkDirection(arg)) 
 				{
-					GC.attackEnemy(string arg);
+					GC.attackEnemy(arg);
 				}
 				if (!stillMode) 
 				{

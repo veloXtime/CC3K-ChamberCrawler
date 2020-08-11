@@ -6,10 +6,12 @@
 
 // abstract, no instance of Living will be created
 class Living: public GameElement {
-    std::string race;
-    int hp,max_hp;
+    
+   
 
     protected:
+        int hp,max_hp;
+        std::string race;
         int atk,def;
 
     public:
