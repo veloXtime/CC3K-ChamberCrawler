@@ -67,31 +67,68 @@ void PlayerCharacter::notify(std::shared_ptr<GameElement> ge)
 // Attacking another character
 void PlayerCharacter::attack(EnemyCharacter &c)
 {
-	if (this->getRace() == "shade")
-	{
-		Shade & s = static_cast<Shade &> (*this);
-		c.attackedBy(s);
-	}
-	else if (this->getRace() == "drow")
-	{
-		Drow & d = static_cast<Drow &> (*this);
-		c.attackedBy(d);
-	}
-	else if (this->getRace() == "vampire")
-	{
-		Vampire & v = static_cast<Vampire &> (*this);
-		c.attackedBy(v);
-	}
-	else if (this->getRace() == "troll")
-	{
-		Troll & t = static_cast<Troll &> (*this);
-		c.attackedBy(t);
-	}
-	else if (this->getRace() == "goblin")
-	{
-		Goblin & g = static_cast<Goblin &> (*this);
-		c.attackedBy(g);
-	}
+    if (c.getChar() == 'L'){
+        srand (time(NULL));
+        int success = rand() % 2;
+        if (success == 1){
+            if (this->getRace() == "shade")
+            {
+                Shade & s = static_cast<Shade &> (*this);
+                c.attackedBy(s);
+            }
+            else if (this->getRace() == "drow")
+            {
+                Drow & d = static_cast<Drow &> (*this);
+                c.attackedBy(d);
+            }
+            else if (this->getRace() == "vampire")
+            {
+                Vampire & v = static_cast<Vampire &> (*this);
+                c.attackedBy(v);
+            }
+            else if (this->getRace() == "troll")
+            {
+                Troll & t = static_cast<Troll &> (*this);
+                c.attackedBy(t);
+            }
+            else if (this->getRace() == "goblin")
+            {
+                Goblin & g = static_cast<Goblin &> (*this);
+                c.attackedBy(g);
+            }
+        }
+        else{
+            std::string s = "PC misses attack. ";
+            gameDisplay.newAction(s);
+        }
+    }
+    else{
+        if (this->getRace() == "shade")
+        {
+            Shade & s = static_cast<Shade &> (*this);
+            c.attackedBy(s);
+        }
+        else if (this->getRace() == "drow")
+        {
+            Drow & d = static_cast<Drow &> (*this);
+            c.attackedBy(d);
+        }
+        else if (this->getRace() == "vampire")
+        {
+            Vampire & v = static_cast<Vampire &> (*this);
+            c.attackedBy(v);
+        }
+        else if (this->getRace() == "troll")
+        {
+            Troll & t = static_cast<Troll &> (*this);
+            c.attackedBy(t);
+        }
+        else if (this->getRace() == "goblin")
+        {
+            Goblin & g = static_cast<Goblin &> (*this);
+            c.attackedBy(g);
+        }
+    }
 }
 
 // Attacked by a human
