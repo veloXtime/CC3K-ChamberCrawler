@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "action.h"
 
 using std::shared_ptr;
 using std::vector;

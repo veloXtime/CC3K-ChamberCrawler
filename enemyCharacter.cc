@@ -1,5 +1,5 @@
 #include "enemyCharacter.h"
-#include <math.h>
+#include <cmath>
 #include "playerCharacter.h"
 #include "shade.h"
 #include "drow.h"
