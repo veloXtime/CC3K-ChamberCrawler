@@ -13,6 +13,3 @@ void Dwarf::attackedBy(Vampire &vampire){
     this->setHp(this->getHp() - dmg);
     vampire.setHp(vampire.getHp() - 5);
 }
-
-// Destructor
-Dwarf::~Dwarf() {}

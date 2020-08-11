@@ -12,8 +12,6 @@ class Dragon: public EnemyCharacter {
         // Get notified by a dragon hoard
         void DGetNotified(DragonHoard & dh);
 
-        // Destructor
-        virtual ~Dragon();
 };
 
 #endif

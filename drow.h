@@ -16,10 +16,10 @@ class Drow: public PlayerCharacter {
         Drow(int x, int y, char c = '@', std::string race = "drow", int hp = 125, int atk = 25, int def = 15, int max_hp = 125);
 
         // Attacked by an elf
-        virtual void attackedBy(Elf &elf) override;
+        void attackedBy(Elf &elf) override;
+        int getAtk() const override;
+        int getDef() const override;
 
-        // Destructor
-        virtual ~Drow();
         
         
 };

@@ -1,6 +1,7 @@
 #include "drow.h"
-#include "math.h"
+#include <cmath>
 #include "elf.h"
+#include "potion.h"
 
 // Constructor
 Drow::Drow(int x, int y, char c = '@', std::string race = "drow", 
@@ -13,5 +14,12 @@ void Drow::attackedBy(Elf &elf) {
     this->setHp(this->getHp() - dmg);
 }
 
-// Destructor
-Drow::~Drow() {}
+int Drow::getAtk() const
+{
+    return atk + 1.5 * potions->effect().first;
+}
+
+int Drow::getDef() const
+{
+    return def + 1.5 * potions->effect().second;
+}

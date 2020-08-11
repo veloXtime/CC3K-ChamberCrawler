@@ -17,8 +17,7 @@ class Potion;
 class Treasure;
 
 
-// abstract, no instance of PlayerCharacter will be created
-class PlayerCharacter: public Living 
+class PlayerCharacter : public Living 
 {
     friend class Potion;
 

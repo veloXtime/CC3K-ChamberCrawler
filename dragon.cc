@@ -10,5 +10,3 @@ void Dragon::DGetNotified(DragonHoard & dh){
     
 }
 
-// Destructor
-Dragon::~Dragon() {}
