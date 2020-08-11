@@ -5,7 +5,6 @@
 #include <string>
 #include <vector>
 #include <memory>
-#include "action.h"
 
 using std::shared_ptr;
 using std::vector;
@@ -15,6 +14,28 @@ class Potion;
 class PlayerCharacter;
 class Enemy;
 class Treasure;
+
+enum class ACTION 
+ {
+ 	MoveEA,
+ 	MoveWE,
+ 	MoveNO,
+ 	MoveSO, 
+ 	MoveNE,
+ 	MoveNW,
+ 	MoveSE,
+ 	MoveSW,
+ 	ReachStair,
+ 	SeePotion,
+ 	SeeGold,
+ 	SeeEnemy,
+ 	Win,
+ 	Die,
+ 	AtkEnemy,
+ 	GotAtk,
+ 	DrinkP,
+ 	PickG,
+ };
 
 class display
 {

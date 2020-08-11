@@ -1,7 +1,7 @@
 #include "playerCharacter.h"
 #include "potion.h"
 #include "treasure.h"
-#include <math.h>
+#include <cmath>
 #include <cstdlib>
 #include <ctime>
 #include "shade.h"
