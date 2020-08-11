@@ -1,7 +1,11 @@
+#ifndef DISPLAY_H
+#define DISPLAY_H
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <memory>
+#include "action.h"
 
 using std::shared_ptr;
 using std::vector;
@@ -11,29 +15,6 @@ class Potion;
 class PlayerCharacter;
 class Enemy;
 class Treasure;
-
-
-enum class ACTION 
-{
-	MoveEA,
-	MoveWE,
-	MoveNO,
-	MoveSO, 
-	MoveNE,
-	MoveNW,
-	MoveSE,
-	MoveSW,
-	ReachStair,
-	SeePotion,
-	SeeGold,
-	SeeEnemy,
-	Win,
-	Die,
-	AtkEnemy,
-	GotAtk,
-	DrinkP,
-	PickG,
-};
 
 std::ostream& operator<<(std::ostream& out, ACTION ac)
 {
@@ -72,9 +53,6 @@ std::ostream& operator<<(std::ostream& out, ACTION ac)
 		case SeeGold:
 			out << "sees some gold";
 			break;
-		case SeeEnemy:
-			out << "sees an enemy";
-			break;
 		case Win:
 			out << "you win";
 			break;
@@ -88,7 +66,7 @@ std::ostream& operator<<(std::ostream& out, ACTION ac)
 	return out;
 }
 
-class display
+class Display
 {
     //char board[20][80];
     std::string status, hp, atk, action; //floor is in the same line as race
@@ -98,12 +76,25 @@ class display
 
         void move(vector<vector<vector<shared_ptr<GameElement>>>>);
 
-        //called when the status line changes
+        // called when the status line changes
         void getNotified(PlayerCharacter*);
 
+		// called for moves, win, die
+        void action(ACTION act);
 
-        void action(ACTION);
-        void action(ACTION, int, PlayerCharacter*, Enemy*);
-        void action(ACTION, int, Enemy*, PlayerCharacter*);
+		// called for using potion
+		void action(ACTION act, Potion& p, int val);
+
+		// called for attacking enemy
+        void action(ACTION act, int dmg, char race, int hp);
+
+		// called for killiong enemy
+		void action(ACTION act, char race);
+
+		// return the corresponding string of act
+        std::string interpAction(ACTION act);
+
 
 };
+
+#endif
