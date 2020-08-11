@@ -13,6 +13,7 @@
 #include "merchant.h"
 #include "dragon.h"
 #include "halfling.h"
+#include "display.h"
 
 // Constructor
 EnemyCharacter::EnemyCharacter(int x, int y, char c, std::string race, 
@@ -56,12 +57,26 @@ void EnemyCharacter::attack(PlayerCharacter &pc){
 void EnemyCharacter::attackedBy(Shade &shade){
     int dmg = ceil(100/(100 + this->getDef()) * shade.getAtk());
     this->setHp(this->getHp() - dmg);
+
+    std::string sdmg = std::to_string(dmg);
+    std::string shp = std::to_string(this->getHp());
+    std::string s = "PC deals " + sdmg + " to ";
+    s.push_back(this->getChar());
+    s += " (" + shp + " HP). ";
+    gameDisplay.newAction(s);
 }
 
 // Attacked by a drow
 void EnemyCharacter::attackedBy(Drow &drow){
     int dmg = ceil(100/(100 + this->getDef()) * drow.getAtk());
     this->setHp(this->getHp() - dmg);
+
+    std::string sdmg = std::to_string(dmg);
+    std::string shp = std::to_string(this->getHp());
+    std::string s = "PC deals " + sdmg + " to ";
+    s.push_back(this->getChar());
+    s += " (" + shp + " HP). ";
+    gameDisplay.newAction(s);
 }
 
 // Attacked by a vampire
@@ -69,30 +84,49 @@ void EnemyCharacter::attackedBy(Vampire &vampire){
     int dmg = ceil(100/(100 + this->getDef()) * vampire.getAtk());
     this->setHp(this->getHp() - dmg);
     vampire.setHp(vampire.getHp() + 5);
+
+    std::string sdmg = std::to_string(dmg);
+    std::string shp = std::to_string(this->getHp());
+    std::string s = "PC deals " + sdmg + " to ";
+    s.push_back(this->getChar());
+    s += " (" + shp + " HP). ";
+    gameDisplay.newAction(s);
 }
 
 // Attacked by a troll
 void EnemyCharacter::attackedBy(Troll &troll){
     int dmg = ceil(100/(100 + this->getDef()) * troll.getAtk());
     this->setHp(this->getHp() - dmg);
+
+    std::string sdmg = std::to_string(dmg);
+    std::string shp = std::to_string(this->getHp());
+    std::string s = "PC deals " + sdmg + " to ";
+    s.push_back(this->getChar());
+    s += " (" + shp + " HP). ";
+    gameDisplay.newAction(s);
 }
 
 // Attacked by a goblin
 void EnemyCharacter::attackedBy(Goblin &goblin){
     int dmg = ceil(100/(100 + this->getDef()) * goblin.getAtk());
     this->setHp(this->getHp() - dmg);
+
+    std::string sdmg = std::to_string(dmg);
+    std::string shp = std::to_string(this->getHp());
+    std::string s = "PC deals " + sdmg + " to ";
+    s.push_back(this->getChar());
+    s += " (" + shp + " HP). ";
+    gameDisplay.newAction(s);
 }
 
 // Upon death of an enemy slained by pc
 void EnemyCharacter::death(PlayerCharacter &pc){
-    pc.slain();
+    pc.slain(this->getChar());
 }
 
 // Get notified by a pc
 void EnemyCharacter::getNotified(PlayerCharacter & pc){
     this->attack(pc);
-
-    // display message
 }
 
 EnemyCharacter::~EnemyCharacter() {}

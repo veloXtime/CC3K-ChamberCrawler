@@ -1,4 +1,5 @@
 #include "potion.h"
+#include "display.h"
 
 
 Potion::Potion(int x, int y, int val) 
@@ -16,6 +17,28 @@ void Potion::drink(PlayerCharacter* p)
 {
     next = p->potions;
     p->potions = std::shared_ptr<Potion>(this);
+
+
+    PotionHP* temp = dynamic_cast<PotionHP*>(this);
+    if (temp){
+        if (val > 0) gameDisplay.newAction("PC uses RH. ");
+        else gameDisplay.newAction("PC uses PH. ");
+    }
+    else{
+        PotionAtk* temp = dynamic_cast<PotionAtk*>(this);
+        if (temp){
+            if (val > 0) gameDisplay.newAction("PC uses BA. ");
+            else gameDisplay.newAction("PC uses WA. ");
+        } 
+        else{
+            PotionDef* temp = dynamic_cast<PotionDef*>(this);
+            if (temp){
+                if (val > 0) gameDisplay.newAction("PC uses BD. ");
+                else gameDisplay.newAction("PC uses WD. ");
+            }
+        }
+    }
+    
 }
 
 void Potion::getNotified(PlayerCharacter& p)

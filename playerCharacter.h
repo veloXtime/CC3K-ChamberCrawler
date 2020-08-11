@@ -74,7 +74,7 @@ class PlayerCharacter: public Living
         virtual void attackedBy(Halfling &halfling);
 
         // Slains an enemy
-        virtual void slain();
+        virtual void slain(char race);
         
 };
 

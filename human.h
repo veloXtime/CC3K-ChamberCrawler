@@ -9,6 +9,9 @@ class Human: public EnemyCharacter {
 
         // Destructor
         virtual ~Human();
+
+        // Upon death of a human slained by pc
+        virtual void Human::death(PlayerCharacter &pc) override;
 };
 
 #endif

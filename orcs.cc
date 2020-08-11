@@ -6,4 +6,4 @@ Orcs::Orcs(int x, int y, char c = 'O', std::string race = "orcs",
            : EnemyCharacter(x, y, c, race, hp, atk, def, max_hp) {}
 
 // Destructor
-Orcs::~Orcs();
+Orcs::~Orcs() {}

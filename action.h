@@ -16,10 +16,6 @@ enum class ACTION
 	SeeGold,
 	Win,
 	Die,
-	AtkEnemy,
-	GotAtk,
-	DrinkP,
-	PickG,
 };
 
 #endif

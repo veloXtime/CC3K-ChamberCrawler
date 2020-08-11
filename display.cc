@@ -1,47 +1,34 @@
 #include "display.h"
 #include "potion.h"
+#include "action.h"
 
 
-void Display::move(vector<vector<vector<shared_ptr<GameElement>>>>);
+void display::move(vector<vector<vector<shared_ptr<GameElement>>>>){
+
+}
 
 // called when the status line changes
-void Display::getNotified(PlayerCharacter*);
+void display::getNotified(PlayerCharacter*){
+
+}
 
 // called for moves, win, die
-void Display::action(ACTION act){
-    action += interpAction(act);
+void display::action(ACTION act){
+    actline += interpAction(act);
 }
 
-// called for using potion
-void Display::action(ACTION act, Potion& p, int val){
-    PotionHP& potion = dynamic_cast<PotionHP&> (p);
-    if (potion){
-        if (val > 0) action += "PC uses RH. ";
-        else action += "PC uses PH. ";
-    }
-    else{
-        PotionAtk& potion = dynamic_cast<PotionAtk&> (p);
-        if (potion){
-            if (val > 0) action += "PC uses BA. ";
-            else action += "PC uses WA. ";
-        }
-        else{
-            PotionDef& potion = dynamic_cast<PotionDef&> (p);
-            if (potion){
-                if (val > 0) action += "PC uses BD. ";
-                else action += "PC uses WD. ";
-            }
-    }
+// append a new action message
+void display::newAction(std::string s){
+    actline += s;
 }
 
-// called for attacking enemy
-void Display::action(ACTION act, int dmg, char race, int hp);
-
-// called for killiong enemy
-void Display::action(ACTION act, char race);
+// clear action string
+void display::clearAction(){
+    actline.clear();
+}
 
 // return the corresponding string of act
-std::string Display::interpAction(ACTION act){
+std::string display::interpAction(ACTION act){
     switch(act)
 	{
 		case MoveEA: 
@@ -60,7 +47,7 @@ std::string Display::interpAction(ACTION act){
 			return "PC moves southeast. ";
 		case MoveSw:
 			return "PC moves southwest. ";
-		case SeeStair:
+		case ReachStair:
 			return "PC reaches the stair of this floor. ";
 		case SeePotion:
 			return "PC sees an unknown potion. ";
@@ -74,4 +61,52 @@ std::string Display::interpAction(ACTION act){
 		// case DrinkP: // take in potion?
 		// case PickG:	// take in gold amount?
     }
+}
+
+
+std::ostream& operator<<(std::ostream& out, ACTION ac)
+{
+	switch(ac)
+	{
+		case MoveEA: 
+			out << "PC moves east";
+			break;
+		case MoveWE:
+			out << "PC moves west";
+			break;
+		case MoveNO:
+			out << "PC moves north";
+			break;
+		case MoveSO:
+			out << "PC moves south";
+			break;
+		case MoveNE:
+			out << "PC moves northeast";
+			break;
+		case MoveNW:
+			out << "PC moves northwest";
+			break;
+		case MoveSE:
+			out << "PC moves southeast";
+			break;
+		case MoveSW:
+			out << "PC moves southwest";
+			break;
+		case ReachStair:
+			out << "reaches the stair of this floor";
+			break;
+		case SeePotion:
+			out << "sees an unknown potion";
+			break;
+		case SeeGold:
+			out << "sees some gold";
+			break;
+		case Win:
+			out << "you win";
+			break;
+		case Die:
+			out << "you died";
+			break;
+}
+	return out;
 }

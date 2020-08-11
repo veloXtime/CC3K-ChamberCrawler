@@ -1,5 +1,6 @@
 #include "merchant.h"
 #include "playerCharacter.h"
+#include "display.h"
 
 // Constructor
 Merchant::Merchant(int x, int y, char c = 'M', std::string race = "merchant", 
@@ -11,10 +12,13 @@ bool Merchant::getSlained(){
     return slained;
 }
 
-// Upon death of an enemy slained by pc
+// Upon death of a merchant slained by pc
 void Merchant::death(PlayerCharacter &pc){
     slained = true;
-    pc.slain();
+    pc.slain('M');
+
+    std::string s = "Some gold is left on the floor. All merchants are now hostile to PC. ";
+    gameDisplay.newAction(s);
 }
 
 // Override notify
