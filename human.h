@@ -1,7 +1,8 @@
 #ifndef HUMAN_H
 #define HUMAN_H
 #include "enemyCharacter.h"
-#include "playerCharacter.h"
+
+class playerCharacter;
 
 class Human: public EnemyCharacter {
     public:
