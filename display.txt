@@ -1,0 +1,28 @@
+PC move:
+- sees potion
+	: "PC moves xxx, sees an unknown potion"
+- sees treasure
+	: "PC moves xxx, sees some treasure"
+	: "PC moves xxx, sees some treasure, D deals xxx damage to PC"  (this is for dragon hoard)
+- sees enemy
+	: "PC moves xxx, sees an enemy, X deals xxx damage to PC"
+- reaches stair to next floor
+	: "PC moves xxx, reaches stair to next floor."
+- reaches stair of last floor
+	: "PC moves xxx, reaches the stair of last floor, you win!" (winning message? )
+Add a row of Score showing the number of gold collected.
+
+PC attack enemy
+	: "PC deals x damage to X, X deals x damage to PC"
+
+PC drinks potion
+	: "PC drinks XX"
+
+PC picks gold
+	: "PC picks up gold"
+
+PC got killed
+	: "PC dies, you lost" (lost message?)
+
+
+
