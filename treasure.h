@@ -16,7 +16,7 @@ class Treasure: public NonLiving {
         int getAmount() const;
 
         //get called when PC is neary by
-        void notify(PlayerCharacter*);
+        void getNotified(PlayerCharacter&) override;
 };
 
 

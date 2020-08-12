@@ -12,11 +12,12 @@ using std::vector;
 class GameElement;
 class Potion;
 class PlayerCharacter;
+class EnemyCharacter;
 class Enemy;
 class Treasure;
 
 enum class ACTION 
- {
+{
  	MoveEA,
  	MoveWE,
  	MoveNO,
@@ -35,7 +36,7 @@ enum class ACTION
  	GotAtk,
  	DrinkP,
  	PickG,
- };
+};
 
 class display
 {
@@ -52,9 +53,13 @@ class display
 
 		// called for moves, win, die
         void action(ACTION act);
-		
-		// append a new action message
-		void newAction(std::string s);
+
+		void action(ACTION, int);
+
+		void action(ACTION, int damage, PlayerCharacter*, EnemyCharacter*);
+
+		// append a new action message, take precedence over standard messages
+		void newAction(std::string s, bool preced);
 
 		// clear action string
 		void clearAction();
@@ -62,6 +67,7 @@ class display
 		// return the corresponding string of act
         std::string interpAction(ACTION act);
 
+		
         void flush();
 
 

@@ -4,9 +4,7 @@
 
 Potion::Potion(int x, int y, int val) 
 : NonLiving(x, y, 'P'), val{val}, next{nullptr}
-{
-
-}
+{}
 
 Potion::Potion()
 : NonLiving(-1, -1, 'P'), val{0}, next{nullptr}
@@ -25,7 +23,7 @@ void Potion::drink(PlayerCharacter* p)
 
 void Potion::getNotified(PlayerCharacter& p)
 {
-    
+    gameDisplay.action(ACTION::SeePotion);
 }
 
 /* HP potion */
