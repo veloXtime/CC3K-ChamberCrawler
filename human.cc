@@ -1,5 +1,6 @@
 #include "human.h"
 #include "display.h"
+#include "playerCharacter.h"
 
 // Constructor
 Human::Human(int x, int y, char c, std::string race, 

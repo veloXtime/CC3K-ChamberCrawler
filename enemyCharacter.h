@@ -19,19 +19,19 @@ class EnemyCharacter: public Living {
         void attack(PlayerCharacter &pc);
 
         // Attacked by a shade
-        void attackedBy(Shade &shade);
+        virtual void attackedBy(Shade &shade);
 
         // Attacked by a drow
-        void attackedBy(Drow &drow);
+        virtual void attackedBy(Drow &drow);
 
         // Attacked by a vampire
         virtual void attackedBy(Vampire &vampire);
 
         // Attacked by a troll
-        void attackedBy(Troll &troll);
+        virtual void attackedBy(Troll &troll);
 
         // Attacked by a goblin
-        void attackedBy(Goblin &goblin);
+        virtual void attackedBy(Goblin &goblin);
 
         // Upon death of an enemy slained by pc
         virtual void death(PlayerCharacter &pc);
