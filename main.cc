@@ -54,6 +54,7 @@ int main(int argc, char* argv[])
 			iss >> inp;
 			if (checkDirection(inp))
 			{
+				cout << inp;
 				GC.movePC(inp);
 				if (GC.levelComplete())
 				{
@@ -109,7 +110,7 @@ int main(int argc, char* argv[])
 				GC.displayLose();
 				return 0;
 			}
+		GC.flushDisplay();
 		}
 	}
-	GC.displayWin();
 }

@@ -78,8 +78,8 @@ void GameController::resetFloor(istream & in)
 			vector<shared_ptr<GameElement>> sqr;
 			if (c == '.')
 			{
-				cout << row << " ";
-				cout << col << endl;
+				//cout << row << " ";
+				//cout << col << endl;
 				int leftInd = board.getChamberInd(row, col-1);
 				int upInd = board.getChamberInd(row-1, col);
 				int rightInd = 0;
@@ -196,7 +196,7 @@ void GameController::movePC(string direc)
 		pc->setYCoordinate(y);
 		board.replace(pc);
 	}
-	if (c == 'G')
+	else if (c == 'G')
 	{
 		shared_ptr<Treasure> t = dynamic_pointer_cast<Treasure>(board.floor[x][y].back());
 		pc->pickup(t);
