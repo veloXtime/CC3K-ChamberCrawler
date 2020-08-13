@@ -78,11 +78,23 @@ void GameController::resetFloor(istream & in)
 			vector<shared_ptr<GameElement>> sqr;
 			if (c == '.')
 			{
-				//cout << row << " ";
-				//cout << col << endl;
+				cout << row << " ";
+				cout << col << endl;
 				int leftInd = board.getChamberInd(row, col-1);
 				int upInd = board.getChamberInd(row-1, col);
+				int rightInd = 0;
+				int ro = row-1;
+				int co = col;
+				while (board.getChar(ro, co) == '-' || board.getChar(ro, co) == '|' || board.getChar(ro, co) == '+')
+				{
+					++co;
+				}
+				if (board.getChar(ro, co) == '.')
+				{
+					rightInd = board.getChamberInd(ro, co);
+				}
 				int chamberInd = max(leftInd, upInd);
+				chamberInd = max(chamberInd, rightInd);
 				if (chamberInd == 0)
 				{
 					chamberInd = ind;

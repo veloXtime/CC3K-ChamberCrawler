@@ -28,7 +28,7 @@ void display::move(vector<vector<vector<shared_ptr<GameElement>>>>& b)
 // called when the status line changes
 void display::getNotified(PlayerCharacter* pc)
 {
-    status = "Race: " + pc->getRace() + " Gold: " + std::to_string(pc->getScore());
+    status = "Race: " + pc->getRace() + " Gold: " + std::to_string(pc->getScore()) + "\n";
     string fill = string(' ', 79 - 7 - status.length());
     status = status + fill + "Floor: " + std::to_string(board.getLevel());
 

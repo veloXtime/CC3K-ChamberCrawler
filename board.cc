@@ -156,25 +156,25 @@ void Board::spawnOneEnemy(int x, int y, int prob)
 		floor[x][y].push_back(enemy);
 		enemyList.push_back(enemy);
 	}
-	if (prob <= 7)
+	else if (prob <= 7)
 	{
 		auto enemy = make_shared<Dwarf>(x, y);
 		floor[x][y].push_back(enemy);
 		enemyList.push_back(enemy);
 	}
-	if (prob <= 12)
+	else if (prob <= 12)
 	{
 		auto enemy = make_shared<Halfling>(x, y);
 		floor[x][y].push_back(enemy);
 		enemyList.push_back(enemy);
 	}
-	if (prob <= 14)
+	else if (prob <= 14)
 	{
 		auto enemy = make_shared<Elf>(x, y);
 		floor[x][y].push_back(enemy);
 		enemyList.push_back(enemy);
 	}
-	if (prob <= 16)
+	else if (prob <= 16)
 	{
 		auto enemy = make_shared<Orcs>(x, y);
 		floor[x][y].push_back(enemy);

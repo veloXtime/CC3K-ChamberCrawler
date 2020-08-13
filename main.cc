@@ -31,7 +31,6 @@ int main(int argc, char* argv[])
                 std::istringstream iss{line};
                 char race;
                 iss >> race;
-                cout << race;
                 if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
                 {
                     GC.spawnPC(race);
