@@ -37,7 +37,7 @@ class PlayerCharacter : public Living
         virtual int getAtk() const override;
         virtual int getDef() const override;
         virtual int getScore();
-        int setScore(int v);
+        void setScore(int v);
         
         // Notify a game element
         void notify(std::shared_ptr<GameElement> ge);
