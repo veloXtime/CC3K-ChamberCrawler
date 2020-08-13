@@ -10,14 +10,16 @@
 #include "goblin.h"
 #include "board.h"
 
+bool Merchant::hostile = false;
 // Constructor
 Merchant::Merchant(int x, int y, char c, std::string race, 
                    int hp, int atk, int def, int max_hp)
-                   : EnemyCharacter(x, y, c, race, hp, atk, def, max_hp) {hostile = false;}
+                   : EnemyCharacter(x, y, c, race, hp, atk, def, max_hp) 
+                   {Merchant::hostile = false;}
 
 // If any merchant has been attacked
 bool Merchant::getHostile(){
-    return hostile;
+    return Merchant::hostile;
 }
 
 // Upon death of a merchant slained by pc
@@ -36,7 +38,7 @@ void Merchant::death(PlayerCharacter &pc){
 
 // Override notify
 void Merchant::getNotified(PlayerCharacter &pc) {
-    if (hostile) this->attack(pc);
+    if (Merchant::hostile) this->attack(pc);
 }
 
 // Destructor
@@ -66,7 +68,7 @@ void Merchant::attackedBy(Shade &shade){
 
 // Attacked by a drow
 void Merchant::attackedBy(Drow &drow){
-    hostile = true;
+    Merchant::hostile = true;
     int dmg = ceil(100/(100 + this->getDef()) * drow.getAtk());
     this->setHp(this->getHp() - dmg);
 
@@ -99,7 +101,7 @@ void Merchant::attackedBy(Vampire &vampire){
 
 // Attacked by a troll
 void Merchant::attackedBy(Troll &troll){
-    hostile = true;
+    Merchant::hostile = true;
     int dmg = ceil(100/(100 + this->getDef()) * troll.getAtk());
     this->setHp(this->getHp() - dmg);
 
@@ -114,7 +116,7 @@ void Merchant::attackedBy(Troll &troll){
 
 // Attacked by a goblin
 void Merchant::attackedBy(Goblin &goblin){
-    hostile = true;
+    Merchant::hostile = true;
     int dmg = ceil(100/(100 + this->getDef()) * goblin.getAtk());
     this->setHp(this->getHp() - dmg);
 
