@@ -29,6 +29,7 @@ int main(int argc, char* argv[])
     {
         GC.resetFloor(*in);	// contains display
 
+		//initialization
         if (board.getLevel() == 1)
         {
             std::cout << "Please select a race:\n";

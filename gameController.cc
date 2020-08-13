@@ -268,8 +268,8 @@ void GameController::setPCChamber(int chamberInd)
 
 void GameController::flushDisplay()
 {
-    gameDisplay.clearAction();
     gameDisplay.move(board.floor);
     gameDisplay.getNotified(pc.get());
     cout << gameDisplay;
+	gameDisplay.clearAction();
 }
