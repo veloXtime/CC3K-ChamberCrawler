@@ -140,7 +140,7 @@ void PlayerCharacter::attackedBy(Human &human)
     int dmg = ceil(100/(100 + this->getDef()) * human.getAtk());
     this->setHp(this->getHp() - dmg);
 
-    gameDisplay.action(ACTION::GotAtk, dmg);
+    gameDisplay.action(ACTION::GotAtk, dmg, &human, this);
 
     // std::string sdmg = std::to_string(dmg);
     // std::string s = "H deals " + sdmg + " damage to PC. ";
@@ -155,7 +155,7 @@ void PlayerCharacter::attackedBy(Dwarf &dwarf)
     int dmg = ceil(100/(100 + this->getDef()) * dwarf.getAtk());
     this->setHp(this->getHp() - dmg);
     
-    gameDisplay.action(ACTION::GotAtk, dmg);
+    gameDisplay.action(ACTION::GotAtk, dmg, &dwarf, this);
     // std::string sdmg = std::to_string(dmg);
     // std::string s = "W deals " + sdmg + " damage to PC. ";
     // gameDisplay.newAction(s);
@@ -169,7 +169,7 @@ void PlayerCharacter::attackedBy(Elf &elf)
     int dmg = ceil(100/(100 + this->getDef()) * elf.getAtk());
     this->setHp(this->getHp() - 2*dmg);
 
-    gameDisplay.action(ACTION::GotAtk, dmg);
+    gameDisplay.action(ACTION::GotAtk, dmg, &elf, this);
     // std::string sdmg = std::to_string(dmg);
     // std::string s = "E deals " + sdmg + " damage to PC. ";
     // gameDisplay.newAction(s);
@@ -183,7 +183,7 @@ void PlayerCharacter::attackedBy(Orcs &orcs)
     int dmg = ceil(100/(100 + this->getDef()) * orcs.getAtk());
     this->setHp(this->getHp() - dmg);
 
-    gameDisplay.action(ACTION::GotAtk, dmg);
+    gameDisplay.action(ACTION::GotAtk, dmg, &orcs, this);
     // std::string sdmg = std::to_string(dmg);
     // std::string s = "O deals " + sdmg + " damage to PC. ";
     // gameDisplay.newAction(s);
@@ -197,7 +197,7 @@ void PlayerCharacter::attackedBy(Merchant &merchant)
     int dmg = ceil(100/(100 + this->getDef()) * merchant.getAtk());
     this->setHp(this->getHp() - dmg);
     
-    gameDisplay.action(ACTION::GotAtk, dmg);
+    gameDisplay.action(ACTION::GotAtk, dmg, &merchant, this);
     // std::string sdmg = std::to_string(dmg);
     // std::string s = "M deals " + sdmg + " damage to PC. ";
     // gameDisplay.newAction(s);
@@ -211,7 +211,7 @@ void PlayerCharacter::attackedBy(Dragon &dragon)
     int dmg = ceil(100/(100 + this->getDef()) * dragon.getAtk());
     this->setHp(this->getHp() - dmg);
     
-    gameDisplay.action(ACTION::GotAtk, dmg);
+    gameDisplay.action(ACTION::GotAtk, dmg, &dragon, this);
     // std::string sdmg = std::to_string(dmg);
     // std::string s = "D deals " + sdmg + " damage to PC. ";
     // gameDisplay.newAction(s);
@@ -225,7 +225,7 @@ void PlayerCharacter::attackedBy(Halfling &halfling)
     int dmg = ceil(100/(100 + this->getDef()) * halfling.getAtk());
     this->setHp(this->getHp() - dmg);
     
-    gameDisplay.action(ACTION::GotAtk, dmg);
+    gameDisplay.action(ACTION::GotAtk, dmg, &halfling, this);
     // std::string sdmg = std::to_string(dmg);
     // std::string s = "L deals " + sdmg + " damage to PC. ";
     // gameDisplay.newAction(s);

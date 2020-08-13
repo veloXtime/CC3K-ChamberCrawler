@@ -19,6 +19,7 @@ void Potion::drink(PlayerCharacter* p)
 {
     next = p->potions;
     p->potions = std::shared_ptr<Potion>(this);
+    gameDisplay.action(ACTION::DrinkP, this);
 }
 
 void Potion::getNotified(PlayerCharacter& p)
@@ -26,15 +27,24 @@ void Potion::getNotified(PlayerCharacter& p)
     gameDisplay.action(ACTION::SeePotion);
 }
 
+std::string Potion::getType()
+{
+    return type;
+}
+
 /* HP potion */
 PotionHP::PotionHP(int x, int y, int val)
 :Potion(x,y,val)
 {
+    if(val > 0)
+        type = "RH";
+    else
+        type = "PH";
 }
 
 std::pair<int, int> PotionHP::effect()
 {
-    //error
+    return std::make_pair<int, int>(0, 0);
 }
 
 void PotionHP::drink(PlayerCharacter* pc)
@@ -42,6 +52,8 @@ void PotionHP::drink(PlayerCharacter* pc)
     if(pc->getRace() == "drow")
         val*=1.5;
     pc->setHp(pc->getHp() + val);
+
+    gameDisplay.action(ACTION::DrinkP, this);
 }
 /* HP potion */
 
@@ -49,6 +61,10 @@ void PotionHP::drink(PlayerCharacter* pc)
 PotionAtk::PotionAtk(int x, int y, int val)
 :Potion(x,y,val)
 {
+    if(val > 0)
+        type = "BA";
+    else
+        type = "WA";
 }
 
 std::pair<int, int> PotionAtk::effect()
@@ -63,6 +79,10 @@ std::pair<int, int> PotionAtk::effect()
 PotionDef::PotionDef(int x, int y, int val)
 :Potion(x,y,val)
 {
+    if(val > 0)
+        type = "BD";
+    else
+        type = "WD";
 }
 
 std::pair<int, int> PotionDef::effect()

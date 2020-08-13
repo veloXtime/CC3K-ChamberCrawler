@@ -15,6 +15,9 @@ class PlayerCharacter;
 class EnemyCharacter;
 class Enemy;
 class Treasure;
+class Living;
+class Potion;
+
 
 enum class ACTION 
 {
@@ -40,7 +43,7 @@ enum class ACTION
 
 class display
 {
-    //char board[20][80];
+    char boardBuffer[25][80];
     std::string status, hp, atk, def, actline; //floor is in the same line as race
     
     
@@ -56,10 +59,11 @@ class display
 
 		void action(ACTION, int);
 
-		void action(ACTION, int damage, PlayerCharacter*, EnemyCharacter*);
+		void action(ACTION, int damage, Living*, Living*);	
+		void action(ACTION, Potion*);
 
 		// append a new action message, take precedence over standard messages
-		void newAction(std::string s, bool preced);
+		void newAction(std::string s, bool preceed);
 
 		// clear action string
 		void clearAction();
