@@ -15,6 +15,8 @@
 #include "dragon.h"
 #include "halfling.h"
 #include "display.h"
+#include "potion.h"
+#include "treasure.h"
 
 PlayerCharacter::PlayerCharacter
 (int x, int y, char c, std::string race, int hp, int atk, int def, int max_hp)
