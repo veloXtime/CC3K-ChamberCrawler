@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include "potion.h"
 #include "shade.h"
 #include "drow.h"
 #include "vampire.h"
