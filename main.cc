@@ -1,4 +1,7 @@
 #include "gameController.h"
+#include <iostream>
+#include <fstream>
+using namespace std;
 
 bool checkDirection(string inp)
 {
@@ -19,14 +22,17 @@ int main(int argc, char* argv[])
 	while (board.getLevel() <= 5)
 	{
 		GC.resetFloor(*in);	// contains display
-		
+
 		if (board.getLevel() == 1)
 		{
+			return 0;
 			while (std::getline(std::cin, line))
 			{
+				return 0;
 				std::istringstream iss{line};
 				char race;
 				iss >> race;
+				return 0;
 				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
 				{
 					GC.spawnPC(race);
