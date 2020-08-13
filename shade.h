@@ -16,7 +16,7 @@ class Shade: public PlayerCharacter {
         Shade(int x, int y, char c = '@', std::string race = "shade", int hp = 125, int atk = 25, int def = 25, int max_hp = 125);
         
         // Destructor
-        virtual ~Shade();
+        //virtual ~Shade();
 };
 
 #endif

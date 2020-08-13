@@ -84,7 +84,7 @@ void Board::spawnGold()
 		int chamberInd = rand() % 5 + 1;
 		int x = rand() % floor.size();
 		int y = rand() % floor[0].size();
-		while (getChamberInd(x,y) != chamberInd)
+		while (getChamberInd(x,y) != chamberInd || board.getChar(x, y) != '.')
 		{
 			x = rand() % floor.size();
 			y = rand() % floor[0].size();
@@ -182,7 +182,7 @@ void Board::spawnEnemy()
 		int chamberId = rand() % 5 + 1;
 		int x = rand() % floor.size();
 		int y = rand() % floor[0].size();
-		while (getChamberInd(x,y) != chamberId)
+		while (getChamberInd(x,y) != chamberId || board.getChar(x, y) != '.')
 		{
 			x = rand() % floor.size();
 			y = rand() % floor[0].size();
@@ -201,7 +201,7 @@ void Board::moveEnemy(int pc_x, int pc_y)
 	{
 		x = e->getXCoordinate();
 		y = e->getYCoordinate();
-		if (x >= pc_x+1 || x <= pc_x-1 || y >= pc_y+1 || y <= pc_y-1)
+		if (x > pc_x+1 || x < pc_x-1 || y > pc_y+1 || y < pc_y-1)
 		// if enemy is not near pc, then move
 		{
 			revert(e);

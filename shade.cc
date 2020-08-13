@@ -6,4 +6,4 @@ Shade::Shade(int x, int y, char c, std::string race,
              : PlayerCharacter{x, y, c, race, hp, atk, def, max_hp} {}
 
 // Destructor
-Shade::~Shade() {}
+//Shade::~Shade() {}
