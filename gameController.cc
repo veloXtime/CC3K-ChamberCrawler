@@ -1,6 +1,7 @@
 #include <cstdlib>
 #include <ctime>
 #include <algorithm>
+#include <iostream>
 #include "gameController.h"
 #include "enemyCharacter.h"
 #include "potion.h"
@@ -11,10 +12,11 @@
 #include "goblin.h"
 #include "architect.h"
 #include "treasure.h"
+#include "display.h"
 
 using namespace std;
 
-void GameController::pcNotifyAround()	
+void GameController::pcNotifyAround()
 // pc will notify around when a round is finished
 {
 	int x = pc->getXCoordinate();
@@ -69,7 +71,7 @@ void GameController::resetFloor(istream & in)
 		char c;
 		vector<vector<shared_ptr<GameElement>>> newRow;
 
-		while (iss.get(c))	
+		while (iss.get(c))
 		// assume in the file, there can only be ' ', '.', '-', '|', '+', '#'
 		{
 			vector<shared_ptr<GameElement>> sqr;
@@ -184,7 +186,7 @@ void GameController::movePC(string direc)
 	{
 		shared_ptr<Treasure> t = dynamic_pointer_cast<Treasure>(board.floor[x][y].back());
 		pc->pickup(t);
-		board.replace(pc);	// if PC 
+		board.replace(pc);	// if PC
 	}
 }
 
@@ -246,4 +248,12 @@ bool GameController::levelComplete()
 void GameController::setPCChamber(int chamberInd)
 {
 	pcChamber = chamberInd;
+}
+
+void GameController::flushDisplay()
+{
+    gameDisplay.clearAction();
+    gameDisplay.move(board.floor);
+    gameDisplay.getNotified(pc.get());
+    cout << gameDisplay;
 }
