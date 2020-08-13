@@ -1,4 +1,5 @@
 #include <cmath>
+#include "treasure.h"
 #include "merchant.h"
 #include "playerCharacter.h"
 #include "display.h"
@@ -16,7 +17,6 @@ Merchant::Merchant(int x, int y, char c, std::string race, int hp, int atk, int 
 Merchant::Merchant(int x, int y, char c = 'M', std::string race = "merchant", 
                    int hp = 30, int atk = 70, int def = 5, int max_hp = 30)
                    : EnemyCharacter(x, y, c, race, hp, atk, def, max_hp) {hostile = false;}
->>>>>>> 9dd837e4808c49ddabe83ba3b26374612f35d4c6
 
 // If any merchant has been attacked
 bool Merchant::getHostile(){
@@ -28,10 +28,13 @@ void Merchant::death(PlayerCharacter &pc){
     pc.slain('M');
 
     std::string s = "Some gold is left on the floor. All merchants are now hostile to PC. ";
-    gameDisplay.newAction(s);
+    gameDisplay.newAction(s, false);
 
     board.revert(x, y);
     board.enemyDeath(*this);
+
+	auto mh = std::make_shared<Treasure>(x, y, TreasureType::MERCHANT);
+    board.replace(mh);
 }
 
 // Override notify
@@ -42,6 +45,10 @@ void Merchant::getNotified(PlayerCharacter &pc) {
 // Destructor
 Merchant::~Merchant() {}
 
+inline void gotAttaked(int dmg, PlayerCharacter* pc, EnemyCharacter* enemy)
+{
+    gameDisplay.action(ACTION::AtkEnemy, dmg, pc , enemy);
+}
 
 // Attacked by a shade
 void Merchant::attackedBy(Shade &shade){
@@ -49,12 +56,15 @@ void Merchant::attackedBy(Shade &shade){
     int dmg = ceil(100/(100 + this->getDef()) * shade.getAtk());
     this->setHp(this->getHp() - dmg);
 
+    gotAttaked(dmg, &shade, this);
+/*
     std::string sdmg = std::to_string(dmg);
     std::string shp = std::to_string(this->getHp());
     std::string s = "PC deals " + sdmg + " to ";
     s.push_back(this->getChar());
     s += " (" + shp + " HP). ";
     gameDisplay.newAction(s);
+    */
 }
 
 // Attacked by a drow
@@ -63,12 +73,15 @@ void Merchant::attackedBy(Drow &drow){
     int dmg = ceil(100/(100 + this->getDef()) * drow.getAtk());
     this->setHp(this->getHp() - dmg);
 
+    gotAttaked(dmg, &drow, this);
+/*
     std::string sdmg = std::to_string(dmg);
     std::string shp = std::to_string(this->getHp());
     std::string s = "PC deals " + sdmg + " to ";
     s.push_back(this->getChar());
     s += " (" + shp + " HP). ";
     gameDisplay.newAction(s);
+    */
 }
 
 // Attacked by a vampire
@@ -78,12 +91,13 @@ void Merchant::attackedBy(Vampire &vampire){
     this->setHp(this->getHp() - dmg);
     vampire.setHp(vampire.getHp() + 5);
 
-    std::string sdmg = std::to_string(dmg);
-    std::string shp = std::to_string(this->getHp());
-    std::string s = "PC deals " + sdmg + " to ";
-    s.push_back(this->getChar());
-    s += " (" + shp + " HP). ";
-    gameDisplay.newAction(s);
+    gotAttaked(dmg, &vampire, this);
+    // std::string sdmg = std::to_string(dmg);
+    // std::string shp = std::to_string(this->getHp());
+    // std::string s = "PC deals " + sdmg + " to ";
+    // s.push_back(this->getChar());
+    // s += " (" + shp + " HP). ";
+    // gameDisplay.newAction(s);
 }
 
 // Attacked by a troll
@@ -92,12 +106,13 @@ void Merchant::attackedBy(Troll &troll){
     int dmg = ceil(100/(100 + this->getDef()) * troll.getAtk());
     this->setHp(this->getHp() - dmg);
 
-    std::string sdmg = std::to_string(dmg);
-    std::string shp = std::to_string(this->getHp());
-    std::string s = "PC deals " + sdmg + " to ";
-    s.push_back(this->getChar());
-    s += " (" + shp + " HP). ";
-    gameDisplay.newAction(s);
+    gotAttaked(dmg, &troll, this);
+    // std::string sdmg = std::to_string(dmg);
+    // std::string shp = std::to_string(this->getHp());
+    // std::string s = "PC deals " + sdmg + " to ";
+    // s.push_back(this->getChar());
+    // s += " (" + shp + " HP). ";
+    // gameDisplay.newAction(s);
 }
 
 // Attacked by a goblin
@@ -106,11 +121,12 @@ void Merchant::attackedBy(Goblin &goblin){
     int dmg = ceil(100/(100 + this->getDef()) * goblin.getAtk());
     this->setHp(this->getHp() - dmg);
 
-    std::string sdmg = std::to_string(dmg);
-    std::string shp = std::to_string(this->getHp());
-    std::string s = "PC deals " + sdmg + " to ";
-    s.push_back(this->getChar());
-    s += " (" + shp + " HP). ";
-    gameDisplay.newAction(s);
+    gotAttaked(dmg, &goblin, this);
+    // std::string sdmg = std::to_string(dmg);
+    // std::string shp = std::to_string(this->getHp());
+    // std::string s = "PC deals " + sdmg + " to ";
+    // s.push_back(this->getChar());
+    // s += " (" + shp + " HP). ";
+    // gameDisplay.newAction(s);
 }
 

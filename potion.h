@@ -12,16 +12,19 @@ class Potion: public NonLiving
     friend PlayerCharacter;
     protected:
         int val;
+        std::string type;
         std::shared_ptr<Potion> next;
     public:
         Potion();
         Potion(int x, int y, int val); 
+        std::string getType();
         virtual void drink(PlayerCharacter*);
         
         virtual std::pair<int,int> effect(); //an instance of this baseclass always return 0
 
         //get called when PC is nearyby
         void getNotified(PlayerCharacter&) override;
+
 };
 
 class PotionAtk: public Potion 

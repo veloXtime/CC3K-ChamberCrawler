@@ -12,11 +12,15 @@ using std::vector;
 class GameElement;
 class Potion;
 class PlayerCharacter;
+class EnemyCharacter;
 class Enemy;
 class Treasure;
+class Living;
+class Potion;
+
 
 enum class ACTION 
- {
+{
  	MoveEA,
  	MoveWE,
  	MoveNO,
@@ -35,11 +39,11 @@ enum class ACTION
  	GotAtk,
  	DrinkP,
  	PickG,
- };
+};
 
 class display
 {
-    //char board[20][80];
+    char boardBuffer[25][80];
     std::string status, hp, atk, def, actline; //floor is in the same line as race
     
     
@@ -52,9 +56,14 @@ class display
 
 		// called for moves, win, die
         void action(ACTION act);
-		
-		// append a new action message
-		void newAction(std::string s);
+
+		void action(ACTION, int);
+
+		void action(ACTION, int damage, Living*, Living*);	
+		void action(ACTION, Potion*);
+
+		// append a new action message, take precedence over standard messages
+		void newAction(std::string s, bool preceed);
 
 		// clear action string
 		void clearAction();
@@ -62,6 +71,7 @@ class display
 		// return the corresponding string of act
         std::string interpAction(ACTION act);
 
+		
         void flush();
 
 

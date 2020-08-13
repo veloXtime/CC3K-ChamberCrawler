@@ -21,4 +21,5 @@ void Human::death(PlayerCharacter &pc){
     board.enemyDeath(*this);
 
     // another gold is spawned randomly in this chamber
+    gameDisplay.newAction(s, false);
 }

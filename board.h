@@ -22,6 +22,7 @@ class Board
 		vector<vector<vector<shared_ptr<GameElement>>>> floor;
 		vector<shared_ptr<EnemyCharacter>> enemyList;
 
+	public:
 		void spawnPotion();	// 
 		void spawnOnePotion(int x, int y, int prob);
 
@@ -36,7 +37,6 @@ class Board
 		void setLevel(int lv);	// complete
 		void setRow(vector<vector<shared_ptr<GameElement>>> newRow);// complete
 
-	public:
 		int getLevel();		// complete
 
 		void revert(std::shared_ptr<GameElement> ge);		// complete
