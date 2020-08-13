@@ -338,3 +338,5 @@ void Board::enemyDeath(EnemyCharacter & e)
 		replace(g2);
 	}
 }
+
+Board board{};
