@@ -1,3 +1,4 @@
+#include <iostream>
 #include "display.h"
 #include "potion.h"
 #include "board.h"
@@ -5,6 +6,13 @@ using std::string;
 using std::to_string;
 
 
+display::display()
+{
+    for(int i = 0; i < 25; i++)
+    {
+        boardBuffer[i][79] = 0;
+    }
+}
 void display::move(vector<vector<vector<shared_ptr<GameElement>>>>& b)
 {
     for(int x = 0; x < b.size(); ++x)
@@ -36,9 +44,41 @@ void display::getNotified(PlayerCharacter* pc)
 }
 
 // called for moves, win, die
-void display::action(ACTION act){
-    actline += interpAction(act);
-}
+void display::action(ACTION act)
+{
+    switch(act)
+	{
+		case ACTION::MoveEA: 
+			actline +="You moved east. ";
+		case ACTION::MoveWE:
+			actline +="You moved west. ";
+		case ACTION::MoveNO:
+			actline +="You moved north. ";
+		case ACTION::MoveSO:
+			actline +="You moved south. ";
+		case ACTION::MoveNE:
+			actline +="You moved northeast. ";
+		case ACTION::MoveNW:
+			actline +="You moved northwest. ";
+		case ACTION::MoveSE:
+			actline +="You moved southeast. ";
+		case ACTION::MoveSW:
+			actline +="You moved southwest. ";
+		case ACTION::ReachStair:
+			actline +="You reached the stair of this floor. ";
+		case ACTION::SeePotion:
+			actline +="You saw an unknown potion. ";
+		case ACTION::SeeGold:
+			actline +="You saw some gold. ";
+		case ACTION::Win:
+			actline +="You win. ";
+		case ACTION::Die:
+			actline +="You died. ";
+		// case AtkEnemy:	// take in enemy and damage?
+		// case DrinkP: // take in potion?
+		// case PickG:	// take in gold amount?
+        default:
+    }}
 
 void display::action(ACTION act, int v)
 {
@@ -75,43 +115,21 @@ void display::newAction(std::string s, bool first)
 }
 
 // clear action string
-void display::clearAction(){
+void display::clearAction()
+{
     actline.clear();
 }
 
-
-std::string display::interpAction(ACTION act){
-    switch(act)
-	{
-		case ACTION::MoveEA: 
-			return "PC moves east. ";
-		case ACTION::MoveWE:
-			return "PC moves west. ";
-		case ACTION::MoveNO:
-			return "PC moves north. ";
-		case ACTION::MoveSO:
-			return "PC moves south. ";
-		case ACTION::MoveNE:
-			return "PC moves northeast. ";
-		case ACTION::MoveNW:
-			return "PC moves northwest. ";
-		case ACTION::MoveSE:
-			return "PC moves southeast. ";
-		case ACTION::MoveSW:
-			return "PC moves southwest. ";
-		case ACTION::ReachStair:
-			return "PC reaches the stair of this floor. ";
-		case ACTION::SeePotion:
-			return "PC sees an unknown potion. ";
-		case ACTION::SeeGold:
-			return "PC sees some gold. ";
-		case ACTION::Win:
-			return "You win. ";
-		case ACTION::Die:
-			return "You died. ";
-		// case AtkEnemy:	// take in enemy and damage?
-		// case DrinkP: // take in potion?
-		// case PickG:	// take in gold amount?
-        default:
+std::ostream& operator<<(std::ostream& out, const display& ac)
+{
+    for(int i = 0; i < 25; ++i)
+    {
+        out << ac.boardBuffer[i] << '\n';
     }
+    out << ac.status << '\n' << ac.hp << '\n' << ac.atk << '\n' 
+    << ac.def << '\n' << ac.actline << '\n';
+
+    return out;
 }
+
+display gameDisplay{}; 

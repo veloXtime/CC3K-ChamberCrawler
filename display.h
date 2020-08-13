@@ -69,16 +69,17 @@ class display
 		void clearAction();
 
 		// return the corresponding string of act
-        std::string interpAction(ACTION act);
+        //std::string interpAction(ACTION act);
 
 		
         void flush();
 
+		friend std::ostream& operator<<(std::ostream& out, const display& ac);
 
 };
 
 
-std::ostream& operator<<(std::ostream& out, ACTION ac);
+std::ostream& operator<<(std::ostream& out, const display& ac);
 
 extern display gameDisplay;
 
