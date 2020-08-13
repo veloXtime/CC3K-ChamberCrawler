@@ -44,8 +44,8 @@ int main(int argc, char* argv[])
                 if (std::cin.eof()) { return 1; }
             }
         }
-        GC.flushDisplay();
         GC.setGameElement();	// contains display
+        GC.flushDisplay();
 
 
 		while (std::getline(std::cin, line))

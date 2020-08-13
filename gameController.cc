@@ -45,12 +45,12 @@ void GameController::spawnStair()
 	{
 		x = rand() % board.floor.size();
 		y = rand() % board.floor[0].size();
-		if (board.getChar(x, y) == '.' && board.getChamberInd(x, y) == pcChamber)
+		if (board.getChar(x, y) == '.' && board.getChamberInd(x, y) == ind)
 		{
 			break;
 		}
 	}
-	auto stair = make_shared<Architect>(x, y, ind, '\\');
+	auto stair = make_shared<Architect>(x, y, '\\', ind);
 	board.replace(stair);
 	stairX = x;
 	stairY = y;
@@ -70,6 +70,7 @@ void GameController::resetFloor(istream & in)
 		istringstream iss {line};
 		char c;
 		vector<vector<shared_ptr<GameElement>>> newRow;
+		board.setRow(newRow);
 
 		while (iss.get(c))
 		// assume in the file, there can only be ' ', '.', '-', '|', '+', '#'
@@ -77,6 +78,8 @@ void GameController::resetFloor(istream & in)
 			vector<shared_ptr<GameElement>> sqr;
 			if (c == '.')
 			{
+				//cout << row << " ";
+				//cout << col << endl;
 				int leftInd = board.getChamberInd(row, col-1);
 				int upInd = board.getChamberInd(row-1, col);
 				int chamberInd = max(leftInd, upInd);
@@ -91,10 +94,9 @@ void GameController::resetFloor(istream & in)
 			{
 				sqr.push_back(make_shared<Architect>(row, col, c, 0));
 			}
-			newRow.push_back(sqr);
+			board.floor[board.floor.size()-1].push_back(sqr);
 			++col;
 		}
-		board.setRow(newRow);
 		col = 0;
 		if (line[1] == '-' && row >= 1) break;
 		++row;
