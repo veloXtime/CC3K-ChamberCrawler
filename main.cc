@@ -3,8 +3,8 @@
 bool checkDirection(string inp)
 {
 	return (inp == "no" || inp == "so"
-			|| inp == "ea" || inp == "we" 
-			|| inp == "ne" || inp == "nw" 
+			|| inp == "ea" || inp == "we"
+			|| inp == "ne" || inp == "nw"
 			|| inp == "se" || inp == "sw");
 }
 
@@ -19,11 +19,12 @@ int main(int argc, char* argv[])
 	while (board.getLevel() <= 5)
 	{
 		GC.resetFloor(*in);	// contains display
-		
+
 		if (board.getLevel() == 1)
 		{
 			while (std::getline(std::cin, line))
 			{
+                std::cout << "Please select a race:\n";
 				std::istringstream iss{line};
 				char race;
 				iss >> race;
@@ -54,41 +55,41 @@ int main(int argc, char* argv[])
 				{
 					break;
 				}
-				if (!stillMode) 
+				if (!stillMode)
 				{
-					GC.moveEnemy(); 
+					GC.moveEnemy();
 				}
 			}
 			else if (inp == "u")
 			{
 				iss >> arg;
-				if (checkDirection(arg)) 
+				if (checkDirection(arg))
 				{
-					GC.drinkPotion(arg); 
+					GC.drinkPotion(arg);
 				}
-				if (!stillMode) 
+				if (!stillMode)
 				{
-					GC.moveEnemy(); 
+					GC.moveEnemy();
 				}
 			}
 			else if (inp == "a")
 			{
 				iss >> arg;
-				if (checkDirection(arg)) 
+				if (checkDirection(arg))
 				{
 					GC.attackEnemy(arg);
 				}
-				if (!stillMode) 
+				if (!stillMode)
 				{
-					GC.moveEnemy(); 
+					GC.moveEnemy();
 				}
 			}
 			else if (inp == "f")
 			{
 				stillMode = 1 - stillMode;
-				if (!stillMode) 
+				if (!stillMode)
 				{
-					GC.moveEnemy(); 
+					GC.moveEnemy();
 				}
 			}
 			else if (inp == "r")
