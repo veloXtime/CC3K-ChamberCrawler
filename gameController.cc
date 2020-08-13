@@ -96,8 +96,8 @@ void GameController::resetFloor(istream & in)
 		}
 		board.setRow(newRow);
 		col = 0;
-		++row;
 		if (line[1] == '-' && row >= 1) break;
+		++row;
 	}
 }
 
