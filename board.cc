@@ -43,22 +43,22 @@ void Board::spawnOnePotion(int x, int y, int prob)
 		auto potion = make_shared<PotionHP>(x, y, 10); // Restore health (RH)
 		floor[x][y].push_back(potion);
 	}
-	if (prob == 2)
+	else if (prob == 2)
 	{
 		auto potion = make_shared<PotionAtk>(x, y, 5); // Boost Atk (BA): increase ATK by 5
 		floor[x][y].push_back(potion);
 	}
-	if (prob == 3)
+	else if (prob == 3)
 	{
 		auto potion = make_shared<PotionDef>(x, y, 5); // Boost Def (BD): increase Def by 5
 		floor[x][y].push_back(potion);
 	}
-	if (prob == 4)
+	else if (prob == 4)
 	{
 		auto potion = make_shared<PotionHP>(x, y, -10); // Poison health (PH): lose up to 10 HP 
 		floor[x][y].push_back(potion);
 	}
-	if (prob == 5)
+	else if (prob == 5)
 	{
 		auto potion = make_shared<PotionAtk>(x, y, -5); // Wound Atk (WA): decrease Atk by 5
 		floor[x][y].push_back(potion);
