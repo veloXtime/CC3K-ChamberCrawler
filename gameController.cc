@@ -226,6 +226,8 @@ void GameController::drinkPotion(string direc)
 		pc->drink(p);
 		board.revert(p);
 	}
+
+	board.revert(x, y);
 }
 
 void GameController::attackEnemy(string direc)
