@@ -49,35 +49,35 @@ void display::action(ACTION act)
     switch(act)
 	{
 		case ACTION::MoveEA: 
-			actline +="You moved east. ";
+			actline +="You moved east. "; break;
 		case ACTION::MoveWE:
-			actline +="You moved west. ";
+			actline +="You moved west. "; break;
 		case ACTION::MoveNO:
-			actline +="You moved north. ";
+			actline +="You moved north. "; break;
 		case ACTION::MoveSO:
-			actline +="You moved south. ";
+			actline +="You moved south. "; break;
 		case ACTION::MoveNE:
-			actline +="You moved northeast. ";
+			actline +="You moved northeast. "; break;
 		case ACTION::MoveNW:
-			actline +="You moved northwest. ";
+			actline +="You moved northwest. "; break;
 		case ACTION::MoveSE:
-			actline +="You moved southeast. ";
+			actline +="You moved southeast. "; break;
 		case ACTION::MoveSW:
-			actline +="You moved southwest. ";
+			actline +="You moved southwest. "; break;
 		case ACTION::ReachStair:
-			actline +="You reached the stair of this floor. ";
+			actline +="You reached the stair of this floor. "; break;
 		case ACTION::SeePotion:
-			actline +="You saw an unknown potion. ";
+			actline +="You saw an unknown potion. "; break;
 		case ACTION::SeeGold:
-			actline +="You saw some gold. ";
+			actline +="You saw some gold. "; break;
 		case ACTION::Win:
-			actline +="You win. ";
+			actline +="You win. "; break;
 		case ACTION::Die:
-			actline +="You died. ";
+			actline +="You died. "; break;
 		// case AtkEnemy:	// take in enemy and damage?
 		// case DrinkP: // take in potion?
 		// case PickG:	// take in gold amount?
-        default:
+        default: break;
     }}
 
 void display::action(ACTION act, int v)
@@ -87,6 +87,7 @@ void display::action(ACTION act, int v)
         case ACTION::PickG:
             actline += "You picked up " + to_string(v) + " piece(s) of gold. ";
             break; 
+        default: break;
     }
 }
 
@@ -103,7 +104,7 @@ void display::action(ACTION act, int damage, Living* a, Living* b)
     }
     else //AtkEnemy
     {
-        actline += "You dealed " + to_string(damage) + " damage to " + b->getRace(); + ". ";
+        actline += "You dealed " + to_string(damage) + " damage to " + b->getRace() + ". ";
     }
 }
 

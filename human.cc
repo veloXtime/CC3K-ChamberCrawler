@@ -16,7 +16,7 @@ void Human::death(PlayerCharacter &pc){
     pc.slain('H');
 
     std::string s = "Some gold is left on the floor. ";
-    gameDisplay.newAction(s);
+    //gameDisplay.newAction(s);
 
     board.enemyDeath(*this);
 

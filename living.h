@@ -10,9 +10,8 @@ class Living: public GameElement {
    
 
     protected:
-        int hp,max_hp;
         std::string race;
-        int atk,def;
+        int hp,atk,def,max_hp;
 
     public:
         Living(int x, int y, char c, std::string race, int hp, int atk, int def, int max_hp);
