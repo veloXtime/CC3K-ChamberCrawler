@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include "board.h"
 #include "playerCharacter.h"
 #include "shade.h"
 #include "drow.h"
@@ -131,7 +132,7 @@ void EnemyCharacter::death(PlayerCharacter &pc){
 void EnemyCharacter::getNotified(PlayerCharacter & pc){
     srand (time(NULL));
     int success = rand() % 2;
-    if (success = 1) this->attack(pc);
+    if (success == 1) this->attack(pc);
     else{
         std::string s = "";
         s.push_back(this->getChar());

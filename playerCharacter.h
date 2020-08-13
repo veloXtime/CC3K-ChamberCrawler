@@ -41,6 +41,7 @@ class PlayerCharacter : public Living
         
         // Notify a game element
         void notify(std::shared_ptr<GameElement> ge);
+        virtual void getNotified(PlayerCharacter & pc) override;	// pure virtual must be implemented
 
         /* when player decides to drink a potion 
          * adds the potion to the decorator chain */

@@ -1,5 +1,6 @@
 #include "human.h"
 #include "display.h"
+#include "board.h"
 #include "playerCharacter.h"
 
 // Constructor
@@ -16,4 +17,8 @@ void Human::death(PlayerCharacter &pc){
 
     std::string s = "Some gold is left on the floor. ";
     gameDisplay.newAction(s);
+
+    board.enemyDeath(*this);
+
+    // another gold is spawned randomly in this chamber
 }

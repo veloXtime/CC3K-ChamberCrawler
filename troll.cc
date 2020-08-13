@@ -1,8 +1,8 @@
 #include "troll.h"
 
 // Constructor
-Troll::Troll(int x, int y, char c = '@', std::string race = "troll", 
-             int hp = 125, int atk = 25, int def = 15, int max_hp = 120)
+Troll::Troll(int x, int y, char c, std::string race, 
+             int hp, int atk, int def, int max_hp)
              : PlayerCharacter{x, y, c, race, hp, atk, def, max_hp} {}
 
 

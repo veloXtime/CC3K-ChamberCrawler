@@ -1,6 +1,4 @@
 #include "playerCharacter.h"
-#include "potion.h"
-#include "treasure.h"
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
@@ -64,6 +62,7 @@ void PlayerCharacter::notify(std::shared_ptr<GameElement> ge)
     ge->getNotified(*this);
 }
 
+void PlayerCharacter::getNotified(PlayerCharacter & pc) {}
 // Attacking another character
 void PlayerCharacter::attack(EnemyCharacter &c)
 {

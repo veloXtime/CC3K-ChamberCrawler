@@ -2,7 +2,6 @@
 #include "merchant.h"
 #include "playerCharacter.h"
 #include "display.h"
-#include "board.h"
 #include "shade.h"
 #include "drow.h"
 #include "vampire.h"
@@ -32,9 +31,7 @@ void Merchant::death(PlayerCharacter &pc){
     gameDisplay.newAction(s);
 
     board.revert(x, y);
-
-	auto mh = std::make_shared<Treasure>(x, y, TreasureType::Merchant);
-    board.replace(mh);
+    board.enemyDeath(*this);
 }
 
 // Override notify

@@ -105,7 +105,8 @@ void Board::spawnGold()
 		}
 		if (prob <= 5)
 		{
-			auto gold = make_shared<Treasure>(x, y, TreasureType::NORMAL_PILE);
+			TreasureType tt = TreasureType::NORMAL_PILE;
+			auto gold = make_shared<Treasure>(x, y, tt);
 			floor[x][y].push_back(gold);
 		}
 		if (prob <= 6)
@@ -139,7 +140,8 @@ void Board::spawnGold()
 		}
 		else
 		{
-			auto gold = make_shared<Treasure>(x, y, TreasureType::SMALL_PILE);
+			TreasureType tt = TreasureType::SMALL_PILE;
+			auto gold = make_shared<Treasure>(x, y, tt);
 			floor[x][y].push_back(gold);
 		}
 	}
@@ -309,4 +311,30 @@ int Board::getChamberInd(int x, int y)
 void Board::setRow(vector<vector<shared_ptr<GameElement>>> newRow)
 {
 	floor.push_back(newRow);
+}
+
+void Board::enemyDeath(EnemyCharacter & e)
+{
+	char c = e.getChar();
+	int x = e.getXCoordinate();
+	int y = e.getYCoordinate();
+	revert(x, y);
+	TreasureType tt = TreasureType::NORMAL_PILE;
+	auto g1 = std::make_shared<Treasure>(x, y, tt);
+	replace(g1);
+
+	if (c == 'H')
+	{
+		int chamberInd = getChamberInd(x, y);
+		srand(time(NULL));
+		int x1 = rand() % floor.size();
+		int y1 = rand() % floor[0].size();
+		while (getChamberInd(x1,y1) != chamberInd)
+		{
+			x = rand() % floor.size();
+			y = rand() % floor[0].size();
+		}
+		auto g2 = make_shared<Treasure>(x, y, tt);
+		replace(g2);
+	}
 }

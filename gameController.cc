@@ -2,12 +2,15 @@
 #include <ctime>
 #include <algorithm>
 #include "gameController.h"
+#include "enemyCharacter.h"
+#include "potion.h"
 #include "shade.h"
 #include "drow.h"
 #include "vampire.h"
 #include "troll.h"
 #include "goblin.h"
 #include "architect.h"
+#include "treasure.h"
 
 using namespace std;
 
@@ -46,7 +49,7 @@ void GameController::spawnStair()
 		}
 	}
 	auto stair = make_shared<Architect>(x, y, ind, '\\');
-	replace(stair);
+	board.replace(stair);
 	stairX = x;
 	stairY = y;
 }
@@ -80,11 +83,11 @@ void GameController::resetFloor(istream & in)
 					chamberInd = ind;
 					++ind;
 				}
-				sqr.push_back(make_shared<Floor>(row, col, c, chamberInd));
+				sqr.push_back(make_shared<Architect>(row, col, c, chamberInd));
 			}
 			else
 			{
-				sqr.push_back(make_shared<Floor>(row, col, c, 0));
+				sqr.push_back(make_shared<Architect>(row, col, c, 0));
 			}
 			newRow.push_back(sqr);
 			++col;
@@ -109,7 +112,7 @@ void GameController::spawnPC(char c)
 	srand (time(NULL));
 	int x = 0;
 	int y = 0;
-	while (floor[x][y].back()->getChar() != '.')
+	while (board.floor[x][y].back()->getChar() != '.')
 	{
 		x = rand() % row;
 		y = rand() % col;
@@ -179,7 +182,8 @@ void GameController::movePC(string direc)
 	}
 	if (c == 'G')
 	{
-		board.pickGold();
+		shared_ptr<Treasure> t = dynamic_pointer_cast<Treasure>(board.floor[x][y].back());
+		pc->pickup(t);
 		board.replace(pc);	// if PC 
 	}
 }
@@ -200,7 +204,8 @@ void GameController::drinkPotion(string direc)
 
 	if (board.getChar(x, y) == 'P')
 	{
-		pc->drink(board.floor[x][y].back());
+		shared_ptr<Potion> p = dynamic_pointer_cast<Potion>(board.floor[x][y].back());
+		pc->drink(p);
 	}
 }
 
@@ -220,7 +225,8 @@ void GameController::attackEnemy(string direc)
 
 	if (board.getChar(x, y) == 'E')
 	{
-		pc->attack(board.floor[x][y].back());
+		shared_ptr<EnemyCharacter> e = dynamic_pointer_cast<EnemyCharacter>(board.floor[x][y].back());
+		pc->attack(*e);
 	}
 }
 

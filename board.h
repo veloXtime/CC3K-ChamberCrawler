@@ -12,6 +12,8 @@ using std::string;
 
 class GameController;
 class EnemyCharacter;
+class Treasure;
+class Potion;
 
 class Board
 {
@@ -31,15 +33,17 @@ class Board
 		void moveEnemy(int pc_x, int pc_y);	// complete
 		void moveOneEnemy(std::shared_ptr<EnemyCharacter> e);	// complete
 
-		void revert(std::shared_ptr<GameElement> ge);		// complete
-		void revert(int x, int y);		// complete
-		void replace(std::shared_ptr<GameElement> ge);		// complete
-
 		void setLevel(int lv);	// complete
 		void setRow(vector<vector<shared_ptr<GameElement>>> newRow);// complete
 
 	public:
 		int getLevel();		// complete
+
+		void revert(std::shared_ptr<GameElement> ge);		// complete
+		void revert(int x, int y);		// complete
+
+		void enemyDeath(EnemyCharacter & e);
+		void replace(std::shared_ptr<GameElement> ge);		// complete
 		int getChamberInd(int x, int y);	// complete
 		char getChar(int x, int y); // get game element type at (x,y), complete
 
