@@ -2,7 +2,7 @@
 #include "display.h"
 
 Treasure::Treasure(int x, int y, TreasureType val)
-:NonLiving(x, y, 'G'), amount{static_cast<int> (val)}}
+:NonLiving(x, y, 'G'), amount{static_cast<int> (val)}
 {
 }
 
