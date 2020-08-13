@@ -19,8 +19,10 @@ void display::move(vector<vector<vector<shared_ptr<GameElement>>>>& b)
     {
         for(int y = 0; y < b[x].size(); ++y)
         {
-
-            boardBuffer[x][y] = b[x][y].back()->getChar();
+            if(b[x][y].size() > 0)
+                boardBuffer[x][y] = b[x][y].back()->getChar();
+            else
+                boardBuffer[x][y] = ' ';
         }
     }
 }

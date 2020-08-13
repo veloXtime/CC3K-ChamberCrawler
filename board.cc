@@ -65,13 +65,13 @@ void Board::spawnPotion()
 	{
 		int prob = rand() % 6 + 1;
 		int chamberId = rand() % 5 + 1;
-		int x = rand() % floor.size();
-		int y = rand() % floor[0].size();
-		while (getChamberInd(x,y) != chamberId || board.getChar(x, y) != '.')
+		int x, y;
+		do
 		{
 			x = rand() % floor.size();
 			y = rand() % floor[0].size();
 		}
+		while (getChamberInd(x,y) != chamberId);// || board.getChar(x, y) != '.');
 		spawnOnePotion(x, y, prob);
 	}
 }
@@ -218,28 +218,26 @@ void Board::moveOneEnemy(std::shared_ptr<EnemyCharacter> e)
 {
 	int x = e->getXCoordinate();	// x and y will never be at border
 	int y = e->getYCoordinate();
-	if (getChar(x, y) == e->getChar())	// enemy was near pc, no change
+	if (floor[x][y].back().get() == e.get())	// enemy was near pc, no change
 	{
 		return;
 	}
-	else
+
+	vector<pair<int,int>> unoccupied;
+	if (getChar(x, y-1) == '.') unoccupied.push_back(make_pair(x,y-1));
+	if (getChar(x, y+1) == '.') unoccupied.push_back(make_pair(x, y+1));
+	if (getChar(x-1, y) == '.') unoccupied.push_back(make_pair(x-1, y));
+	if (getChar(x+1, y) == '.') unoccupied.push_back(make_pair(x+1, y));
+	if (getChar(x-1, y+1) == '.') unoccupied.push_back(make_pair(x-1, y+1));
+	if (getChar(x-1, y-1) == '.') unoccupied.push_back(make_pair(x-1, y-1));
+	if (getChar(x+1, y+1) == '.') unoccupied.push_back(make_pair(x+1, y+1));
+	if (getChar(x+1, y-1) == '.') unoccupied.push_back(make_pair(x+1, y-1));
+	int count = unoccupied.size();
+	if (count != 0)
 	{
-		vector<pair<int,int>> unoccupied;
-		if (getChar(x, y-1) == '.') unoccupied.push_back(make_pair(x,y-1));
-		if (getChar(x, y+1) == '.') unoccupied.push_back(make_pair(x, y+1));
-		if (getChar(x-1, y) == '.') unoccupied.push_back(make_pair(x-1, y));
-		if (getChar(x+1, y) == '.') unoccupied.push_back(make_pair(x+1, y));
-		if (getChar(x-1, y+1) == '.') unoccupied.push_back(make_pair(x-1, y+1));
-		if (getChar(x-1, y-1) == '.') unoccupied.push_back(make_pair(x-1, y-1));
-		if (getChar(x+1, y+1) == '.') unoccupied.push_back(make_pair(x+1, y+1));
-		if (getChar(x+1, y-1) == '.') unoccupied.push_back(make_pair(x+1, y-1));
-		int count = unoccupied.size();
-		if (count != 0)
-		{
-			int random = rand() % count;
-			x = unoccupied[random].first;
-			y = unoccupied[random].second;
-		}
+		int random = rand() % count;
+		x = unoccupied[random].first;
+		y = unoccupied[random].second;
 	}
 	e->setXCoordinate(x);
 	e->setYCoordinate(y);
