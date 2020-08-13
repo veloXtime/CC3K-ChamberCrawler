@@ -200,6 +200,10 @@ void GameController::movePC(string direc)
 	{
 		shared_ptr<Treasure> t = dynamic_pointer_cast<Treasure>(board.floor[x][y].back());
 		pc->pickup(t);
+		board.revert(x, y);
+		board.revert(pc);
+		pc->setXCoordinate(x);
+		pc->setYCoordinate(y);
 		board.replace(pc);	// if PC
 	}
 }
