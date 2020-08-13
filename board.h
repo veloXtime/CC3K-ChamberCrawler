@@ -18,12 +18,12 @@ class Potion;
 class Board
 {
 	private:
-		int level = 1;
+		int level = 0;
 		vector<vector<vector<shared_ptr<GameElement>>>> floor;
 		vector<shared_ptr<EnemyCharacter>> enemyList;
 
 	public:
-		void spawnPotion();	// 
+		void spawnPotion();	//
 		void spawnOnePotion(int x, int y, int prob);
 
 		void spawnGold();
