@@ -153,7 +153,6 @@ void EnemyCharacter::death(PlayerCharacter &pc){
 
 // Get notified by a pc
 void EnemyCharacter::getNotified(PlayerCharacter & pc){
-    srand (time(NULL));
     int success = rand() % 2;
     if (success == 1) this->attack(pc);
     else{

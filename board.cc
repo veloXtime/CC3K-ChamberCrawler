@@ -73,7 +73,6 @@ void Board::spawnOnePotion(int x, int y, int prob)
 
 void Board::spawnPotion()
 {
-	srand(time(NULL));
 	for (int i = 0; i < 10; ++i)
 	{
 		int prob = rand() % 6 + 1;
@@ -91,7 +90,6 @@ void Board::spawnPotion()
 
 void Board::spawnGold()
 {
-	srand(time(NULL));
 	for (int i = 0; i < 10; ++i)
 	{
 		int prob = rand() % 8 + 1;
@@ -190,7 +188,6 @@ void Board::spawnOneEnemy(int x, int y, int prob)
 
 void Board::spawnEnemy()
 {
-	srand(time(NULL));
 	for (int i = 0; i < 20; ++i)
 	{
 		int prob = rand() % 18 + 1;
@@ -251,7 +248,6 @@ void Board::moveOneEnemy(std::shared_ptr<EnemyCharacter> e)
 		int count = unoccupied.size();
 		if (count != 0)
 		{
-			srand (time(NULL));
 			int random = rand() % count;
 			x = unoccupied[random].first;
 			y = unoccupied[random].second;
@@ -326,7 +322,6 @@ void Board::enemyDeath(EnemyCharacter & e)
 	if (c == 'H')
 	{
 		int chamberInd = getChamberInd(x, y);
-		srand(time(NULL));
 		int x1 = rand() % floor.size();
 		int y1 = rand() % floor[0].size();
 		while (getChamberInd(x1,y1) != chamberInd)

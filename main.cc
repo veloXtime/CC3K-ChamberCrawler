@@ -2,6 +2,8 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
+#define DEBUG
+
 
 bool checkDirection(string inp)
 {
@@ -13,6 +15,10 @@ bool checkDirection(string inp)
 
 int main(int argc, char* argv[])
 {
+	srand(time(NULL));
+	#ifdef DEBUG
+	srand(1);
+	#endif
     string fname = (argc > 1) ? argv[1] : "default.txt";
     auto in = std::make_shared<std::ifstream>(fname);
     int stillMode = 0;

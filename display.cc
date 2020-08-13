@@ -28,8 +28,8 @@ void display::move(vector<vector<vector<shared_ptr<GameElement>>>>& b)
 // called when the status line changes
 void display::getNotified(PlayerCharacter* pc)
 {
-    status = "Race: " + pc->getRace() + " Gold: " + std::to_string(pc->getScore()) + "\n";
-    string fill = string(' ', 79 - 7 - status.length());
+    status = "Race: " + pc->getRace() + " Gold: " + std::to_string(pc->getScore());
+    string fill = string(79 - 8 - status.length(), ' ');
     status = status + fill + "Floor: " + std::to_string(board.getLevel());
 
     hp = "HP: " + std::to_string(pc->getHp());
@@ -42,7 +42,7 @@ void display::action(ACTION act)
 {
     switch(act)
 	{
-		case ACTION::MoveEA: 
+		case ACTION::MoveEA:
 			actline +="You moved east. "; break;
 		case ACTION::MoveWE:
 			actline +="You moved west. "; break;
@@ -80,7 +80,7 @@ void display::action(ACTION act, int v)
     {
         case ACTION::PickG:
             actline += "You picked up " + to_string(v) + " piece(s) of gold. ";
-            break; 
+            break;
         default: break;
     }
 }
@@ -121,10 +121,10 @@ std::ostream& operator<<(std::ostream& out, const display& ac)
     {
         out << ac.boardBuffer[i] << '\n';
     }
-    out << ac.status << '\n' << ac.hp << '\n' << ac.atk << '\n' 
+    out << ac.status << '\n' << ac.hp << '\n' << ac.atk << '\n'
     << ac.def << '\n' << ac.actline << '\n';
 
     return out;
 }
 
-display gameDisplay{}; 
+display gameDisplay{};

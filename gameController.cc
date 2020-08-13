@@ -33,7 +33,6 @@ void GameController::pcNotifyAround()
 
 void GameController::spawnStair()
 {
-	srand(time(NULL));
 	int ind = pcChamber;
 	while (ind == pcChamber)
 	{
@@ -125,7 +124,6 @@ void GameController::spawnPC(char c)
 {
 	int row = board.floor.size();
 	int col = board.floor[0].size();
-	srand (time(NULL));
 	int x = 0;
 	int y = 0;
 	while (board.floor[x][y].back()->getChar() != '.')
