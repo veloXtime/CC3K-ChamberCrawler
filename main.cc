@@ -5,47 +5,47 @@ using namespace std;
 
 bool checkDirection(string inp)
 {
-	return (inp == "no" || inp == "so"
-			|| inp == "ea" || inp == "we"
-			|| inp == "ne" || inp == "nw"
-			|| inp == "se" || inp == "sw");
+    return (inp == "no" || inp == "so"
+            || inp == "ea" || inp == "we"
+            || inp == "ne" || inp == "nw"
+            || inp == "se" || inp == "sw");
 }
 
 int main(int argc, char* argv[])
 {
-	string fname = (argc > 1) ? argv[1] : "default.txt";
-	auto in = std::make_shared<std::ifstream>(fname);
-	int stillMode = 0;
-	GameController GC;
-	string line;
+    string fname = (argc > 1) ? argv[1] : "default.txt";
+    auto in = std::make_shared<std::ifstream>(fname);
+    int stillMode = 0;
+    GameController GC;
+    string line;
 
-	while (board.getLevel() <= 5)
-	{
-		GC.resetFloor(*in);	// contains display
+    while (board.getLevel() <= 5)
+    {
+        GC.resetFloor(*in);	// contains display
 
-		if (board.getLevel() == 1)
-		{
-			while (std::getline(std::cin, line))
-			{
-                std::cout << "Please select a race:\n";
-				std::istringstream iss{line};
-				char race;
-				iss >> race;
-				return 0;
-				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
-				{
-					GC.spawnPC(race);
-					break;
-				}
-				if (race == 'q')
-				{
-					return 1;
-				}
-				if (std::cin.eof()) { return 1; }
-			}
-		}
+        if (board.getLevel() == 1)
+        {
+            std::cout << "Please select a race:\n";
+            while (std::getline(std::cin, line))
+            {
+                std::istringstream iss{line};
+                char race;
+                iss >> race;
+                if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
+                {
+                    GC.spawnPC(race);
+                    break;
+                }
+                if (race == 'q')
+                {
+                    return 1;
+                }
+                if (std::cin.eof()) { return 1; }
+            }
+        }
+        GC.flushDisplay();
+        GC.setGameElement();	// contains display
 
-		GC.setGameElement();	// contains display
 
 		while (std::getline(std::cin, line))
 		{
@@ -98,6 +98,7 @@ int main(int argc, char* argv[])
 			}
 			else if (inp == "r")
 			{
+				in = std::make_shared<std::ifstream>(fname);
 				GC.setLevel(0);
 				stillMode = 0;
 				GC.setLevel(0);
@@ -109,7 +110,6 @@ int main(int argc, char* argv[])
 				return 0;
 			}
 		}
-		GC.setLevel(board.getLevel()+1);
 	}
 	GC.displayWin();
 }

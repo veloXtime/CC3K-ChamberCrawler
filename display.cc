@@ -19,14 +19,8 @@ void display::move(vector<vector<vector<shared_ptr<GameElement>>>>& b)
     {
         for(int y = 0; y < b[x].size(); ++y)
         {
-            for(int i = 2; i >= 0; --i)
-            {
-                if(b[x][y][i] != nullptr)
-                {
-                    boardBuffer[x][y] = b[x][y][i]->getChar();
-                    break;
-                }
-            }
+
+            boardBuffer[x][y] = b[x][y].back()->getChar();
         }
     }
 }

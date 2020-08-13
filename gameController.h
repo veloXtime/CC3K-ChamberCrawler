@@ -37,6 +37,7 @@ class GameController
 		
 		bool levelComplete();		// complete
 		void setPCChamber(int chamberInd);	// complete
+        void flushDisplay();
 };
 
 #endif
