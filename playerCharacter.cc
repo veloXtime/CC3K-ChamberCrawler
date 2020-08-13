@@ -139,7 +139,7 @@ void PlayerCharacter::attack(EnemyCharacter &c)
 // Attacked by a human
 void PlayerCharacter::attackedBy(Human &human)
 {
-    int dmg = ceil(100/(100 + this->getDef()) * human.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * human.getAtk());
     this->setHp(this->getHp() - dmg);
 
     gameDisplay.action(ACTION::GotAtk, dmg, &human, this);
@@ -154,7 +154,7 @@ void PlayerCharacter::attackedBy(Human &human)
 // Attacked by a dwarf
 void PlayerCharacter::attackedBy(Dwarf &dwarf)
 {
-    int dmg = ceil(100/(100 + this->getDef()) * dwarf.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * dwarf.getAtk());
     this->setHp(this->getHp() - dmg);
     
     gameDisplay.action(ACTION::GotAtk, dmg, &dwarf, this);
@@ -168,7 +168,7 @@ void PlayerCharacter::attackedBy(Dwarf &dwarf)
 // Attacked by an elf
 void PlayerCharacter::attackedBy(Elf &elf)
 {
-    int dmg = ceil(100/(100 + this->getDef()) * elf.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * elf.getAtk());
     this->setHp(this->getHp() - 2*dmg);
 
     gameDisplay.action(ACTION::GotAtk, dmg, &elf, this);
@@ -182,7 +182,7 @@ void PlayerCharacter::attackedBy(Elf &elf)
 // Attacked by an orcs
 void PlayerCharacter::attackedBy(Orcs &orcs)
 {
-    int dmg = ceil(100/(100 + this->getDef()) * orcs.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * orcs.getAtk());
     this->setHp(this->getHp() - dmg);
 
     gameDisplay.action(ACTION::GotAtk, dmg, &orcs, this);
@@ -196,7 +196,7 @@ void PlayerCharacter::attackedBy(Orcs &orcs)
 // Attacked by a merchant
 void PlayerCharacter::attackedBy(Merchant &merchant)
 {
-    int dmg = ceil(100/(100 + this->getDef()) * merchant.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * merchant.getAtk());
     this->setHp(this->getHp() - dmg);
     
     gameDisplay.action(ACTION::GotAtk, dmg, &merchant, this);
@@ -210,7 +210,7 @@ void PlayerCharacter::attackedBy(Merchant &merchant)
 // Attacked by a dragon
 void PlayerCharacter::attackedBy(Dragon &dragon)
 {
-    int dmg = ceil(100/(100 + this->getDef()) * dragon.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * dragon.getAtk());
     this->setHp(this->getHp() - dmg);
     
     gameDisplay.action(ACTION::GotAtk, dmg, &dragon, this);
@@ -224,7 +224,7 @@ void PlayerCharacter::attackedBy(Dragon &dragon)
 // Attacked by a halfling
 void PlayerCharacter::attackedBy(Halfling &halfling)
 {
-    int dmg = ceil(100/(100 + this->getDef()) * halfling.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * halfling.getAtk());
     this->setHp(this->getHp() - dmg);
     
     gameDisplay.action(ACTION::GotAtk, dmg, &halfling, this);
