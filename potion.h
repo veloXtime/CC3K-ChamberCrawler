@@ -18,7 +18,7 @@ class Potion: public NonLiving
         Potion();
         Potion(int x, int y, int val); 
         std::string getType();
-        virtual void drink(PlayerCharacter*);
+        //virtual void drink(std::shared_ptr<PlayerCharacter>);
         
         virtual std::pair<int,int> effect(); //an instance of this baseclass always return 0
 
@@ -54,7 +54,7 @@ class PotionHP: public Potion
         // Costructor
         PotionHP(int x, int y, int val);
 
-        void drink(PlayerCharacter*) override;
+        //void drink(std::shared_ptr<PlayerCharacter>) override;
         std::pair<int,int> effect() override;
 };
 

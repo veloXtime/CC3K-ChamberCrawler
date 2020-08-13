@@ -46,7 +46,14 @@ void PlayerCharacter::setScore(int v)
 
 void PlayerCharacter::drink(std::shared_ptr<Potion> p)
 {
-    p->drink(this); //modify this accordingly
+    if(p->type[1] == 'H')
+    {
+        if(getRace() == "drow")
+            p->val*=1.5;
+        setHp(getHp() + p->val);
+    }
+    else
+        p->next = potions;
 }
 
 void PlayerCharacter::pickup(std::shared_ptr<Treasure> p)

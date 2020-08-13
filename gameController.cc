@@ -222,17 +222,14 @@ void GameController::drinkPotion(string direc)
 
 	if (board.getChar(x, y) == 'P')
 	{
-		shared_ptr<Potion> p = static_pointer_cast<Potion>(board.floor[x][y].back());
-		#ifdef DEBUG
-		cerr << pc->potions->val << pc->potions->next.get() << pc->potions.use_count() << '\n'
-		#endif
+		//shared_ptr<Potion> p = static_pointer_cast<Potion>(board.floor[x][y].back());
+		auto p = static_pointer_cast<Potion>(board.floor[x][y].back());
 		pc->drink(p);
-		#ifdef DEBUG
-		cerr << pc->potions->val << pc->potions->next.get() << pc->potions.use_count() << '\n'
-		#endif
+		//pc->drink(static_cast<Potion*>(board.floor[x][y].back().get()));
+		board.revert(x, y);
 	}
 
-	board.revert(x, y);
+	
 }
 
 void GameController::attackEnemy(string direc)

@@ -15,12 +15,12 @@ std::pair<int, int> Potion::effect()
     return std::make_pair<int,int>(0, 0);
 }
 
-void Potion::drink(PlayerCharacter* p)
-{
-    next = p->potions;
-    p->potions = std::shared_ptr<Potion>(this);
-    gameDisplay.action(ACTION::DrinkP, this);
-}
+// void Potion::drink(std::shared_ptr<PlayerCharacter> p)
+// {
+//     //next = p->potions;
+//     p->drink()
+//     gameDisplay.action(ACTION::DrinkP, this);
+// }
 
 void Potion::getNotified(PlayerCharacter& p)
 {
@@ -47,14 +47,14 @@ std::pair<int, int> PotionHP::effect()
     return std::make_pair<int, int>(0, 0);
 }
 
-void PotionHP::drink(PlayerCharacter* pc)
-{
-    if(pc->getRace() == "drow")
-        val*=1.5;
-    pc->setHp(pc->getHp() + val);
+// void PotionHP::drink(PlayerCharacter* pc)
+// {
+//     if(pc->getRace() == "drow")
+//         val*=1.5;
+//     pc->setHp(pc->getHp() + val);
 
-    gameDisplay.action(ACTION::DrinkP, this);
-}
+//     gameDisplay.action(ACTION::DrinkP, this);
+// }
 /* HP potion */
 
 /* Atk Potion */
