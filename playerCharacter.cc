@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include "potion.h"
 #include "shade.h"
 #include "drow.h"
 #include "vampire.h"
@@ -15,6 +16,7 @@
 #include "dragon.h"
 #include "halfling.h"
 #include "display.h"
+#include "treasure.h"
 
 PlayerCharacter::PlayerCharacter
 (int x, int y, char c, std::string race, int hp, int atk, int def, int max_hp)
