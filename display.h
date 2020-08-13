@@ -48,7 +48,8 @@ class display
     
     
     public:
-
+		display();
+		
         void move(vector<vector<vector<shared_ptr<GameElement>>>>&);
 
         // called when the status line changes
