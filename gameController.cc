@@ -225,6 +225,8 @@ void GameController::drinkPotion(string direc)
 		shared_ptr<Potion> p = dynamic_pointer_cast<Potion>(board.floor[x][y].back());
 		pc->drink(p);
 	}
+
+	board.revert(x, y);
 }
 
 void GameController::attackEnemy(string direc)

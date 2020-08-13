@@ -38,36 +38,24 @@ struct sortCompare
 
 void Board::spawnOnePotion(int x, int y, int prob)
 {
-	if (prob == 1)
+	std::shared_ptr<Potion> potion;
+	switch(prob)
 	{
-		auto potion = make_shared<PotionHP>(x, y, 10); // Restore health (RH)
-		floor[x][y].push_back(potion);
+		case 1: potion = make_shared<PotionHP>(x, y, 10);  
+				break; // Restore health (RH) break;
+		case 2: potion = make_shared<PotionAtk>(x, y, 5); 
+				break; // Boost Atk (BA): increase ATK by 5
+		case 3: potion = make_shared<PotionDef>(x, y, 5); 
+				break; // Boost Def (BD): increase Def by 5
+		case 4: potion = make_shared<PotionHP>(x, y, -10); 
+				break; // Poison health (PH): lose up to 10 HP 
+		case 5: potion = make_shared<PotionAtk>(x, y, -5); 
+				break; // Wound Atk (WA): decrease Atk by 5
+		default: potion = make_shared<PotionDef>(x, y, -5); 
+				break; // Wound Def (WD): decrease Def by 5
 	}
-	if (prob == 2)
-	{
-		auto potion = make_shared<PotionAtk>(x, y, 5); // Boost Atk (BA): increase ATK by 5
-		floor[x][y].push_back(potion);
-	}
-	if (prob == 3)
-	{
-		auto potion = make_shared<PotionDef>(x, y, 5); // Boost Def (BD): increase Def by 5
-		floor[x][y].push_back(potion);
-	}
-	if (prob == 4)
-	{
-		auto potion = make_shared<PotionHP>(x, y, -10); // Poison health (PH): lose up to 10 HP 
-		floor[x][y].push_back(potion);
-	}
-	if (prob == 5)
-	{
-		auto potion = make_shared<PotionAtk>(x, y, -5); // Wound Atk (WA): decrease Atk by 5
-		floor[x][y].push_back(potion);
-	}
-	else	
-	{
-		auto potion = make_shared<PotionDef>(x, y, -5); // Wound Def (WD): decrease Def by 5
-		floor[x][y].push_back(potion);
-	}
+
+	floor[x][y].push_back(potion);
 }
 
 
@@ -79,7 +67,7 @@ void Board::spawnPotion()
 		int chamberId = rand() % 5 + 1;
 		int x = rand() % floor.size();
 		int y = rand() % floor[0].size();
-		while (getChamberInd(x,y) != chamberId)
+		while (getChamberInd(x,y) != chamberId || board.getChar(x, y) != '.')
 		{
 			x = rand() % floor.size();
 			y = rand() % floor[0].size();
