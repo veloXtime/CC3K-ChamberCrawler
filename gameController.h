@@ -10,12 +10,12 @@
 class GameController
 {
 	private:
-		std::shared_ptr<PlayerCharacter> pc;
+		std::shared_ptr<PlayerCharacter> pc = nullptr;
 		int pcChamber = 0;
 		// the chamber of which pc is spawned into, initialized as 0
 
-		int stairX;
-		int stairY;
+		int stairX = 0;
+		int stairY = 0;
 
 		void spawnStair();	// complete
 		void pcNotifyAround();	// complete
