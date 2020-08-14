@@ -316,7 +316,10 @@ void Board::enemyDeath(shared_ptr<EnemyCharacter> e)
 	int y = e->getYCoordinate();
 	revert(x, y);
 	int chamberInd = getChamberInd(x, y);
-	enemyList.erase(find(enemyList.begin(), enemyList.end(), e));
+	if (e->getChar() != 'D')
+	{
+		enemyList.erase(find(enemyList.begin(), enemyList.end(), e));
+	}
 
 	if (c == 'H' || c == 'M')
 	{
