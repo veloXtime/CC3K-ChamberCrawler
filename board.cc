@@ -298,18 +298,19 @@ void Board::setRow(vector<vector<shared_ptr<GameElement>>> newRow)
 	floor.push_back(newRow);
 }
 
-void Board::enemyDeath(EnemyCharacter & e)
+void Board::enemyDeath(shared_ptr<EnemyCharacter> e)
 {
-	char c = e.getChar();
-	int x = e.getXCoordinate();
-	int y = e.getYCoordinate();
+	char c = e->getChar();
+	int x = e->getXCoordinate();
+	int y = e->getYCoordinate();
 	revert(x, y);
-	TreasureType tt = TreasureType::NORMAL_PILE;
-	auto g1 = std::make_shared<Treasure>(x, y, tt);
-	replace(g1);
+	enemyList.erase(find(enemyList.begin(), enemyList.end(), e));
 
 	if (c == 'H')
 	{
+		TreasureType tt = TreasureType::NORMAL_PILE;
+		auto g1 = std::make_shared<Treasure>(x, y, tt);
+		replace(g1);
 		int chamberInd = getChamberInd(x, y);
 		int x1 = rand() % floor.size();
 		int y1 = rand() % floor[0].size();

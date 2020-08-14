@@ -42,7 +42,7 @@ class Board
 		void revert(std::shared_ptr<GameElement> ge);		// complete
 		void revert(int x, int y);		// complete
 
-		void enemyDeath(EnemyCharacter & e);
+		void enemyDeath(shared_ptr<EnemyCharacter> e);
 		void replace(std::shared_ptr<GameElement> ge);		// complete
 		int getChamberInd(int x, int y);	// complete
 		char getChar(int x, int y); // get game element type at (x,y), complete

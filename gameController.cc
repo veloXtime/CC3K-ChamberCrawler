@@ -272,7 +272,8 @@ void GameController::attackEnemy(string direc)
 		#endif
 		if(e->getHp() == 0)
 		{
-			board.revert(e);
+			e->death(*pc);
+			board.enemyDeath(e);
 		}
 	}
 
