@@ -85,7 +85,6 @@ void PlayerCharacter::getNotified(PlayerCharacter & pc) {}
 void PlayerCharacter::attack(EnemyCharacter &c)
 {
     if (c.getChar() == 'L'){
-        srand (time(NULL));
         int success = rand() % 2;
         if (success == 1){
             if (this->getRace() == "shade")

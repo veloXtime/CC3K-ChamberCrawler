@@ -263,7 +263,14 @@ void GameController::attackEnemy(string direc)
 	{
 		shared_ptr<EnemyCharacter> e = dynamic_pointer_cast<EnemyCharacter>(board.floor[x][y].back());
 		pc->attack(*e);
+
+		if(e->getHp() == 0)
+		{
+			board.revert(e);
+		}
 	}
+
+	
 }
 
 void GameController::displayLose()
