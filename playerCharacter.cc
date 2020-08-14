@@ -53,7 +53,12 @@ void PlayerCharacter::drink(std::shared_ptr<Potion> p)
         setHp(getHp() + p->val);
     }
     else
+    {
         p->next = potions;
+        potions = p;
+    }
+    gameDisplay.action(ACTION::DrinkP, p.get());
+        
 }
 
 void PlayerCharacter::pickup(std::shared_ptr<Treasure> p)
