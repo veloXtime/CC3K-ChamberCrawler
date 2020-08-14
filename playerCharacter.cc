@@ -249,7 +249,6 @@ void PlayerCharacter::attackedBy(Halfling &halfling)
 }
 
 void PlayerCharacter::slain(char race){
-    srand (time(NULL));
     int gold = rand() % 2 + 1;
     this->setScore(score + gold);
 

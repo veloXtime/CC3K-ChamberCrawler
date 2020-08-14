@@ -148,7 +148,7 @@ void EnemyCharacter::attackedBy(Goblin &goblin){
 // Upon death of an enemy slained by pc
 void EnemyCharacter::death(PlayerCharacter &pc){
     pc.slain(this->getChar());
-    board.revert(x, y); //revert is private, what does it do here?
+    //board.revert(x, y); //revert is private, what does it do here?
 }
 
 // Get notified by a pc

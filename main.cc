@@ -17,7 +17,7 @@ int main(int argc, char* argv[])
 {
 	srand(time(NULL));
 	#ifdef DEBUG
-	srand(3);
+	srand(1);
 	#endif
     string fname = (argc > 1) ? argv[1] : "default.txt";
     auto in = std::make_shared<std::ifstream>(fname);

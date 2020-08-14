@@ -18,7 +18,7 @@ void Human::death(PlayerCharacter &pc){
     std::string s = "Some gold is left on the floor. ";
     //gameDisplay.newAction(s);
 
-    board.enemyDeath(*this);
+    //board.enemyDeath(*this);
 
     // another gold is spawned randomly in this chamber
     gameDisplay.newAction(s, false);
