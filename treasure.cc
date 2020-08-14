@@ -1,6 +1,6 @@
 #include "treasure.h"
 #include "display.h"
-
+#include "dragon.h"
 Treasure::Treasure(int x, int y, TreasureType val)
 :NonLiving(x, y, 'G'), amount{static_cast<int> (val)}
 {
@@ -31,5 +31,7 @@ DragonHoard::DragonHoard(int x, int y, std::shared_ptr<Dragon> dragon)
 
 int DragonHoard::getAmount() const
 {
-    return amount;
+    if(doragon->getHp() == 0)
+        return amount;
+    return 0;
 }

@@ -61,17 +61,19 @@ void PlayerCharacter::drink(std::shared_ptr<Potion> p)
         
 }
 
-void PlayerCharacter::pickup(std::shared_ptr<Treasure> p)
+bool PlayerCharacter::pickup(std::shared_ptr<Treasure> p)
 {
+    if(p->getAmount() == 0)
+    {
+        gameDisplay.newAction("Dragon is still alive, you cannot pick up the Drago Hoard.", false);
+        return false;
+    }
     score += p->getAmount();
     //should it also be responsible for removing p from the board?
     
     gameDisplay.action(ACTION::PickG, p->getAmount());
-    //gameDisplay.getNotified(this);
+    return true;
 
-    // std::string amount = std::to_string(p->getAmount());
-    // std::string s = "PC picks up " + amount + " gold. ";
-    // gameDisplay.newAction(s);
 }
 
 // Notify a game element

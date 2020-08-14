@@ -209,8 +209,11 @@ void GameController::movePC(string direc)
 	else if (c == 'G')
 	{
 		shared_ptr<Treasure> t = dynamic_pointer_cast<Treasure>(board.floor[x][y].back());
-		pc->pickup(t);
-		board.revert(x, y);
+		if (pc->pickup(t))
+		{
+			board.revert(x, y);
+		};
+		
 		board.revert(pc);
 		pc->setXCoordinate(x);
 		pc->setYCoordinate(y);
@@ -259,11 +262,14 @@ void GameController::attackEnemy(string direc)
 	else if (direc == "sw") { ++x; --y; }
 
 	char e = board.getChar(x, y);
-	if (e=='H' || e=='L' || e=='W' || e=='E' || e=='O' || e=='M')
+	if (e=='H' || e=='L' || e=='W' || e=='E' || e=='O' || e=='M' || e=='D')
 	{
 		shared_ptr<EnemyCharacter> e = dynamic_pointer_cast<EnemyCharacter>(board.floor[x][y].back());
 		pc->attack(*e);
 
+		#ifdef DEBUG
+		cerr << e->getRace() << "has " << e->getHp() << " HP\n";
+		#endif
 		if(e->getHp() == 0)
 		{
 			board.revert(e);

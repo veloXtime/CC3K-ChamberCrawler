@@ -47,7 +47,7 @@ class PlayerCharacter : public Living
          * adds the potion to the decorator chain */
         void drink(std::shared_ptr<Potion>);
 
-        void pickup(std::shared_ptr<Treasure>);
+        bool pickup(std::shared_ptr<Treasure>);
 
         // Attacking another character
         void attack(EnemyCharacter &c);
