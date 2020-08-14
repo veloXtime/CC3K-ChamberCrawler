@@ -244,6 +244,7 @@ void GameController::readGE(int x, int y, int & ind, char c, char race,
 void GameController::readFloor(istream & in, char race)	// version without default.txt
 {
 	board.floor.clear();
+	board.enemyList.clear();
 	++board.level;
 	int row = 0;
 	int col = 0;
