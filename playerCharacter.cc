@@ -259,3 +259,9 @@ void PlayerCharacter::slain(char race){
 
     if (this->getHp() == 0) gameDisplay.action(ACTION::Die);
 }
+
+
+void PlayerCharacter::resetPotion()
+{
+    potions = std::make_shared<Potion>();
+}

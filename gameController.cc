@@ -114,7 +114,7 @@ void GameController::resetFloor(istream & in)
 		++row;
 	}
 
-	if(board.level > 1)
+	if(board.level > 1)	//for all the upper floor
 	{
 		int x, y;
 		do 
@@ -123,6 +123,8 @@ void GameController::resetFloor(istream & in)
 			y = rand() % board.floor[0].size();
 		} while (board.floor[x][y].back()->getChar() != '.');
 		board.replace(pc);
+
+		pc.resetPotion();
 	}
 }
 

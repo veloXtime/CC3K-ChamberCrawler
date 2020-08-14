@@ -76,6 +76,7 @@ class PlayerCharacter : public Living
         //Slains an enemy
         virtual void slain(char race);
         
+        void resetPotion();
 };
 
 #endif

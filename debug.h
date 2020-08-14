@@ -1,7 +1,7 @@
 #define DEBUG
 
 #ifdef DEBUG
-#define GOALFLOOR 1
+#define GOALFLOOR 2
 #else
 #define GOALFLOOR 5
 #endif
