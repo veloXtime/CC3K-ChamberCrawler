@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     while (board.getLevel() <= 5)
     {
 		//initialization
-		if (board.getLevel() == 1)
+		if (board.getLevel() == 0)
 		{
 			std::cout << "Please select a race:\n";
 			while (std::getline(std::cin, line))
@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
 
 		if (fname == "default.txt")
 		{
-			GC.resetFloor();
+			GC.resetFloor(*in);
 			if (board.getLevel() == 1) GC.spawnPC(race);
 			GC.setGameElement();
 		}
