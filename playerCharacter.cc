@@ -65,7 +65,7 @@ bool PlayerCharacter::pickup(std::shared_ptr<Treasure> p)
 {
     if(p->getAmount() == 0)
     {
-        gameDisplay.newAction("Dragon is still alive, you cannot pick up the Drago Hoard.", false);
+        gameDisplay.newAction("Dragon is still alive, you cannot pick up the Dragon Hoard. ", false);
         return false;
     }
     score += p->getAmount();
