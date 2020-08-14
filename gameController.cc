@@ -275,6 +275,9 @@ void GameController::displayLose()
 
 void GameController::displayWin()
 {
+	gameDisplay.newAction("You reached the final stair. Your score is " + to_string(pc->getScore()) + ". ", false);
+	cout << gameDisplay;
+	gameDisplay.clearAction();
 }
 
 bool GameController::levelComplete()

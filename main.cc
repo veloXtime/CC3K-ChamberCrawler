@@ -65,6 +65,11 @@ int main(int argc, char* argv[])
 				GC.movePC(inp);
 				if (GC.levelComplete())
 				{
+					if(board.getLevel() == GOALFLOOR)
+					{
+						GC.displayWin();
+						return 0;
+					}
 					break;
 				}
 				if (!stillMode)
