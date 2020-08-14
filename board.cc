@@ -297,6 +297,13 @@ int Board::getChamberInd(int x, int y)
 	return 0;
 }
 
+int Board::getChamberIndHelp(int x, int y)
+{
+	auto tile = dynamic_pointer_cast<Architect>(floor[x][y][0]);
+	return tile->getChamberInd();
+}
+
+
 void Board::setRow(vector<vector<shared_ptr<GameElement>>> newRow)
 {
 	floor.push_back(newRow);

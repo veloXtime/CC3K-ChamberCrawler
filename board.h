@@ -44,6 +44,7 @@ class Board
 
 		void enemyDeath(shared_ptr<EnemyCharacter> e);
 		void replace(std::shared_ptr<GameElement> ge);		// complete
+		int getChamberIndHelp(int x, int y);
 		int getChamberInd(int x, int y);	// complete
 		char getChar(int x, int y); // get game element type at (x,y), complete
 

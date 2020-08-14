@@ -44,18 +44,22 @@ void GameController::pcNotifyAround()
 void GameController::spawnStair()
 {
 	int ind = pcChamber;
+	cout << ind;
 	while (ind == pcChamber)
 	{
 		ind = rand() % 5 + 1;
 	}
+	cout << ind;
 	int x = 0;
 	int y = 0;
 	while (true)
 	{
 		x = rand() % board.floor.size();
 		y = rand() % board.floor[0].size();
+		//cout << x << y << endl;
 		if (board.getChar(x, y) == '.' && board.getChamberInd(x, y) == ind)
 		{
+			cout << board.getChamberInd(x,y);
 			break;
 		}
 	}
@@ -65,7 +69,7 @@ void GameController::spawnStair()
 	stairY = y;
 }
 
-void GameController::readGE(int x, int y, int ind, char c, char race,
+void GameController::readGE(int x, int y, int & ind, char c, char race,
 	vector<shared_ptr<GameElement>> & sqr,
 	vector<shared_ptr<Dragon>> & doragon, 
 	vector<shared_ptr<DragonHoard>> & dh)
@@ -73,13 +77,11 @@ void GameController::readGE(int x, int y, int ind, char c, char race,
 	if (c == ' ' || c == '-' || c == '|' || c == '+' || c == '#')
 	{
 		sqr.push_back(make_shared<Architect>(x, y, c, 0));
-		cout << c;
 	}
 	else
 	{
-		cout << c;
-		int leftInd = board.getChamberInd(x, y-1);
-		int upInd = board.getChamberInd(x-1, y);
+		int leftInd = board.getChamberIndHelp(x, y-1);
+		int upInd = board.getChamberIndHelp(x-1, y);
 		int rightInd = 0;
 		int ro = x-1;
 		int co = y;
@@ -91,7 +93,7 @@ void GameController::readGE(int x, int y, int ind, char c, char race,
 		}
 		if (board.getChar(ro, co) == '.')
 		{
-			rightInd = board.getChamberInd(ro, co);
+			rightInd = board.getChamberIndHelp(ro, co);
 		}
 		int chamberInd = max(leftInd, upInd);
 		chamberInd = max(chamberInd, rightInd);
@@ -100,7 +102,7 @@ void GameController::readGE(int x, int y, int ind, char c, char race,
 			chamberInd = ind;
 			++ind;
 		}
-		sqr.push_back(make_shared<Architect>(x, y, c, chamberInd));
+		sqr.push_back(make_shared<Architect>(x, y, '.', chamberInd));
 
 		if (c == '.')
 		{
@@ -108,28 +110,33 @@ void GameController::readGE(int x, int y, int ind, char c, char race,
 		}
 		else if (c == 'H')
 		{
-			sqr.push_back(make_shared<Human>(x,y));
-			cout << c;
+			auto enemy = make_shared<Human>(x,y);
+			sqr.push_back(enemy);
+			board.enemyList.push_back(enemy);
 		}
 		else if (c == 'W')
 		{
-			sqr.push_back(make_shared<Dwarf>(x,y));
-			cout << c;
+			auto enemy = make_shared<Dwarf>(x,y);
+			sqr.push_back(enemy);
+			board.enemyList.push_back(enemy);
 		}
 		else if (c == 'E')
 		{
-			sqr.push_back(make_shared<Elf>(x,y));
-			cout << c;
+			auto enemy = make_shared<Elf>(x,y);
+			sqr.push_back(enemy);
+			board.enemyList.push_back(enemy);
 		}
 		else if (c == 'O')
 		{
-			sqr.push_back(make_shared<Orcs>(x,y));
-			cout << c;
+			auto enemy = make_shared<Orcs>(x,y);
+			sqr.push_back(enemy);
+			board.enemyList.push_back(enemy);
 		}
 		else if (c == 'M')
 		{
-			sqr.push_back(make_shared<Merchant>(x,y));
-			cout << c;
+			auto enemy = make_shared<Merchant>(x,y);
+			sqr.push_back(enemy);
+			board.enemyList.push_back(enemy);
 		}
 		else if (c == 'D')
 		{
@@ -140,7 +147,11 @@ void GameController::readGE(int x, int y, int ind, char c, char race,
 			dh.pop_back();
 		}
 		else if (c == 'L')
-			sqr.push_back(make_shared<Halfling>(x,y));
+		{
+			auto enemy = make_shared<Halfling>(x,y);
+			sqr.push_back(enemy);
+			board.enemyList.push_back(enemy);
+		}
 		else if (c == '0')
 			sqr.push_back(make_shared<PotionHP>(x, y, 10));
 		else if (c == '1')
@@ -251,8 +262,13 @@ void GameController::readFloor(istream & in, char race)	// version without defau
 		col = 0;
 		if (line[1] == '-' && row >= 1) break;
 		++row;
-		cout << endl;
 	}
+	int x = pc->getXCoordinate();
+	int y = pc->getYCoordinate();
+	auto tile = dynamic_pointer_cast<Architect>(board.floor[x][y][0]);
+	cout << tile->getChamberInd();
+	setPCChamber(tile->getChamberInd());
+	spawnStair();
 }
 
 

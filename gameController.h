@@ -24,7 +24,7 @@ class GameController
 	public:
 		void resetFloor(std::istream & in);	// complete
 		void readFloor(std::istream & in, char race);	// complete
-		void readGE(int, int, int, char, char,
+		void readGE(int, int, int &, char, char,
 				std::vector<std::shared_ptr<GameElement>> &, 
 				std::vector<std::shared_ptr<Dragon>> &, 
 				std::vector<std::shared_ptr<DragonHoard>> & dh);
