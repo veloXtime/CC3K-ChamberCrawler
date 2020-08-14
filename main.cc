@@ -25,13 +25,9 @@ int main(int argc, char* argv[])
     GameController GC;
     string line;
 
+	char race = ' ';
     while (board.getLevel() <= 5)
     {
-    	if (fname == "default.txt")
-    	{
-			GC.resetFloor(*in);	// contains display
-		}
-
 		//initialization
 		if (board.getLevel() == 1)
 		{
@@ -39,20 +35,10 @@ int main(int argc, char* argv[])
 			while (std::getline(std::cin, line))
 			{
 				std::istringstream iss{line};
-				char race;
 				iss >> race;
 				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
 				{
-					if (fname == "default.txt")
-					{
-						GC.resetFloor(*in);
-						GC.spawnPC(race);
-						break;
-					}
-					else
-					{
-						GC.readFloor(*in, race);
-					}
+					break;
 				}
 				if (race == 'q')
 				{
@@ -61,11 +47,17 @@ int main(int argc, char* argv[])
 				if (std::cin.eof()) { return 1; }
 			}
 		}
+
+		if (fname == "default.txt")
+		{
+			GC.resetFloor();
+			if (board.getLevel() == 1) GC.spawnPC(race);
+			GC.setGameElement();
+		}
 		else 
 		{
-			GC.readFloor(*in, ' ');
+			GC.readFloor(*in, race);
 		}
-		if (fname == "default.txt") GC.setGameElement();	// contains display
 		GC.flushDisplay();
 
 
