@@ -13,6 +13,7 @@
 #include "architect.h"
 #include "treasure.h"
 #include "display.h"
+#include "debug.h"
 
 using namespace std;
 
@@ -112,6 +113,17 @@ void GameController::resetFloor(istream & in)
 		if (line[1] == '-' && row >= 1) break;
 		++row;
 	}
+
+	if(board.level > 1)
+	{
+		int x, y;
+		do 
+		{
+			x = rand() % board.floor.size();
+			y = rand() % board.floor[0].size();
+		} while (board.floor[x][y].back()->getChar() != '.');
+		board.replace(pc);
+	}
 }
 
 
@@ -187,7 +199,7 @@ void GameController::movePC(string direc)
 
 	char c = board.getChar(x,y);
 	setPCChamber(board.getChamberInd(x,y));
-	if (c == '.' || c == '+' || c == '#')
+	if (c == '.' || c == '+' || c == '#' || c == '\\')
 	{
 		board.revert(pc);
 		pc->setXCoordinate(x);
@@ -267,7 +279,10 @@ void GameController::displayWin()
 
 bool GameController::levelComplete()
 {
-	return (pc->getXCoordinate() == stairX && pc->getXCoordinate() == stairY);
+	#ifdef DEBUG
+	cerr << pc->getXCoordinate() << ' ' << stairX << ' ' <<  pc->getXCoordinate() << ' ' << stairY << endl;
+	#endif
+	return (pc->getXCoordinate() == stairX && pc->getYCoordinate() == stairY);
 }
 
 void GameController::setPCChamber(int chamberInd)

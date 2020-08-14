@@ -176,6 +176,7 @@ void Board::spawnOneEnemy(int x, int y, int prob)
 
 void Board::spawnEnemy()
 {
+	enemyList.clear();
 	for (int i = 0; i < 20; ++i)
 	{
 		int prob = rand() % 18 + 1;

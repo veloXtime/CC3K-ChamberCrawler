@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 using namespace std;
-#define DEBUG
+#include "debug.h"
 
 
 bool checkDirection(string inp)
@@ -114,7 +114,7 @@ int main(int argc, char* argv[])
 			}
 			else if (inp == "q")
 			{
-				GC.displayLose();
+				//GC.displayLose();
 				return 0;
 			}
 			
