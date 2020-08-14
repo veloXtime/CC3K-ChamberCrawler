@@ -20,6 +20,8 @@ using namespace std;
 void GameController::pcNotifyAround()
 // pc will notify around when a round is finished
 {
+	if(pc->getRace() == "troll")
+		static_pointer_cast<Troll>(pc)->incHp();
 	int x = pc->getXCoordinate();
 	int y = pc->getYCoordinate();
 	pc->notify(board.floor[x+1][y].back());
