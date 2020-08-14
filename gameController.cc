@@ -122,9 +122,12 @@ void GameController::resetFloor(istream & in)
 			x = rand() % board.floor.size();
 			y = rand() % board.floor[0].size();
 		} while (board.floor[x][y].back()->getChar() != '.');
+
+		pc->setXCoordinate(x);
+		pc->setYCoordinate(y);
 		board.replace(pc);
 
-		pc.resetPotion();
+		pc->resetPotion();
 	}
 }
 
@@ -189,15 +192,28 @@ void GameController::movePC(string direc)
 {
 	int x = pc->getXCoordinate();
 	int y = pc->getYCoordinate();
-
-	if (direc == "no") { --x; }
-	else if (direc == "so") { ++x; }
-	else if (direc == "ea") { ++y; }
-	else if (direc == "we") { --y; }
-	else if (direc == "ne") { --x; ++y; }
-	else if (direc == "nw") { --x; --y; }
-	else if (direc == "se") { ++x; ++y; }
-	else if (direc == "sw") { ++x; --y; }
+	const int dx[] = {-1, 1, 0, 0, -1, -1, 1, 1},
+			  dy[] = {0, 0, 1, -1, 1, -1, 1, -1};
+	const char dir[][3] {"no", "so", "ea", "we", "ne", "nw", "se", "sw"};
+	int i;
+	const ACTION msg[] {ACTION::MoveNO, ACTION::MoveSO, ACTION::MoveEA, ACTION::MoveWE, ACTION::MoveNE, ACTION::MoveNW, ACTION::MoveSE, ACTION::MoveSW};
+	for(i = 0; i < 8; ++i)
+	{
+		if(direc == dir[i])
+		{
+			x += dx[i];
+			y += dy[i];
+			break;
+		}
+	}
+	// if (direc == "no") { --x; }
+	// else if (direc == "so") { ++x; }
+	// else if (direc == "ea") { ++y; }
+	// else if (direc == "we") { --y; }
+	// else if (direc == "ne") { --x; ++y; }
+	// else if (direc == "nw") { --x; --y; }
+	// else if (direc == "se") { ++x; ++y; }
+	// else if (direc == "sw") { ++x; --y; }
 
 	char c = board.getChar(x,y);
 	setPCChamber(board.getChamberInd(x,y));
@@ -207,6 +223,8 @@ void GameController::movePC(string direc)
 		pc->setXCoordinate(x);
 		pc->setYCoordinate(y);
 		board.replace(pc);
+
+		gameDisplay.action(msg[i]);
 	}
 	else if (c == 'G')
 	{
