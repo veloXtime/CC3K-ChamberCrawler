@@ -52,7 +52,7 @@ inline void gotAttaked(int dmg, PlayerCharacter* pc, EnemyCharacter* enemy)
 // Attacked by a shade
 void Merchant::attackedBy(Shade &shade){
     hostile = true;
-    int dmg = ceil(100/(100 + this->getDef()) * shade.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * shade.getAtk());
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &shade, this);

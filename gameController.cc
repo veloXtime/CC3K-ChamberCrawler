@@ -143,6 +143,11 @@ void GameController::readGE(int x, int y, int & ind, char c, char race,
 				auto dh = dynamic_pointer_cast<DragonHoard>(board.floor[x][y-1].back());
 				dh->setDragon(dragon);
 			}
+			else
+			{
+				abort();
+			}
+			
 			//board.floor[x][y].back()->setDragon(dragon);
 //			if (dh.size() != 0) dh.back()->setDragon(dragon);
 //			else doragon.push_back(dragon);
