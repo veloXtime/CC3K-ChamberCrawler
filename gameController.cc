@@ -44,12 +44,10 @@ void GameController::pcNotifyAround()
 void GameController::spawnStair()
 {
 	int ind = pcChamber;
-	cout << ind;
 	while (ind == pcChamber)
 	{
 		ind = rand() % 5 + 1;
 	}
-	cout << ind;
 	int x = 0;
 	int y = 0;
 	while (true)
@@ -142,9 +140,15 @@ void GameController::readGE(int x, int y, int & ind, char c, char race,
 		{
 			auto dragon = make_shared<Dragon>(x,y);
 			sqr.push_back(dragon);
-			if (dh.size() != 0) dh.back()->setDragon(dragon);
-			else doragon.push_back(dragon);
-			dh.pop_back();
+			if (board.getChar(x,y-1) == 'G')
+			{
+				auto dh = dynamic_pointer_cast<DragonHoard>(board.floor[x][y-1].back());
+				dh->setDragon(dragon);
+			}
+			//board.floor[x][y].back()->setDragon(dragon);
+//			if (dh.size() != 0) dh.back()->setDragon(dragon);
+//			else doragon.push_back(dragon);
+//			dh.pop_back();
 		}
 		else if (c == 'L')
 		{
@@ -181,17 +185,19 @@ void GameController::readGE(int x, int y, int & ind, char c, char race,
 		}
 		else if (c == '9')
 		{
-			if (doragon.size() == 0)
-			{
-				auto gold = make_shared<DragonHoard>(x, y, nullptr);
-				sqr.push_back(gold);
-				dh.push_back(gold);
-			}
-			else
-			{
-				sqr.push_back(make_shared<DragonHoard>(x, y, doragon.back()));
-				doragon.pop_back();
-			}
+			auto gold = make_shared<DragonHoard>(x, y, nullptr);
+			sqr.push_back(gold);
+//			if (doragon.size() == 0)
+//			{
+//				auto gold = make_shared<DragonHoard>(x, y, nullptr);
+//				sqr.push_back(gold);
+//				dh.push_back(gold);
+//			}
+//			else
+//			{
+//				sqr.push_back(make_shared<DragonHoard>(x, y, doragon.back()));
+//				doragon.pop_back();
+//			}
 		}
 		else if (c == '@')
 		{
