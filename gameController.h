@@ -22,6 +22,7 @@ class GameController
 
 	public:
 		void resetFloor(std::istream & in);	// complete
+		void readFloor(std::istream & in);	// complete
 		void setLevel(int lvl);			// complete
 		void spawnPC(char c);			// complete
 		void setGameElement();			// complete
