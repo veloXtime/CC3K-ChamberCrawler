@@ -95,10 +95,10 @@ void Board::spawnGold()
 			auto gold = make_shared<Treasure>(x, y, tt);
 			floor[x][y].push_back(gold);
 		}
-		if (prob <= 6)
+		else if (prob <= 6) //dragon hoard
 		{
 			vector<pair<int, int>> unoccupied;
-			while (true)
+			while (true) //there must be two empty spots
 			{
 				if (getChar(x, y-1) == '.') unoccupied.push_back(make_pair(x,y-1));
 				if (getChar(x, y+1) == '.') unoccupied.push_back(make_pair(x, y+1));
@@ -111,7 +111,7 @@ void Board::spawnGold()
 				if (unoccupied.size() > 0) break;
 				x = rand() % floor.size();
 				y = rand() % floor[0].size();
-				while (getChamberInd(x,y) != chamberInd)
+				while (getChamberInd(x,y) != chamberInd || board.getChar(x, y) != '.')
 				{
 					x = rand() % floor.size();
 					y = rand() % floor[0].size();
@@ -119,6 +119,7 @@ void Board::spawnGold()
 			}
 			auto gold = make_shared<DragonHoard>(x, y);
 			floor[x][y].push_back(gold);
+			//int i = rand() % unoccupied.size();
 			int dra_x = unoccupied[0].first;
 			int dra_y = unoccupied[0].second;
 			auto dragon = make_shared<Dragon>(dra_x, dra_y);

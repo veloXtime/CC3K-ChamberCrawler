@@ -5,5 +5,3 @@
 #else
 #define GOALFLOOR 5
 #endif
-
-#define GOALFLOOR 1

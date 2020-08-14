@@ -258,7 +258,7 @@ void GameController::attackEnemy(string direc)
 	else if (direc == "se") { ++x; ++y; }
 	else if (direc == "sw") { ++x; --y; }
 
-	if (board.getChar(x, y) == 'E')
+	if (board.getChar(x, y) == 'E') // needs change
 	{
 		shared_ptr<EnemyCharacter> e = dynamic_pointer_cast<EnemyCharacter>(board.floor[x][y].back());
 		pc->attack(*e);
