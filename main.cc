@@ -31,35 +31,42 @@ int main(int argc, char* argv[])
     	{
 			GC.resetFloor(*in);	// contains display
 		}
-		else
-		{
-			GC.readFloor(*in);
-		}
+
 		//initialization
-        if (board.getLevel() == 1)
-        {
-            std::cout << "Please select a race:\n";
-            while (std::getline(std::cin, line))
-            {
-                std::istringstream iss{line};
-                char race;
-                iss >> race;
-                if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
-                {
-                    GC.spawnPC(race);
-                    break;
-                }
-                if (race == 'q')
-                {
-                    return 1;
-                }
-                if (std::cin.eof()) { return 1; }
-            }
-        }
-        if (fname == "default.txt") GC.setGameElement();	// contains display
-        cout << "hello";
-        return 3;
-        GC.flushDisplay();
+		if (board.getLevel() == 1)
+		{
+			std::cout << "Please select a race:\n";
+			while (std::getline(std::cin, line))
+			{
+				std::istringstream iss{line};
+				char race;
+				iss >> race;
+				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
+				{
+					if (fname == "default.txt")
+					{
+						GC.resetFloor(*in);
+						GC.spawnPC(race);
+						break;
+					}
+					else
+					{
+						GC.readFloor(*in, race);
+					}
+				}
+				if (race == 'q')
+				{
+					return 1;
+				}
+				if (std::cin.eof()) { return 1; }
+			}
+		}
+		else 
+		{
+			GC.readFloor(*in, ' ');
+		}
+		if (fname == "default.txt") GC.setGameElement();	// contains display
+		GC.flushDisplay();
 
 
 		while (std::getline(std::cin, line))

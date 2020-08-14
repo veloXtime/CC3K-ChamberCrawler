@@ -65,12 +65,19 @@ void GameController::spawnStair()
 	stairY = y;
 }
 
-void GameController::readGE(int x, int y, int ind,
-	vector<shared_ptr<GameElement>> & sqr, char c,
-	vector<shared_ptr<Dragon>> & doragon, vector<shared_ptr<DragonHoard>> & dh)
+void GameController::readGE(int x, int y, int ind, char c, char race,
+	vector<shared_ptr<GameElement>> & sqr,
+	vector<shared_ptr<Dragon>> & doragon, 
+	vector<shared_ptr<DragonHoard>> & dh)
 {
-	if (c == '.')
+	if (c == ' ' || c == '-' || c == '|' || c == '+' || c == '#')
 	{
+		sqr.push_back(make_shared<Architect>(x, y, c, 0));
+		cout << c;
+	}
+	else
+	{
+		cout << c;
 		int leftInd = board.getChamberInd(x, y-1);
 		int upInd = board.getChamberInd(x-1, y);
 		int rightInd = 0;
@@ -94,74 +101,127 @@ void GameController::readGE(int x, int y, int ind,
 			++ind;
 		}
 		sqr.push_back(make_shared<Architect>(x, y, c, chamberInd));
-	}
-	else if (c == ' ' || c == '-' || c == '|' || c == '+' || c == '#')
-		sqr.push_back(make_shared<Architect>(x, y, c, 0));
-	else if (c == 'H')
-		sqr.push_back(make_shared<Human>(x,y));
-	else if (c == 'W')
-		sqr.push_back(make_shared<Dwarf>(x,y));
-	else if (c == 'E')
-		sqr.push_back(make_shared<Elf>(x,y));
-	else if (c == 'O')
-		sqr.push_back(make_shared<Orcs>(x,y));
-	else if (c == 'M')
-		sqr.push_back(make_shared<Merchant>(x,y));
-	else if (c == 'D')
-	{
-		auto dragon = make_shared<Dragon>(x,y);
-		sqr.push_back(dragon);
-		if (dh.size() != 0) dh.back()->setDragon(dragon);
-		else doragon.push_back(dragon);
-		dh.pop_back();
-	}
-	else if (c == 'L')
-		sqr.push_back(make_shared<Halfling>(x,y));
-	else if (c == '0')
-		sqr.push_back(make_shared<PotionHP>(x, y, 10));
-	else if (c == '1')
-		sqr.push_back(make_shared<PotionAtk>(x, y, 5));
-	else if (c == '2')
-		sqr.push_back(make_shared<PotionDef>(x, y, 5));
-	else if (c == '3')
-		sqr.push_back(make_shared<PotionHP>(x, y, -10));
-	else if (c == '4')
-		sqr.push_back(make_shared<PotionAtk>(x, y, -5));
-	else if (c == '5')
-		sqr.push_back(make_shared<PotionDef>(x, y, -5));
-	else if (c == '6')
-	{
-		TreasureType tt = TreasureType::NORMAL_PILE;
-		sqr.push_back(make_shared<Treasure>(x, y, tt));
-	}
-	else if (c == '7')
-	{
-		TreasureType tt = TreasureType::SMALL_PILE;
-		sqr.push_back(make_shared<Treasure>(x, y, tt));
-	}
-	else if (c == '8')
-	{
-		TreasureType tt = TreasureType::MERCHANT;
-		sqr.push_back(make_shared<Treasure>(x, y, tt));
-	}
-	else if (c == '9')
-	{
-		if (doragon.size() == 0)
+
+		if (c == '.')
 		{
-			auto gold = make_shared<DragonHoard>(x, y, nullptr);
-			sqr.push_back(gold);
-			dh.push_back(gold);
+			return;
 		}
-		else
+		else if (c == 'H')
 		{
-			sqr.push_back(make_shared<DragonHoard>(x, y, doragon.back()));
-			doragon.pop_back();
+			sqr.push_back(make_shared<Human>(x,y));
+			cout << c;
+		}
+		else if (c == 'W')
+		{
+			sqr.push_back(make_shared<Dwarf>(x,y));
+			cout << c;
+		}
+		else if (c == 'E')
+		{
+			sqr.push_back(make_shared<Elf>(x,y));
+			cout << c;
+		}
+		else if (c == 'O')
+		{
+			sqr.push_back(make_shared<Orcs>(x,y));
+			cout << c;
+		}
+		else if (c == 'M')
+		{
+			sqr.push_back(make_shared<Merchant>(x,y));
+			cout << c;
+		}
+		else if (c == 'D')
+		{
+			auto dragon = make_shared<Dragon>(x,y);
+			sqr.push_back(dragon);
+			if (dh.size() != 0) dh.back()->setDragon(dragon);
+			else doragon.push_back(dragon);
+			dh.pop_back();
+		}
+		else if (c == 'L')
+			sqr.push_back(make_shared<Halfling>(x,y));
+		else if (c == '0')
+			sqr.push_back(make_shared<PotionHP>(x, y, 10));
+		else if (c == '1')
+			sqr.push_back(make_shared<PotionAtk>(x, y, 5));
+		else if (c == '2')
+			sqr.push_back(make_shared<PotionDef>(x, y, 5));
+		else if (c == '3')
+			sqr.push_back(make_shared<PotionHP>(x, y, -10));
+		else if (c == '4')
+			sqr.push_back(make_shared<PotionAtk>(x, y, -5));
+		else if (c == '5')
+			sqr.push_back(make_shared<PotionDef>(x, y, -5));
+		else if (c == '6')
+		{
+			TreasureType tt = TreasureType::NORMAL_PILE;
+			sqr.push_back(make_shared<Treasure>(x, y, tt));
+		}
+		else if (c == '7')
+		{
+			TreasureType tt = TreasureType::SMALL_PILE;
+			sqr.push_back(make_shared<Treasure>(x, y, tt));
+		}
+		else if (c == '8')
+		{
+			TreasureType tt = TreasureType::MERCHANT;
+			sqr.push_back(make_shared<Treasure>(x, y, tt));
+		}
+		else if (c == '9')
+		{
+			if (doragon.size() == 0)
+			{
+				auto gold = make_shared<DragonHoard>(x, y, nullptr);
+				sqr.push_back(gold);
+				dh.push_back(gold);
+			}
+			else
+			{
+				sqr.push_back(make_shared<DragonHoard>(x, y, doragon.back()));
+				doragon.pop_back();
+			}
+		}
+		else if (c == '@')
+		{
+			if (race == ' ')
+			{
+				pc->setXCoordinate(x);
+				pc->setYCoordinate(y);
+				sqr.push_back(pc);
+				pc->resetPotion();
+			}
+			else if (race == 's')
+			{
+				pc = make_shared<Shade>(x, y);
+				sqr.push_back(pc);
+			}
+			else if (race == 'd')
+			{
+				pc = make_shared<Drow>(x, y);
+				sqr.push_back(pc);
+			}
+			else if (race == 'v')
+			{
+				pc = make_shared<Vampire>(x, y);
+				sqr.push_back(pc);
+			}
+			else if (race == 'g')
+			{
+				pc = make_shared<Goblin>(x, y);
+				sqr.push_back(pc);
+			}
+			else if (race == 't')
+			{
+				pc = make_shared<Troll>(x, y);
+				sqr.push_back(pc);
+			}
 		}
 	}
 }
 
 
-void GameController::readFloor(istream & in)	// version without default.txt
+void GameController::readFloor(istream & in, char race)	// version without default.txt
 {
 	board.floor.clear();
 	++board.level;
@@ -184,30 +244,14 @@ void GameController::readFloor(istream & in)	// version without default.txt
 		// assume in the file, there can only be ' ', '.', '-', '|', '+', '#'
 		{
 			vector<shared_ptr<GameElement>> sqr;
-			readGE(row, col, ind, sqr, c, doragon, dh);
+			readGE(row, col, ind, c, race, sqr, doragon, dh);
 			board.floor[board.floor.size()-1].push_back(sqr);
 			++col;
 		}
 		col = 0;
 		if (line[1] == '-' && row >= 1) break;
 		++row;
-		cout << row;
-	}
-
-	if(board.level > 1)	//for all the upper floor
-	{
-		int x, y;
-		do 
-		{
-			x = rand() % board.floor.size();
-			y = rand() % board.floor[0].size();
-		} while (board.floor[x][y].back()->getChar() != '.');
-
-		pc->setXCoordinate(x);
-		pc->setYCoordinate(y);
-		board.replace(pc);
-
-		pc->resetPotion();
+		cout << endl;
 	}
 }
 
