@@ -2,6 +2,7 @@
 #define GAMECONTROLLER_H
 #include "board.h"
 #include "playerCharacter.h"
+#include "treasure.h"
 #include <iostream>
 #include <istream>
 #include <sstream>
@@ -23,6 +24,9 @@ class GameController
 	public:
 		void resetFloor(std::istream & in);	// complete
 		void readFloor(std::istream & in);	// complete
+		void readGE(int, int, int, std::vector<std::shared_ptr<GameElement>> &, 
+				char, std::vector<std::shared_ptr<Dragon>> &, 
+				std::vector<std::shared_ptr<DragonHoard>> & dh);
 		void setLevel(int lvl);			// complete
 		void spawnPC(char c);			// complete
 		void setGameElement();			// complete

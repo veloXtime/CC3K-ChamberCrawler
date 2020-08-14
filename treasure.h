@@ -37,7 +37,7 @@ class DragonHoard : public Treasure
     public:
         DragonHoard(int, int, std::shared_ptr<Dragon>);
 
-        void setDragon(std:;shared_ptr<Dragon> dragon);
+        void setDragon(std::shared_ptr<Dragon> dragon);
 
         int getAmount() const override;
         //when dragon is slain

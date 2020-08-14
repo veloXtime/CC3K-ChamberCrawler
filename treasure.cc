@@ -29,12 +29,9 @@ DragonHoard::DragonHoard(int x, int y, std::shared_ptr<Dragon> dragon)
     
 }
 
-void setDragon(std::shared_ptr<Dragon> dragon)
+void DragonHoard::setDragon(std::shared_ptr<Dragon> dragon)
 {
-	if (doragon == nullptr)
-	{
-		doragon = dragon;
-	}
+	doragon = dragon;
 }
 
 int DragonHoard::getAmount() const

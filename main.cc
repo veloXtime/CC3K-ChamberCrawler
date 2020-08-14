@@ -57,6 +57,8 @@ int main(int argc, char* argv[])
             }
         }
         if (fname == "default.txt") GC.setGameElement();	// contains display
+        cout << "hello";
+        return 3;
         GC.flushDisplay();
 
 

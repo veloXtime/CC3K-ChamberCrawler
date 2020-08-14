@@ -13,8 +13,15 @@
 #include "architect.h"
 #include "treasure.h"
 #include "display.h"
-#include "debug.h"
-
+#include "human.h"
+#include "halfling.h"
+#include "orcs.h"
+#include "elf.h"
+#include "dwarf.h"
+#include "merchant.h"
+#include "dragon.h"
+#include "treasure.h"
+#include "potion.h"
 using namespace std;
 
 void GameController::pcNotifyAround()
@@ -58,19 +65,17 @@ void GameController::spawnStair()
 	stairY = y;
 }
 
-void GameController::readGE(vector<shared_ptr<GameElement>> & sqrt, char c,
-	vector<shared_ptr<Dragon>> & doragon, vector<shared_ptr<DragonHoard> & dh)
+void GameController::readGE(int x, int y, int ind,
+	vector<shared_ptr<GameElement>> & sqr, char c,
+	vector<shared_ptr<Dragon>> & doragon, vector<shared_ptr<DragonHoard>> & dh)
 {
-	const char type [] = {' ', '-', '|', '+', '#', 
-		'H', 'W', 'E', 'O', 'M', 'D', 'L', 'G'};
-
 	if (c == '.')
 	{
-		int leftInd = board.getChamberInd(row, col-1);
-		int upInd = board.getChamberInd(row-1, col);
+		int leftInd = board.getChamberInd(x, y-1);
+		int upInd = board.getChamberInd(x-1, y);
 		int rightInd = 0;
-		int ro = row-1;
-		int co = col;
+		int ro = x-1;
+		int co = y;
 		while (board.getChar(ro, co) == '-' 
 			|| board.getChar(ro, co) == '|' 
 			|| board.getChar(ro, co) == '+')
@@ -88,12 +93,12 @@ void GameController::readGE(vector<shared_ptr<GameElement>> & sqrt, char c,
 			chamberInd = ind;
 			++ind;
 		}
-		sqr.push_back(make_shared<Architect>(row, col, c, chamberInd));
+		sqr.push_back(make_shared<Architect>(x, y, c, chamberInd));
 	}
-	else if (find(type, type+5, c) != type+5)
-		sqr.push_back(make_shared<Architect>(row, col, c, 0));
+	else if (c == ' ' || c == '-' || c == '|' || c == '+' || c == '#')
+		sqr.push_back(make_shared<Architect>(x, y, c, 0));
 	else if (c == 'H')
-		sqr.push_back(make_shared<Human>(x, y));
+		sqr.push_back(make_shared<Human>(x,y));
 	else if (c == 'W')
 		sqr.push_back(make_shared<Dwarf>(x,y));
 	else if (c == 'E')
@@ -117,7 +122,7 @@ void GameController::readGE(vector<shared_ptr<GameElement>> & sqrt, char c,
 	else if (c == '1')
 		sqr.push_back(make_shared<PotionAtk>(x, y, 5));
 	else if (c == '2')
-		sqr.push_back(make_sharec<PotionDef>(x, y, 5));
+		sqr.push_back(make_shared<PotionDef>(x, y, 5));
 	else if (c == '3')
 		sqr.push_back(make_shared<PotionHP>(x, y, -10));
 	else if (c == '4')
@@ -172,19 +177,21 @@ void GameController::readFloor(istream & in)	// version without default.txt
 		vector<vector<shared_ptr<GameElement>>> newRow;
 		board.setRow(newRow);
 
+		vector<shared_ptr<Dragon>> doragon;
+		vector<shared_ptr<DragonHoard>> dh;
+
 		while (iss.get(c))
 		// assume in the file, there can only be ' ', '.', '-', '|', '+', '#'
 		{
-			vector<shared_ptr<Dragon>> doragon;
-			vector<shared_ptr<DragonHoard> dh;
 			vector<shared_ptr<GameElement>> sqr;
-			readGE(sqr, c);
-			board.floor[board.floor.size()-1].push_back(sqr, dragon, dh);
+			readGE(row, col, ind, sqr, c, doragon, dh);
+			board.floor[board.floor.size()-1].push_back(sqr);
 			++col;
 		}
 		col = 0;
 		if (line[1] == '-' && row >= 1) break;
 		++row;
+		cout << row;
 	}
 
 	if(board.level > 1)	//for all the upper floor
