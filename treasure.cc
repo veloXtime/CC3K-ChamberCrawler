@@ -23,8 +23,13 @@ Gold::Gold(int x, int y, TreasureType type)
 }
 
 
-DragonHoard::DragonHoard(int x, int y)
-:Treasure(x, y, TreasureType::DRAGON_HOARD)
+DragonHoard::DragonHoard(int x, int y, std::shared_ptr<Dragon> dragon)
+:Treasure(x, y, TreasureType::DRAGON_HOARD), doragon{dragon}
 {
     
+}
+
+int DragonHoard::getAmount() const
+{
+    return amount;
 }

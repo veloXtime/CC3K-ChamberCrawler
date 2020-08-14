@@ -65,7 +65,7 @@ void EnemyCharacter::attack(PlayerCharacter &pc){
 
 // Attacked by a shade
 void EnemyCharacter::attackedBy(Shade &shade){
-    int dmg = ceil(100/(100 + this->getDef()) * shade.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * shade.getAtk());
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &shade, this);
@@ -81,7 +81,7 @@ void EnemyCharacter::attackedBy(Shade &shade){
 
 // Attacked by a drow
 void EnemyCharacter::attackedBy(Drow &drow){
-    int dmg = ceil(100/(100 + this->getDef()) * drow.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * drow.getAtk());
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &drow, this);
@@ -98,7 +98,7 @@ void EnemyCharacter::attackedBy(Drow &drow){
 
 // Attacked by a vampire
 void EnemyCharacter::attackedBy(Vampire &vampire){
-    int dmg = ceil(100/(100 + this->getDef()) * vampire.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * vampire.getAtk());
     this->setHp(this->getHp() - dmg);
     vampire.setHp(vampire.getHp() + 5);
 
@@ -115,7 +115,7 @@ void EnemyCharacter::attackedBy(Vampire &vampire){
 
 // Attacked by a troll
 void EnemyCharacter::attackedBy(Troll &troll){
-    int dmg = ceil(100/(100 + this->getDef()) * troll.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * troll.getAtk());
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &troll, this);
@@ -131,7 +131,7 @@ void EnemyCharacter::attackedBy(Troll &troll){
 
 // Attacked by a goblin
 void EnemyCharacter::attackedBy(Goblin &goblin){
-    int dmg = ceil(100/(100 + this->getDef()) * goblin.getAtk());
+    int dmg = ceil(100.0/(100 + this->getDef()) * goblin.getAtk());
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &goblin, this);

@@ -117,12 +117,13 @@ void Board::spawnGold()
 					y = rand() % floor[0].size();
 				}
 			}
-			auto gold = make_shared<DragonHoard>(x, y);
-			floor[x][y].push_back(gold);
-			//int i = rand() % unoccupied.size();
-			int dra_x = unoccupied[0].first;
-			int dra_y = unoccupied[0].second;
+			
+			int i = rand() % unoccupied.size();
+			int dra_x = unoccupied[i].first;
+			int dra_y = unoccupied[i].second;
 			auto dragon = make_shared<Dragon>(dra_x, dra_y);
+			auto gold = make_shared<DragonHoard>(x, y, dragon);
+			floor[x][y].push_back(gold);
 			floor[dra_x][dra_y].push_back(dragon);
 		}
 		else

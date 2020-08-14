@@ -19,7 +19,7 @@ class Treasure;
 
 class PlayerCharacter : public Living 
 {
-    //friend class Potion;
+    friend class Treasure;
 
     protected:
     
