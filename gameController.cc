@@ -68,9 +68,7 @@ void GameController::spawnStair()
 }
 
 void GameController::readGE(int x, int y, int & ind, char c, char race,
-	vector<shared_ptr<GameElement>> & sqr,
-	vector<shared_ptr<Dragon>> & doragon, 
-	vector<shared_ptr<DragonHoard>> & dh)
+	vector<shared_ptr<GameElement>> & sqr)
 {
 	if (c == ' ' || c == '-' || c == '|' || c == '+' || c == '#')
 	{
@@ -254,14 +252,11 @@ void GameController::readFloor(istream & in, char race)	// version without defau
 		vector<vector<shared_ptr<GameElement>>> newRow;
 		board.setRow(newRow);
 
-		vector<shared_ptr<Dragon>> doragon;
-		vector<shared_ptr<DragonHoard>> dh;
-
 		while (iss.get(c))
 		// assume in the file, there can only be ' ', '.', '-', '|', '+', '#'
 		{
 			vector<shared_ptr<GameElement>> sqr;
-			readGE(row, col, ind, c, race, sqr, doragon, dh);
+			readGE(row, col, ind, c, race, sqr);
 			board.floor[board.floor.size()-1].push_back(sqr);
 			++col;
 		}
