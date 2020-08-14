@@ -255,6 +255,10 @@ void GameController::attackEnemy(string direc)
 
 void GameController::displayLose()
 {
+	//gameDisplay.clearAction();
+	gameDisplay.newAction("Your score is " + to_string(pc->getScore()) + ". ", false);
+	cout << gameDisplay;
+	gameDisplay.clearAction();
 }
 
 void GameController::displayWin()
@@ -275,6 +279,16 @@ void GameController::flushDisplay()
 {
     gameDisplay.move(board.floor);
     gameDisplay.getNotified(pc.get());
-    cout << gameDisplay;
-	gameDisplay.clearAction();
+	if(pc->getHp() == 0)
+		displayLose();
+	else
+	{
+		cout << gameDisplay;
+		gameDisplay.clearAction();
+	}
+}
+
+bool GameController::isEnded()
+{
+	return pc->getHp() == 0;
 }

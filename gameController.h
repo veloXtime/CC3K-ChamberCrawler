@@ -38,6 +38,8 @@ class GameController
 		bool levelComplete();		// complete
 		void setPCChamber(int chamberInd);	// complete
         void flushDisplay();
+
+		bool isEnded(); //whether the game should be ended
 };
 
 #endif

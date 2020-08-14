@@ -34,7 +34,7 @@ int Living::getDef() const{
 void Living::setHp(int v){
     if (v < 0) hp = 0;
     else if (v > max_hp) hp = max_hp;
-    else hp = +v;
+    else hp = v;
 }
 
 // Set atk to value v

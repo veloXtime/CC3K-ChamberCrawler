@@ -117,7 +117,16 @@ int main(int argc, char* argv[])
 				GC.displayLose();
 				return 0;
 			}
-		GC.flushDisplay();
+			
+			GC.flushDisplay();
+			if(GC.isEnded())
+			{
+				in = std::make_shared<std::ifstream>(fname);
+				GC.setLevel(0);
+				stillMode = 0;
+				break;
+			}
+				
 		}
 	}
 
