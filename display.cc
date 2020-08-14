@@ -96,7 +96,7 @@ void display::action(ACTION act, int damage, Living* a, Living* b)
 {
     if(act == ACTION::GotAtk)
     {
-        actline += a->getRace() + "dealed " + to_string(damage) + " damage to you. ";
+        actline += a->getRace() + " dealed " + to_string(damage) + " damage to you. ";
     }
     else //AtkEnemy
     {

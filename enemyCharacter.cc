@@ -156,10 +156,7 @@ void EnemyCharacter::getNotified(PlayerCharacter & pc){
     int success = rand() % 2;
     if (success == 1) this->attack(pc);
     else{
-        std::string s = "";
-        s.push_back(this->getChar());
-        s += " misses attack on PC. ";
-        gameDisplay.newAction(s, true);
+        gameDisplay.newAction(getRace() + " misses attack on PC. ", true);
     }
 }
 
