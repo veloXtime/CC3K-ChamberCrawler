@@ -121,7 +121,6 @@ int main(int argc, char* argv[])
 				in = std::make_shared<std::ifstream>(fname);
 				GC.setLevel(0);
 				stillMode = 0;
-				GC.setLevel(0);
 				break;
 			}
 			else if (inp == "q")
