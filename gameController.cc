@@ -58,7 +58,7 @@ void GameController::spawnStair()
 	stairY = y;
 }
 
-void GameController::resetFloor(istream & in)
+void GameController::resetFloor(istream & in)	// version without default.txt
 {
 	board.floor.clear();
 	++board.level;
@@ -80,8 +80,6 @@ void GameController::resetFloor(istream & in)
 			vector<shared_ptr<GameElement>> sqr;
 			if (c == '.')
 			{
-				//cout << row << " ";
-				//cout << col << endl;
 				int leftInd = board.getChamberInd(row, col-1);
 				int upInd = board.getChamberInd(row-1, col);
 				int rightInd = 0;
@@ -239,7 +237,7 @@ void GameController::movePC(string direc)
 		board.revert(pc);
 		pc->setXCoordinate(x);
 		pc->setYCoordinate(y);
-		board.replace(pc);	// if PC
+		board.replace(pc);
 	}
 }
 
@@ -265,8 +263,6 @@ void GameController::drinkPotion(string direc)
 		//pc->drink(static_cast<Potion*>(board.floor[x][y].back().get()));
 		board.revert(x, y);
 	}
-
-	
 }
 
 void GameController::attackEnemy(string direc)
@@ -298,8 +294,6 @@ void GameController::attackEnemy(string direc)
 			board.enemyDeath(e);
 		}
 	}
-
-	
 }
 
 void GameController::displayLose()
@@ -332,10 +326,12 @@ void GameController::setPCChamber(int chamberInd)
 
 void GameController::flushDisplay()
 {
-    gameDisplay.move(board.floor);
-    gameDisplay.getNotified(pc.get());
+	gameDisplay.move(board.floor);
+	gameDisplay.getNotified(pc.get());
 	if(pc->getHp() == 0)
+	{
 		displayLose();
+	}
 	else
 	{
 		cout << gameDisplay;

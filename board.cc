@@ -138,7 +138,11 @@ void Board::spawnGold()
 
 void Board::spawnOneEnemy(int x, int y, int prob)
 {
-	if (prob <= 4)
+		auto enemy = make_shared<Merchant>(x, y);
+	floor[x][y].push_back(enemy);
+	enemyList.push_back(enemy);
+	return;
+if (prob <= 4)
 	{
 		auto enemy = make_shared<Human>(x, y);
 		floor[x][y].push_back(enemy);
@@ -304,23 +308,28 @@ void Board::enemyDeath(shared_ptr<EnemyCharacter> e)
 	int x = e->getXCoordinate();
 	int y = e->getYCoordinate();
 	revert(x, y);
+	int chamberInd = getChamberInd(x, y);
 	enemyList.erase(find(enemyList.begin(), enemyList.end(), e));
 
-	if (c == 'H')
+	if (c == 'H' || c == 'M')
 	{
 		TreasureType tt = TreasureType::NORMAL_PILE;
 		auto g1 = std::make_shared<Treasure>(x, y, tt);
 		replace(g1);
-		int chamberInd = getChamberInd(x, y);
-		int x1 = rand() % floor.size();
-		int y1 = rand() % floor[0].size();
-		while (getChamberInd(x1,y1) != chamberInd)
+		if (c == 'H')
 		{
-			x = rand() % floor.size();
-			y = rand() % floor[0].size();
+			int x1 = rand() % floor.size();
+			int y1 = rand() % floor[0].size();
+			while (true)
+			{
+				x1 = rand() % floor.size();
+				y1 = rand() % floor[0].size();
+				if (getChamberInd(x1, y1) == chamberInd && (x1 != x || y1 != y))
+					break;
+			}
+			auto g2 = make_shared<Treasure>(x1, y1, tt);
+			replace(g2);
 		}
-		auto g2 = make_shared<Treasure>(x, y, tt);
-		replace(g2);
 	}
 }
 

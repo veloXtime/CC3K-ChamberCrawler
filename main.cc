@@ -27,8 +27,14 @@ int main(int argc, char* argv[])
 
     while (board.getLevel() <= 5)
     {
-        GC.resetFloor(*in);	// contains display
-
+    	if (fname == "default.txt")
+    	{
+			GC.resetFloor(*in);	// contains display
+		}
+		else
+		{
+			GC.readFloor(*in);
+		}
 		//initialization
         if (board.getLevel() == 1)
         {
@@ -50,7 +56,7 @@ int main(int argc, char* argv[])
                 if (std::cin.eof()) { return 1; }
             }
         }
-        GC.setGameElement();	// contains display
+        if (fname == "default.txt") GC.setGameElement();	// contains display
         GC.flushDisplay();
 
 

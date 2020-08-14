@@ -32,8 +32,8 @@ void Merchant::death(PlayerCharacter &pc){
    // board.revert(x, y);
     //board.enemyDeath(*this);
 
-	auto mh = std::make_shared<Treasure>(x, y, TreasureType::MERCHANT);
-    board.replace(mh);
+	//auto mh = std::make_shared<Treasure>(x, y, TreasureType::MERCHANT);
+    //board.replace(mh);
 }
 
 // Override notify
