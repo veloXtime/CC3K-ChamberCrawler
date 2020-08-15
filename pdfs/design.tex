@@ -336,7 +336,7 @@ dynamically read in the game board when printing its content, and thus there is
 no need to change the code of display if other player characters and/or enemies
 are added to the board.  
 
-
+\vspace{0.3 in}
 \section{ANSWERS TO QUESTIONS}
 
 \textbf{Question:}
@@ -347,20 +347,23 @@ Additionally, how difficult does such a solution make adding additional races?
 The answer for this question is basically the same as answered in due date 1
 design. 
 
-To generate each race easily, we would apply the template method when creating
-races. We would create a class named PlayerCharacter as the abstract base
+As discussed in section 2.1.2, to generate each race easily, 
+we apply the template method.
+We would create a class named \texttt{PlayerCharacter} as the abstract base
 class. A player character must be one of the race type, thus an object of the
 parent PC (without race) will never be initialized, which means PC will have
-pure virtual method (discussed later). Then, based on the template method, we
-will make each race a distinct sub class of PC.  
+pure virtual method. Then, based on the template method, we
+will make each race a distinct sub class of PC which inherit accessors and
+mutators form \texttt{Living} and \textsf{attack} and \textsf{getAttacked}
+from \texttt{PlayerCharacter}.
 
-For a player character of any race, it has common attributes of HP, ATK, DEF
-and MAX HP. These are common behaviors of all races. Thus, these attributes
-will be put into the parent class PC. Also, there will be accessor and mutator
-methods for each field in the parent class. PC will also have methods called
-“attack” and “attackedBy”. “Attack” is a method called upon the PC attacking an
-enemy whereas “attackedBy” is a method called upon the PC being attacked by an
-enemy. 
+%For a player character of any race, it has common attributes of HP, ATK, DEF
+%and MAX HP. These are common behaviors of all races. Thus, these attributes
+%will be put into the parent class PC. Also, there will be accessor and mutator
+%methods for each field in the parent class. PC will also have methods called
+%“attack” and “attackedBy”. “Attack” is a method called upon the PC attacking an
+%enemy whereas “attackedBy” is a method called upon the PC being attacked by an
+%enemy. 
 
 Such solution makes adding additional races easily. If an additional race is to
 be added, then we would make the race a new sub class inherited from the base
@@ -378,32 +381,31 @@ how you generate the player character? Why or why not?
 For how our system handle generating different enemies, the answer is same as
 answered in due date 1 design. 
 
-To generate different enemies, we would also use template method. We would
-create a class named Enemy as the abstract base class. An enemy must be one of
-the race type, thus an object of the parent Enemy (without race) will never be
-initialized, which means Enemy will have pure virtual method (destructor
-possibly). Then, based on the template method, we will make each race a
-distinct sub class of Enemy.  
-
-For an enemy of any race, it has common attributes of HP, ATK, DEF. These are
-common behaviors of all races. Thus, these attributes will be put into the
-parent class Enemy. Also, there will be accessor and mutator methods for each
-field in the parent class. Enemy will also contain methods called “attack” and
-“attackedBy”. “Attack” is a method called upon the enemy attacking a PC whereas
+Like for player characters, use template method to generate different enemies,
+\texttt{EnemyCharacter} is the abstract base class which will
+never tbe initialized, \texttt{EnemyCharacter} will also contain methods called
+“attack” and “attackedBy”. 
+“Attack” is a method called upon the enemy attacking a PC whereas
 “attackedBy” is a method called upon the enemy being attacked by a PC. 
 
+Based on the template method, make each race a 
+distinct subclass of \texttt{EnemyCharacter} like we did for player characters,
+then these subclasses all inherit accessors and
+mutators form \texttt{Living} and \textsf{attack} and \textsf{getAttacked}
+from \texttt{enemyCharacter}.
+
+
 For the difference between generating player character and enemy character,
-it’s different from our due date 1 design. 
+our answer is \underline{different} from our due date 1 design. 
 
 
-We have a class called GameController which is responsible for game flow and
-management of pc-related behaviours. GameController is the class responsible
-for generating player character. When user input their desired race,
-GameController has a function spawnPC() that takes in the race and generates
+We have \texttt{GameController} responsible for game flow and
+management of pc-related behaviours. When user input their desired race,
+GameController has function \textsf{spawnPC()} which generates
 the required race PC.  
 
-We have a class called Board which is responsible for game component generation
-and management of pc-unrelated behaviours.  At the beginning of initialization
+We have \texttt{Board} responsible for game component generation
+and management of pc-unrelated behaviours. At the beginning of initialization
 of every floor, enemies will be spawned. For the enemy generation, the Board
 will call its method “spawnEnemy”. SpawnEnemy has a helper named spawnOneEnemy
 that can spawn one specified enemy. SpawnEnemy determines an enemy race based o
@@ -538,7 +540,7 @@ controls things such as number and proportions.
 
 
 
-\section{Extra Credit Features }
+\section{EXTRA CREDIT FEATURES}
 
 In our project, we uses smart pointers to manage memory without leak. No delete
 statement exists in our program.  
@@ -546,10 +548,12 @@ statement exists in our program.
 
 
 
-\section{Final Questions}
+\section{FINAL QUESTIONS}
 
+\textbf{Question:}
 What lessons did this project teach you about developing software in teams? 
 
+\textbf{Answer:}
 Communication is very important to facilitate a smooth working flow. A good
 design does not only increases coupling, it also makes the classes easier to
 implement. If the interface of each classes are determined beforehand, each
@@ -558,10 +562,12 @@ worrying about how their classes are used by other classes. Also, the classes
 that has more clients should be implemented first, since it is likely that the
 design will be changed during development; except for the main loop of the
 game, which should be written first to give a better idea of how the game
-should be run in general.  
+should be run in general.  \\
 
+\textbf{Question:}
 What would you have done differently if you had the chance to start over? 
 
+\textbf{Answer:}
 If I could start over, I would change the design of board to be a nested class
 of game controller, this allows multiple boards to be created during the game,
 so player may go back to the previous floor. I would also eliminate the use of
