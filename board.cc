@@ -141,8 +141,7 @@ void Board::spawnOneEnemy(int x, int y, int prob)
 		auto enemy = make_shared<Merchant>(x, y);
 	floor[x][y].push_back(enemy);
 	enemyList.push_back(enemy);
-	return;
-if (prob <= 4)
+	if (prob <= 4)
 	{
 		auto enemy = make_shared<Human>(x, y);
 		floor[x][y].push_back(enemy);
