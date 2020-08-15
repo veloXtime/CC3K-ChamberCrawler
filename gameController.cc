@@ -354,9 +354,10 @@ void GameController::resetFloor(istream & in)	// version without default.txt
 
 		pc->setXCoordinate(x);
 		pc->setYCoordinate(y);
-		board.replace(pc);
-
+		auto tile = dynamic_pointer_cast<Architect>(board.floor[x][y][0]);
+		setPCChamber(tile->getChamberInd());
 		pc->resetPotion();
+		board.replace(pc);
 	}
 }
 

@@ -5,7 +5,7 @@
 \usepackage{color,amsmath,amsfonts,amssymb,amsthm,mathtools}
 \usepackage{parskip}
 \usepackage{geometry} \geometry{ letterpaper, total={170mm,257mm}, left=27mm,
-right=27mm, top=10mm, bottom=10mm }
+right=27mm, top=15mm, bottom=10mm }
 %\setlength{\parindent}{1cm}
 \usepackage{mathrsfs}
 \usepackage{fancyvrb}
@@ -139,7 +139,7 @@ Yes, you, in CC3K is a monster that climbs up floors in the dungeon to
 reach exit.
 
 \newpage
-\section{Game Setup}
+\section{ Demo using input }
 
 To read ``cc3kfloor.txt" as input file, run as follows:
 \begin{lstlisting}
@@ -151,26 +151,36 @@ to use the default file and randomly generate game elements, run as follows:
 \end{lstlisting}
 to fix a seed, pass ``cc3kfloor.txt" as the first commandline argument,
 then pass a number as the second commandline argment. 
-For the demo, we use the following command to generate the game
-\begin{lstlisting}
-./cc3k cc3kfloor.txt 1
-\end{lstlisting}
-The game will ask us to choose a race:
-Player character races we can choose from:
-\begin{center}
-\begin{tabular}{|c|c|c|c|}
-	\hline
-	races	& HP	& Atk	& Def	\\	\hline
-	shade	& 125	& 25	& 25	\\	\hline
-	drow	& 150	& 25	& 15	\\	\hline
-	vampire & 50	& 25	& 5		\\	\hline
-	troll	& 120	& 25	& 15	\\	\hline
-	goblin	& 110	& 15	& 20	\\	\hline
-\end{tabular}
-\end{center}
-We choose troll for demo, after we input t and return, the board will be 
-displayed, which is read in from ``cc3kfloor.txt"
 
+\subsection{Demo 1}
+\textbf{For Demo 1, use the following command to generate the game.} ``input"
+is the file that contains a list of commands that plays the game from the
+start.
+\begin{lstlisting}
+./cc3k cc3kfloor.txt 1 < input
+\end{lstlisting}
+All graphs displayed in this subsection can be found in the ouput of
+this command when running in terminal. Here, highlight the features that
+are shown in this demo1.
+
+%The game will ask us to choose a race:
+%Player character races we can choose from:
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|}
+%	\hline
+%	races	& HP	& Atk	& Def	\\	\hline
+%	shade	& 125	& 25	& 25	\\	\hline
+%	drow	& 150	& 25	& 15	\\	\hline
+%	vampire & 50	& 25	& 5		\\	\hline
+%	troll	& 120	& 25	& 15	\\	\hline
+%	goblin	& 110	& 15	& 20	\\	\hline
+%\end{tabular}
+%\end{center}
+\textbf{1. Initialization:}
+
+In ``input", we chose troll for demo, after t and return, the board will be 
+displayed, which is read in from ``cc3kfloor.txt", the following is the initial
+interatction.
 \begin{Verbatim}[fontsize=\small]
 Please select a race:
 t
@@ -205,6 +215,65 @@ HP: 120
 ATK: 25
 DEF: 15
 \end{Verbatim}
+The initial stat for pc and floor and also the position of all game elements
+are all correct as you may check.
+
+\newpage
+\textbf{2. PC moves and Enemy Moves}
+
+command inputted : ea
+\begin{Verbatim}[fontsize=\small]
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |........@.P...............|        |..............GD.......|               |
+| |........LP.........M......+########+.......................|-------|       |
+| |.....O....................|   #    |........E..................GD..|--|    |
+| |.................P........|   #    |..................O...............|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |P......W.......| |
+|            #                 #     |....W.......|         |...............| |
+|            ###################     |.........P..|   ######+...............| |
+|            #                 #     |............|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....\..P........P...|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |....L....P.......P...|     #           #                    |P..........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.................P.........H...........| |
+|  |.....................+##########+...........H...........................| |
+|  |..G.......G..........|          |................G...................G..| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 0                                                    Floor: 1
+HP: 106
+ATK: 25
+DEF: 15
+You moved east. halfling dealed 14 damage to you. You saw an unknown potion. 
+\end{Verbatim}
+
+In this round, the following features are shown:
+\begin{itemize}
+	\item PC moves east.
+	\item All enemies move randomly (except dragon which is always stationary).
+	\item Halfling is beside PC so it attacks PC causing damage of 14.
+		This damage is calculated using the formula in cc3k-villan.pdf.
+	\item There is a potion on the bottomleft corner, and it is unknown, so a 
+		message is displayed saying ``You saw an unknown potion". 
+\end{itemize}
+
+
+\vspace{1.0 in}
+\textbf{3. }
+
+
+
+
+
 
 
 
