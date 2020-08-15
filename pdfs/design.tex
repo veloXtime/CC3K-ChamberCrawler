@@ -532,7 +532,7 @@ The Decorator and Strategy patterns are possible candidates to model the
 effects of potions, in your opinion, which pattern would work better? 
 
 \textbf{Answer:}
-To adhere the decorator design pattern, potions would be concrete classes of
+To adhere the decorator design pattern, potions are concrete classes of
 Decorator. While any player character or mobile who can use potions owns a
 concrete class of Component corresponding to the “base” potion effect, which
 defaults to doing nothing. At the creation of a character it is initialized
@@ -576,7 +576,7 @@ both inherit form \texttt{NonLiving} base class.
 Note that treasure and potion share many similarities. They
 can only be picked up when players are near them, and they are immobile items
 generated at the start of each floor. To do so we need them to both inherit a
-virtual base class of Items (in our design UML, it is called NonLiving). The
+virtual base class of Items (in our design UML, it is called \texttt{NonLiving}). The
 constructor controls where the object is placed, as well as the specific type
 of the potion/treasure, which is determined by an enum class type predefined.
 Then we encapsulate the generation of these items in a method and let it handle
