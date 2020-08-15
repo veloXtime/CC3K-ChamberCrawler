@@ -19,15 +19,15 @@ int main(int argc, char* argv[])
 	#ifdef DEBUG
 	srand(3);
 	#endif
-    string fname = (argc > 1) ? argv[1] : "default.txt";
-    auto in = std::make_shared<std::ifstream>(fname);
-    int stillMode = 0;
-    GameController GC;
-    string line;
+	string fname = (argc > 1) ? argv[1] : "default.txt";
+	auto in = std::make_shared<std::ifstream>(fname);
+	int stillMode = 0;
+	GameController GC;
+	string line;
 
 	char race = ' ';
-    while (board.getLevel() <= 5)
-    {
+	while (board.getLevel() <= 5)
+	{
 		//initialization
 		if (board.getLevel() == 0)
 		{
