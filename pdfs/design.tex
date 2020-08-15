@@ -220,8 +220,13 @@ The specific design of how these are complished will be in
 and also the x and y position of the stair of current floor.
 
 \subsubsection{Display}
-
-
+By design, everything relating to output of the game components should
+be handled by \texttt{display}. \texttt{display} defines a set of flags
+corresponding to various possible states of the game. Only one display
+object exists in the program as a global variable, so that any other
+objects can pass one of the flags to \texttt{display} when needed.
+In addition, to increase flexibility, \texttt{display} can accept a 
+string directly and append/prepend it to the game message.
 
 
 
