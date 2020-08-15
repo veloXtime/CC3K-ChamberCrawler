@@ -23,6 +23,38 @@
 %\lhead{Name: }
 %\rhead{}
 
+\usepackage{listings}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.95}
+
+
+\lstset{
+	%backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\fontsize{11}{11}\ttfamily,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=none,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=4,
+    xleftmargin=.25in
+}
+
 
 
 
@@ -104,11 +136,32 @@ Yes, you, in CC3K is a monster that climbs up floors in the dungeon to
 reach exit.
 
 
-\subsection{Game Setup}
+\section{Game Setup}
 
+To read cc3kfloor.txt as input file, run as follows:
 \begin{lstlisting}
-./cc3k 
+./cc3k cc3kfloor.txt
 \end{lstlisting}
+to use the default file and randomly generate game elements, run as follows:
+\begin{lstlisting}
+./cc3k
+\end{lstlisting}
+to fix a seed, pass ``cc3kfloor.txt" as the first commandline argument,
+then pass a number as the second commandline argment. 
+For the demo, we use the following command to generate the game
+\begin{lstlisting}
+./cc3k cc3kfloor.txt 1
+\end{lstlisting}
+
+The game will ask us to choose a race:
+\begin{verbatim}
+	Please select a race:
+\end{verbatim}
+We can choose 
+
+
+
+
 
 
 
