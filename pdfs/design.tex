@@ -87,15 +87,21 @@ Xinyan Lin, Hanyu Xu, Rivers Chen\\ \vspace{0.07 in} August, 2020 \end{center}
 
 \vspace{0.3 in} 
 \section{OVERVIEW} 
+The game of ChamberCrawler3000 is a roguelike game in which the player’s goal
+is to reach the exit at the top floor of the five-floor map.  
 
-The game of ChamberCrawler3000 is a
-roguelike game in which the player’s goal is to reach the exit at the top floor
-of the five-floor map.  
+Basic structure:
 
 The game follows the OOP design principle, where all actions from clients
-should be called in the GameController class.  \\
+should be processed in the \texttt{GameController} class. The 
+\texttt{GameController} then does operations on \texttt{Board} or calls 
+of functions of \texttt{Board} to change the state of \textsf{floor} of
+\texttt{Board}. \textsf{floor} is a 3d vector that shared pointers to
+contains all game elements. \texttt{Board} will then access these pointers'
+methods to accomplish any tasks required.\\
 
-\section{DESIGN} \subsection{System Components}
+\section{DESIGN} 
+\subsection{System Components}
 %\begin{description} \item 
 
 \subsubsection{Game Element}
@@ -153,15 +159,15 @@ of the gold size, a specific enum class type exists in the header file which
 integer value corresponds to its size. When constructing a treasure, the client
 does not need to know necessarily the actual size of the treasure type. Unlike
 \texttt{Potion} class, the player character is responsible for adding the value
-of the treasure to its score field. A special case is for Dragon Hoard, since
-it can only be picked up after the dragon guarding it is slain, a dragon hoard
-will return 0 from its \textsf{getAmount} method, indicating that it cannot be
-picked up yet.  
+of the treasure to its score field. A special case is for \texttt{DragonHoard},
+since it can only be picked up after the dragon guarding it is slain, a
+dragon hoard will return 0 from its \textsf{getAmount} method, 
+indicating that it cannot be picked up yet.  
 
 
 \subsubsection{Architecture}
 
-The \texttt{Architect} class, for \texttt{Architecture}, is a direct subclass 
+The \texttt{Architect} class, for Architectures, is a direct subclass 
 of \texttt{GameElement}. It is used for floor tiles, walls, passages, doorways,
 and also empty spaces. Except the three attributes inherited from
 \texttt{GameElement}, \texttt{Architect}
@@ -204,7 +210,7 @@ the game elements on \textsf{floor} to handle tasks such as setup of
 specific design of how these are complished will be in section 2.2.3.
 
 \texttt{GameController} holds a shared pointer to our player character and also
-the x and y position of the stair of current floor.
+holds attributes of x and y position of the stair of current floor.
 
 \subsubsection{Display} 
 
@@ -225,22 +231,51 @@ directly and append/prepend it to the game message.\\
 \subsubsection{Setup}
 The setup of each floor involves the following steps:
 \begin{enumerate}[leftmargin=*]%[noitemsep]
-\item If at initial level, player select race, use a character to store this
-	race.
+\item If at initial level, player select race of pc, 
+	use a character to store this race.
 \item Reset all game elements on \textsf{floor}, then reset \textsf{enmeyList}.
 \item 
-If no command line argument is provided, a default floor layout of floor which
+If no command line argument is provided, 
+\begin{enumerate}[leftmargin=*, noitemsep, label=(\roman*)]
+\item 
+a default floor layout of floor which
 only contains architectures will be used to build to fstream.
-\texttt{gameController} will use this fstream to setup an empty board,
-then use the char player provided to spawn PC. Afterwards,
-\texttt{gameController} will call \textsf{setGameElement} which calls
-function \textsf{spawnStair}, then \texttt{Board}'s \textsf{spawnPotion},
-\textsf{spawnGold}, and \textsf{spawnEnemy}. 
+\item
+\texttt{gameController} will use this fstream to setup an empty board, with
+only has \texttt{Architect}s. Floor tiles have the index of the chamber they 
+are in as \textsf{chamberInd}, all other architectures have 0 as 
+\textsf{chamberInd}. 
+\item
+Use the char player provided to spawn our player character, 
+use while loop and \textbf{<srand>} to find a floor tile(`\ .\ '), 
+and store the \textsf{chamberInd} of this tile to 
+the attribute \textsf{pcChamberInd}. The \textsf{pc} attribute of 
+\texttt{gameController} will be set to this player character generated.
+\item
+\texttt{gameController} will call \textsf{setGameElement}, which calls first
+function \textsf{spawnStair}. This function will use while loop to randomly
+find a floor tile with different \textsf{chamberInd} from \textsf{pcChamberInd},
+and store the x, y coordinates of stair spawned to \textsf{stairX} and 
+\textsf{stairY}.
+Second, \texttt{Board}'s \textsf{spawnPotion} will be called, which
+uses \textbf{srand} to randomly spawn potions around the chamber.
+Third, \texttt{Board} \textsf{spawnGold} will be called, when
+\texttt{DragonHoard} is spawned, a \texttt{Dragon} is also spawned beside it.
+Fourth, \textsf{spawnEnemy} will be called. A chamber and a position inside the
+chamber will be randomly generated, and the race of enemy will be randomly
+chosen using an int prob, then \textsf{spawnEnmey} will pass this int "prob"
+and the position to \textsf{spawnOneEnemy} to make instance of enemy and 
+put it on \textsf{floor}, and also pushed back onto \textsf{enemyList}.
+
+\end{enumerate}
 
 If a single command line argument which is the name of a file that specifies
 the layout of each of the 5 floors is provided, then, \textsf{readFloor} of
 \texttt{gameController} will be called to change each char in the file to an
 object on our board. 
+Pushing enemies(except dragon) generated to \textsf{enemyList}, and 
+use player character spawned to be \textsf{pc} of \texttt{gameController}.
+
 \end{enumerate}
 
 
@@ -254,6 +289,7 @@ If that input is used to do game settings. For example, if to reset the game,
 the \texttt{gameController} will reset floor level to and break the inner
 loop. If the input is to quit the game, then \textsf{displayLose()} of
 \texttt{gameController} will be called and game is quit.
+
 Or the player may play the game by move pc(which may include pick of gold),
 attack enemy or drink potion, which is discussed below.
 
@@ -266,16 +302,20 @@ The following actions are possible:
 \textbf{Move:} 
 Check the direction is unoccupied, then revert where it was on
 board \textsf{floor} to a floor tile, and push back pc on its new position on
-\textsf{floor}.  If that direction has a gold of type not dragon hoard, then
-pick gold and move to that position.  If that direction is a dragon hoard, then
-check if dragon is dead, pick gold and move to that position.
+\textsf{floor}. If that direction has a gold of type not dragon hoard, then
+pick gold and move to that position. If that direction is a dragon hoard, then
+check if dragon is dead, pick gold and move to that position. Then the 
+coordinate of \textsf{pc} will be reset to new position.
 
 \item
 \textbf{Combat:} 
-When implementing the combat system between player character
-and enemy character, observer, visitor and template method are all in use. When
-the player character gets within 1 block radius to an enemy, observer pattern
+Combat system between player character and enemy character uses all
+observer, visitor and template method. 
+\begin{enumerate}[leftmargin=*, noitemsep, label=(\roman*)]
+\item
+When \textsf{pc} gets within 1 block radius to an enemy, observer pattern
 is used to notify the enemy so that the enemy will attack the player character.
+\item
 Since the damage dealt by an enemy varies based both the race of the enemy and
 the player character, visitor pattern and double dispatch are used to implement
 an attack. Whenever a character A is trying to attack a character B, it calls
@@ -283,15 +323,20 @@ the function \textsf{A.attack(B)}, then \textsf{A.attack(B)} calls \textsf{B.att
 equivalent visit function that behaves differently based on the concrete class
 type of A (races of A in this case). Such design pattern makes the combat
 system clear and straight forward. For different races, damage will be
-calculated differently. Furthermore, some races have special interaction
+calculated differently. 
+\item 
+Furthermore, some races have special interaction
 between each other. And template method is applied to handle these interactions.
 If pc dies during combat, lose message will be displayed and player will be
-asked if they want to start again. If enemy is dead, it will be removed from
-\textsf{enemyList} and \textsf{floor}.
-%For example, orcs do 50\% more damage to goblins. This is where template method
-%is applied. In the Goblin class, its function
-%attackedBy(Orc) is overwritten such that the normal damage is multiplied by
-%1.5. 
+asked if they want to start again. 
+\item
+If enemy is dead, it will be removed from
+\textsf{enemyList} and \textsf{floor}. If the enmey is \texttt{Merchant}, 
+a \texttt{MerchantHoard} will be put on the position of this Merchant.
+If the enemy is \texttt{Human}, a \texttt{Treasure} of type \texttt{NORMAL\_PILE}
+will be put on the position of this Merchant, and another 
+same type treasure will be put in a random position in the same chamber.
+\end{enumerate}
 
 \item
 \textbf{Use Potion:}
@@ -304,15 +349,32 @@ will then be removed from its position.
 
 \subsubsection{End of one Round}
 
-After these actions are completed, \textsf{MoveEnemy(int, int)} will be called, 
+After these actions are completed, \textsf{MoveEnemy} will be called,
 then \texttt{gameController} will use \textsf{enmeyList} in \texttt{Board}
 to move enemy as described in section 2.1.5. Also, \texttt{gameController}
-will call \textsf{flushDisplay()} to display the board and stats of pc and
-action taken.\\
+will call \textsf{flushDisplay()} to display. Message displayed include
+the \texttt{floor}, stats of current \textsf{pc}, and the action taken.\\
+
+\subsubsection{End of Game}
+
+If player choose to quit the game using 'q', then the game is immediately 
+closed with no message displayed.
+
+If during any round, the HP of \textsf{pc} reach 0, we will check this
+in \textsf{FlushDisplay}, if HP is 0, \textsf{displayLose} will display
+losing message, the player may choose the restart or quit the game.
+
+If \textsf{pc} reach the stair of last floor, that is, the coordinates of
+\textsf{pc} are the same as \textsf{stairX} and \textsf{stairY} and 
+\textsf{level} equal to 5, then the game wins with winning message displayed,
+and \texttt{ScoreBoard} will be displayed (\texttt{ScoreBoard} discussed in
+Section 5.3)
 
 
+
+\newpage
 \section{RESILIENCE TO CHANGE}
-
+\subsection{Adding player and enemy characters}
 The \texttt{Living} class involves player characters and enemy characters. 
 It is designed to follow high cohesion and low coupling. 
 In the \texttt{Living} class, each distinct race has its own header and 
@@ -324,12 +386,14 @@ calls only takes others in as basic parameters without knowing the actual
 implementation. It demonstrates the low coupling in our code as different
 modules has very low dependencies between each other. 
 
+\subsection{Adding potions}
 Since the potion subclasses use the decorator design pattern, which allows us
 to easily add new types of potions to the game, as well as designing more
 complicated types of potions, such as ones that have dynamic effects depending
 on the progress of the game. Its functionality is also independent from the
 player character, which is easier to make changes to the potion classes only. 
 
+\subsection{Adding treasures}
 The treasure class uses a enum type to define the various size of gold, if
 other sizes of gold are need, or if the current size of gold has to be changed,
 one simply has to define additional members or modify existing ones in the enum
@@ -339,11 +403,18 @@ need, subclasses of Treasure can be added to accommodate the change. How
 treasures are picked up by Player character is defined on the PC’s side, who is
 a friend of treasure class, thus no other changes are needed. 
 
-The display class handles all the standard message the game has by having a set
+\subsection{Changes to display}
+The \texttt{Display} class handles all the standard message the game has by 
+having a set
 of flags corresponding to various possible states of the game. It also
 dynamically read in the game board when printing its content, and thus there is
 no need to change the code of display if other player characters and/or enemies
 are added to the board.  
+
+
+
+
+
 
 \vspace{0.3 in}
 \section{ANSWERS TO QUESTIONS}
@@ -357,12 +428,9 @@ The answer for this question is basically the same as answered in due date 1
 design. 
 
 As discussed in section 2.1.2, to generate each race easily, 
-we apply the template method.
-We create a class named \texttt{PlayerCharacter} as the abstract base
-class. A player character must be one of the race type, thus an object of the
-parent \texttt{PlayerCharacter} (without race) will never be initialized, which 
-means \texttt{PlayerCharacter} will have pure virtual method. Then, based on 
-the template method, we will make each race a distinct sub class of 
+apply the template method. An abstract superclass \texttt{PlayerCharacter}
+(without race) is pure virtual. Then, based on 
+the template method, make each race a distinct sub class of 
 \texttt{PlayerCharacter} which inherit accessors and mutators from 
 \texttt{Living} and \textsf{attack} and \textsf{attackedBy} from 
 \texttt{PlayerCharacter}.
@@ -373,7 +441,7 @@ class \texttt{PlayerCharacter}. We would create a header file and a separate
 implementation file for the race. We can override any method required in the 
 sub class. Doing so results in high cohesion and low coupling. The new header 
 and implementation file serves solely for the purpose of creating a new race.
-Also, such implementation will not affect the base class or any other races.	\\
+Also, such implementation will not affect the base class or any other races.\\
 
 \textbf{Question:}
 How does your system handle generating different enemies? Is it different from
@@ -389,7 +457,6 @@ never tbe initialized, \texttt{EnemyCharacter} will also contain methods called
 \textsf{attack} and \textsf{attackedBy}. 
 \textsf{attack} is a method called upon the enemy attacking a PC whereas
 \textsf{attackedBy} is a method called upon the enemy being attacked by a PC. 
-
 Based on the template method, make each race a 
 distinct subclass of \texttt{EnemyCharacter} like we did for player characters,
 then these subclasses all inherit accessors and
@@ -400,19 +467,15 @@ from \texttt{EnemyCharacter}.
 For the difference between generating player character and enemy character,
 our answer is \underline{different} from our due date 1 design. 
 
-
-We have \texttt{GameController} responsible for game flow and
-management of pc-related behaviours. When user input their desired race,
-GameController has function \textsf{spawnPC()} which generates
-the required race PC.  
-
-We have \texttt{Board} responsible for game component generation
-and management of pc-unrelated behaviours. At the beginning of initialization
-of every floor, enemies will be spawned. For the enemy generation, 
-\texttt{Board} will call its method \textsf{spawnEnemy}. \textsf{SpawnEnemy} 
+As discussed in section 2.2.1, 
+\texttt{GameController} has function \textsf{spawnPC} to generate PC with 
+required race. For the enemy generation, \texttt{Board} will call its method
+\textsf{spawnEnemy}. \textsf{SpawnEnemy} 
 has a helper named \textsf{spawnOneEnemy} that can spawn one specified enemy. 
-\textsf{SpawnEnemy} determines an enemy race based on the probability 
-distribution, and calls \textsf{spawnOneEnemy} to generate such enemy.
+\textsf{SpawnEnemy} randomly generates a chamber and an unoccupied postiion
+inside that chamber and then determines an enemy race based on the probability 
+distribution, and calls \textsf{spawnOneEnemy} with these information as
+parameters to generate each enemy.
 It repeats the process 20 times to get 20 random enemies. 
 
 On due date 1, we proposed to use \texttt{Board} class to controll the entire 
@@ -531,8 +594,9 @@ reuses as much code as possible? That is, how would you structure your system
 so that the generation of a potion and then generation of treasure does not
 duplicate code? 
 
-To reuse as much code as possible, Potions and Treasures should inherit the
-same base class. Note that treasure and potion share many similarities. They
+To reuse as much code as possible, \textt{Potion} and \texttt{Treasure}
+both inherit form \texttt{NonLiving} base class.
+Note that treasure and potion share many similarities. They
 can only be picked up when players are near them, and they are immobile items
 generated at the start of each floor. To do so we need them to both inherit a
 virtual base class of Items (in our design UML, it is called NonLiving). The
@@ -547,27 +611,28 @@ controls things such as number and proportions.
 
 \section{EXTRA CREDIT FEATURES}
 
-\textbf{Implicit Memory Handling: }
+\subsection{Implicit Memory Handling: }
 
 In our project, we uses smart pointers to manage memory without leak. No delete 
-statement exists in our program.  \\
+statement exists in our program.
 
-\textbf{New PC race: }
+\subsection{New PC race: }
 
-New player character race added: \\
-\indent ghost (80 HP, 30 Atk, 15 Def, causes enemy to 
-have 80\% chance to miss attacks). 
+New player character race added: 
+
+\textsf{\indent $\phantom{\qquad}$ ghost (80 HP, 30 Atk, 15 Def, causes enemy to 
+have 80\% chance to miss attacks) }
 
 Ghost is a race designed to have high attack missing probabilities. Thus, we 
-give them a relatively low character status to balance the game. \\
+give them a relatively low character status to balance the game. Ghost
+is initialized if player choose 'h' at player race selection session.
 
-\textbf{Scoreboard: }
+\subsection{Scoreboard}
 
-Our cc3k game supports displaying a global scoreboard. 
-
+Our cc3k game supports displaying a scoreboard. 
 Every time users win or lose the game, they have a choice of entering their 
 names. Then, a global scoreboard with their name and rank will be displayed on 
-the screen. If they choose not to enter a name, it will leave as anonymous.  
+the screen. If they choose not to enter a name, it will leave as anonymous. 
 
 
 
@@ -600,12 +665,12 @@ cohesion. The display classes should be made such that it has an inclusive list
 of all possible game events, so that the newAction method is not needed, and
 all call made to display should only contain flags. This increases the
 complexity of the class, but it also allows several game messages to be
-combined into one sentence, making it more user friendly.  
+combined into one sentence, making it more user friendly.  \\
 
 
 
 
-\section{Conclusion}
+\section{CONCLUSION}
 
 
 
