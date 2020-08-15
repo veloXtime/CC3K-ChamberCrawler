@@ -19,7 +19,7 @@ class Treasure: public NonLiving
         virtual int getAmount() const;
 
         //get called when PC is neary by
-        void getNotified(PlayerCharacter&) override;
+        virtual void getNotified(PlayerCharacter&) override;
 };
 
 
@@ -41,6 +41,7 @@ class DragonHoard : public Treasure
 
         int getAmount() const override;
         //when dragon is slain
-        void notify(Dragon*);
+        //void notify(Dragon*);
+        void getNotified(PlayerCharacter&) override;
 };
 #endif

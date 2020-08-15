@@ -10,6 +10,7 @@
 #include "vampire.h"
 #include "troll.h"
 #include "goblin.h"
+#include "ghost.h"
 #include "architect.h"
 #include "treasure.h"
 #include "display.h"
@@ -279,7 +280,7 @@ void GameController::readFloor(istream & in, char race)	// version without defau
 	int x = pc->getXCoordinate();
 	int y = pc->getYCoordinate();
 	auto tile = dynamic_pointer_cast<Architect>(board.floor[x][y][0]);
-	cout << tile->getChamberInd();
+	//cout << tile->getChamberInd();
 	setPCChamber(tile->getChamberInd());
 	//spawnStair();
 }
@@ -395,6 +396,10 @@ void GameController::spawnPC(char c)
 	{
 		pc = make_shared<Troll>(x, y);
 	}
+	else if (c == 'h')
+	{
+		pc = make_shared<Ghost>(x, y);
+	}
 	board.replace(pc);
 }
 
@@ -433,14 +438,6 @@ void GameController::movePC(string direc)
 			break;
 		}
 	}
-	// if (direc == "no") { --x; }
-	// else if (direc == "so") { ++x; }
-	// else if (direc == "ea") { ++y; }
-	// else if (direc == "we") { --y; }
-	// else if (direc == "ne") { --x; ++y; }
-	// else if (direc == "nw") { --x; --y; }
-	// else if (direc == "se") { ++x; ++y; }
-	// else if (direc == "sw") { ++x; --y; }
 
 	char c = board.getChar(x,y);
 	setPCChamber(board.getChamberInd(x,y));

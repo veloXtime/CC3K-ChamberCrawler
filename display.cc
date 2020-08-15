@@ -129,6 +129,7 @@ void display::clearAction()
 
 std::ostream& operator<<(std::ostream& out, const display& ac)
 {
+    out << '\n';
     for(int i = 0; i < 25; ++i)
     {
         out << ac.boardBuffer[i] << '\n';
