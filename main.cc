@@ -1,5 +1,6 @@
 #include "gameController.h"
 #include <iostream>
+#include <cstdlib>
 #include <fstream>
 using namespace std;
 #include "debug.h"
@@ -15,7 +16,13 @@ bool checkDirection(string inp)
 
 int main(int argc, char* argv[])
 {
-	srand(time(NULL));
+	if (argc > 2)
+	{
+		int seed = atoi(argv[2]);
+		srand(seed);
+	}
+	else srand(time(NULL));
+
 	#ifdef DEBUG
 	srand(3);
 	#endif
