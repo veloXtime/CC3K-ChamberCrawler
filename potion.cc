@@ -24,7 +24,12 @@ std::pair<int, int> Potion::effect()
 
 void Potion::getNotified(PlayerCharacter& p)
 {
-    gameDisplay.action(ACTION::SeePotion);
+    gameDisplay.action(ACTION::SeePotion, this);
+}
+
+bool Potion::isSeen()
+{
+
 }
 
 std::string Potion::getType()
@@ -44,17 +49,10 @@ PotionHP::PotionHP(int x, int y, int val)
 
 std::pair<int, int> PotionHP::effect()
 {
-    return std::make_pair<int, int>(0, 0);
+    vis.seen[val>0 ? 0 : 1] = true;
+    return next->effect();
 }
 
-// void PotionHP::drink(PlayerCharacter* pc)
-// {
-//     if(pc->getRace() == "drow")
-//         val*=1.5;
-//     pc->setHp(pc->getHp() + val);
-
-//     gameDisplay.action(ACTION::DrinkP, this);
-// }
 /* HP potion */
 
 /* Atk Potion */
@@ -69,6 +67,7 @@ PotionAtk::PotionAtk(int x, int y, int val)
 
 std::pair<int, int> PotionAtk::effect()
 {
+    vis.seen[val>0 ? 0 : 1] = true;
     auto v = next->effect();
     v.first += val;
     return v;
@@ -87,7 +86,45 @@ PotionDef::PotionDef(int x, int y, int val)
 
 std::pair<int, int> PotionDef::effect()
 {
+    vis.seen[val>0 ? 0 : 1] = true;
     auto v = next->effect();
     v.second += val;
     return v;
+}
+
+PotionHP::visibility PotionHP::vis = {false, false};
+PotionHP::visibility PotionAtk::vis = {false, false};
+PotionHP::visibility PotionDef::vis = {false, false};
+
+// void PotionHP::getNotified(PlayerCharacter& p)
+// {
+//     gameDisplay.action(ACTION::SeePotion, this);
+//     seen[val>0 ? 0 : 1] = true;
+// }
+
+// void PotionAtk::getNotified(PlayerCharacter& p)
+// {
+//     gameDisplay.action(ACTION::SeePotion, this);
+//     seen[val>0 ? 0 : 1] = true;
+// }
+
+// void PotionDef::getNotified(PlayerCharacter& p)
+// {
+//     gameDisplay.action(ACTION::SeePotion, this);
+//     seen[val>0 ? 0 : 1] = true;
+// }
+
+bool PotionHP::isSeen()
+{
+    return vis.seen[val>0 ? 0 : 1];
+}
+
+bool PotionAtk::isSeen()
+{
+    return vis.seen[val>0 ? 0 : 1];
+}
+
+bool PotionDef::isSeen()
+{
+    return vis.seen[val>0 ? 0 : 1];
 }

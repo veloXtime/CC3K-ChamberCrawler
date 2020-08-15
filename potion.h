@@ -10,10 +10,15 @@
 class Potion: public NonLiving 
 {
     friend PlayerCharacter;
+    
     protected:
         int val;
         std::string type;
         std::shared_ptr<Potion> next;
+        struct visibility
+        {
+            bool seen[2];
+        };
     public:
         Potion();
         Potion(int x, int y, int val); 
@@ -24,38 +29,50 @@ class Potion: public NonLiving
 
         //get called when PC is nearyby
         void getNotified(PlayerCharacter&) override;
+        virtual bool isSeen();
 
 };
 
 class PotionAtk: public Potion 
-{
+{   
+    static visibility vis;
     public:
         // Costructor
         PotionAtk(int x, int y, int val);
 
         //void drink(PlayerCharacter*) override;
         std::pair<int,int> effect() override;
+        //void getNotified(PlayerCharacter&) override;
+        bool isSeen() override;
 };
 
 class PotionDef: public Potion 
 {
+    static visibility vis;
+
     public:
         // Costructor
         PotionDef(int x, int y, int val);
         
-
+        
         std::pair<int,int> effect() override;
+
+        //void getNotified(PlayerCharacter&) override;
+        virtual bool isSeen() override;
 };
 
 class PotionHP: public Potion 
 {
-    
+    static visibility vis;
+
     public:
         // Costructor
         PotionHP(int x, int y, int val);
 
         //void drink(std::shared_ptr<PlayerCharacter>) override;
         std::pair<int,int> effect() override;
+        //void getNotified(PlayerCharacter&) override;
+        virtual bool isSeen() override;
 };
 
 #endif

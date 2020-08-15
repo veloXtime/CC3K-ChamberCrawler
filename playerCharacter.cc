@@ -27,12 +27,12 @@ PlayerCharacter::PlayerCharacter
 
 int PlayerCharacter::getAtk() const
 {
-    return std::min(0, atk + potions->effect().first);
+    return std::max(0, atk + potions->effect().first);
 }
 
 int PlayerCharacter::getDef() const
 {
-    return std::min(0, def + potions->effect().second);
+    return std::max(0, def + potions->effect().second);
 }
 
 int PlayerCharacter::getScore()
@@ -53,7 +53,7 @@ void PlayerCharacter::drink(std::shared_ptr<Potion> p)
             p->val*=1.5;
         setHp(getHp() + p->val);
     }
-    else
+    //else
     {
         p->next = potions;
         potions = p;

@@ -89,7 +89,17 @@ void display::action(ACTION act, int v)
 
 void display::action(ACTION act, Potion* p)
 {
-    actline += "You drinked " + p->getType() + ". ";
+    switch(act)
+    {
+        case ACTION::SeePotion:
+			actline += p->isSeen() ? 
+                       "You saw a bootle of " + p->getType() + ". " :  "You saw an unknown potion. ";
+             break;
+        case ACTION::DrinkP:
+            actline += "You drinked " + p->getType() + ". "; break;
+        default: break;
+    }
+    
 }
 
 void display::action(ACTION act, int damage, Living* a, Living* b)
