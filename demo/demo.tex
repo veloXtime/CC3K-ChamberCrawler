@@ -758,7 +758,8 @@ You moved east.
     \item The current floor is displayed at the right of the first status line
 \end{itemize}
 
-\textbf{9. Dragon and Dragon Hoard}
+\newpage
+\textbf{8. Dragon and Dragon Hoard}
 
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
@@ -903,7 +904,8 @@ You picked up 6 piece(s) of gold.
     \item After killing the dragon, PC proceeds to collect the dragon hoard.
 \end{itemize}
 
-\textbf{8. Merchant Behaviour}
+\newpage
+\textbf{9. Merchant Behaviour}
 
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
@@ -1015,13 +1017,47 @@ You dealed 39 damage to merchant. PC slains M. Some gold is left on the floor. Y
 \end{itemize}
 
 
+\textbf{End Game}
 
 
 \begin{Verbatim}[fontsize=\scriptsize]
-   
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |..........P...............|        |.....E........GD.......|               |
+| |.........P................+########+.......................|-------|       |
+| |O.........................|   #    |...........................GD..|--|    |
+| |..........L...............|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |P..............| |
+|            #                 #     |............|         |...............| |
+|            ###################     |.........P..|   ######+....O..........| |
+|            #                 #     |.........W..|   #     |....W..........| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....\@..............|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |.........L...........|     #           #                    |P..........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.................P.....................| |
+|  |.....................+##########+..............H........................| |
+|  |..G.......G..........|          |................G.............H.....G..| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 16                                                   Floor: 5
+HP: 120
+ATK: 40
+DEF: 25
+You moved west. You reached the final stair. Your score is 16.  
 \end{Verbatim}
 
-
+\begin{itemize}
+    \item When the player reaches the stair at the final (fifth) floor, the game
+    is ended.
+    \item The score is calculated as the pieces of gold PC collects at each floor.
+\end{itemize}
 
 \end{document}
 
