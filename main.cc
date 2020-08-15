@@ -29,6 +29,7 @@ int main(int argc, char* argv[])
 	string fname = (argc > 1) ? argv[1] : "default.txt";
 	auto in = std::make_shared<std::ifstream>(fname);
 	int stillMode = 0;
+	int dlc = 0;
 	GameController GC;
 	string line;
 
@@ -43,15 +44,28 @@ int main(int argc, char* argv[])
 			{
 				std::istringstream iss{line};
 				iss >> race;
-				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't' || race == 'h')
-				{
-					break;
+				if (dlc){
+					if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't' || race == 'h')
+					{
+						break;
+					}
+					if (race == 'q')
+					{
+						return 1;
+					}
+					if (std::cin.eof()) { return 1; }
 				}
-				if (race == 'q')
-				{
-					return 1;
+				else{
+					if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't')
+					{
+						break;
+					}
+					if (race == 'q')
+					{
+						return 1;
+					}
+					if (std::cin.eof()) { return 1; }
 				}
-				if (std::cin.eof()) { return 1; }
 			}
 		}
 
@@ -82,6 +96,9 @@ int main(int argc, char* argv[])
 					if(board.getLevel() == GOALFLOOR)
 					{
 						GC.displayWin();
+						if (dlc){
+							GC.displayScoreboard();
+						}
 						return 0;
 					}
 					break;
@@ -133,7 +150,16 @@ int main(int argc, char* argv[])
 			else if (inp == "q")
 			{
 				GC.displayLose();
+				if (dlc){
+					GC.displayScoreboard();
+				}
 				return 0;
+			}
+			else if (inp == "l")
+			{
+				dlc = 1 - dlc;
+				if (dlc) cout << "DLC is on." << endl;
+				else cout << "DLC is off." << endl;
 			}
 			
 			GC.flushDisplay();

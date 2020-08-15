@@ -531,7 +531,6 @@ void GameController::displayLose()
 	gameDisplay.newAction("Your score is " + to_string(pc->getScore()) + ". ", false);
 	cout << gameDisplay;
 	gameDisplay.clearAction();
-	displayScoreboard();
 }
 
 void GameController::displayWin()
@@ -539,7 +538,6 @@ void GameController::displayWin()
 	gameDisplay.newAction("You reached the final stair. Your score is " + to_string(pc->getScore()) + ". ", false);
 	cout << gameDisplay;
 	gameDisplay.clearAction();
-	displayScoreboard();
 }
 
 void GameController::displayScoreboard(){
