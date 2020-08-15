@@ -283,6 +283,7 @@ void GameController::readFloor(istream & in, char race)	// version without defau
 	auto tile = dynamic_pointer_cast<Architect>(board.floor[x][y][0]);
 	//cout << tile->getChamberInd();
 	setPCChamber(tile->getChamberInd());
+	pc->resetPotion();
 	//spawnStair();
 }
 
