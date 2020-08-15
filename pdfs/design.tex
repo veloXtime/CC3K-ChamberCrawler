@@ -1,89 +1,32 @@
 \documentclass[11pt]{article}
-
-% page setting
-\usepackage[letterpaper, portrait, margin=0.7in]{geometry} \usepackage{parskip}
-
-% 
+\usepackage{parskip}
 \usepackage{geometry} \geometry{ letterpaper, total={170mm,257mm}, left=27mm,
 right=27mm, top=20mm, bottom=20mm }
-
-% coloring
 \usepackage[dvipsnames]{xcolor}
-
-% font setting
-%\usepackage[10pt]{moresize} \usepackage[utf8]{inputenc}
-
-% include graphics
 \usepackage{graphicx} \graphicspath{ {\string~/Documents/deposit/} }
-
-% latex math packages
 \usepackage{latexsym,amsfonts,amssymb,amsthm,amsmath}
-
-% graphing
 \usepackage{graphpap}
-%\usepackage[dvips]{graphics}
 \usepackage{tkz-euclide}
-
-% miscellaneous
 \usepackage{enumitem} 
 \setlist[enumerate]{itemsep=0mm}
-
 \usepackage{cases}
-
-% clickable content
 \usepackage{hyperref} \hypersetup{ colorlinks=true, linktoc=all,
 linkcolor=black,}
-
-\usetkzobj{all}
-
-% for taking notes
+%\usetkzobj{all}
 \theoremstyle{plain} \newtheorem{theorem*}{Theorem}[subsection]
 \newtheorem{theorem}{Theorem}[subsection]
 \newtheorem{thm}{\textit{Theorem}}[subsection]
 \newtheorem{definition}{Definition}[subsection]
-\newtheorem{lemma}{Lemma}[subsection]
-\newtheorem{conjecture}{Conjecture}[subsection]
-\newtheorem{proposition}{Proposition}[subsection]
-\newtheorem{example}{Example}[subsection]
-\newtheorem{corollary}{Corollary}[subsection]
 \newtheorem{algorithm}{Algorithm}[subsection]
 
-% Blackboard bold letters \newcommand {⟨cmd⟩} [⟨num⟩] [⟨default⟩]
-% {⟨definition⟩} 
-
-\newcommand{\set}[2]{\{#1\,:\,\text{#2}\}} \newcommand{\tup}[1]{\mathbf{#1}}
-\newcommand{\sfP}{\mathsf{P}} \newcommand{\M}{\mathsf{M}}
-\newcommand{\dfeq}{\stackrel{\mathrm{def}}{=}} \newcommand{\ra}{\rightarrow}
-\newcommand{\la}{\leftarrow} \newcommand{\lra}{\leftrightarrows}
-\newcommand{\Span}{\mathrm{span}} \newcommand{\scrP}{\mathscr{P}}
-\newcommand{\rank}{\mathrm{rank}} \newcommand{\nullity}{\mathrm{nullity}}
-\newcommand{\Col}{\mathrm{Col}} \newcommand{\Row}{\mathrm{Row}}
-\newcommand{\tr}{\mathrm{tr}} \let\emptyset\varnothing
-
-\newcommand{\abs}[1]{\left| #1 \right|}
-
-\newcommand{\mC}{{\mathbb{C}}} \newcommand{\mN}{{\mathbb{N}}}
-\newcommand{\mQ}{{\mathbb{Q}}} \newcommand{\mR}{{\mathbb{R}}}
-\newcommand{\mZ}{{\mathbb{Z}}} \newcommand{\mF}{{\mathbb{F}}}
-
-\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
-
-\newcommand{\de}{\delta} \newcommand{\ep}{\varepsilon}
-\renewcommand{\phi}{\varphi}
-
-\newcommand{\dlim}{\displaystyle\lim\limits}
-\newcommand{\dsum}{\displaystyle\sum\limits}
-
-\DeclareMathOperator{\Dim}{dim} \DeclareMathOperator{\Dom}{dom}
-\DeclareMathOperator{\Img}{img}
-
-\newcommand{\elemop}[1]{\stackrel{#1}{\longrightarrow}}
-\newcommand{\elemoprule}[2]{\underset{(#1)}{\stackrel{#2}{\longrightarrow}}}
-\newcommand{\cof}[3]{\widetilde{#1}_{#2 #3}} \newcommand{\sign}{\mathrm{sign}}
 \begin{document}
 
-\begin{center} {\LARGE \textbf{CS 246 Final Project Design}}\\ \vspace{0.15 in}
-Xinyan Lin, Hanyu Xu, Rivers Chen\\ \vspace{0.07 in} August, 2020 \end{center}
+\begin{center}
+{\LARGE \textbf{CS 246 Final Project Design}}\\
+\vspace{0.15 in}
+Xinyan Lin, Hanyu Xu, Rivers Chen\\ 
+\vspace{0.07 in} August, 2020 
+\end{center}
 
 \vspace{0.3 in} 
 \section{OVERVIEW} 
@@ -100,7 +43,16 @@ of functions of \texttt{Board} to change the state of \textsf{floor} of
 contains all game elements. \texttt{Board} will then access these pointers'
 methods to accomplish any tasks required.\\
 
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 \section{DESIGN} 
+
 \subsection{System Components}
 %\begin{description} \item 
 
@@ -372,6 +324,22 @@ Section 5.3)
 
 
 
+
+
+
+
+
+
+
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+
 \newpage
 \section{RESILIENCE TO CHANGE}
 \subsection{Adding player and enemy characters}
@@ -415,6 +383,15 @@ are added to the board.
 
 
 
+
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \vspace{0.3 in}
 \section{ANSWERS TO QUESTIONS}
@@ -594,7 +571,7 @@ reuses as much code as possible? That is, how would you structure your system
 so that the generation of a potion and then generation of treasure does not
 duplicate code? 
 
-To reuse as much code as possible, \textt{Potion} and \texttt{Treasure}
+To reuse as much code as possible, \texttt{Potion} and \texttt{Treasure}
 both inherit form \texttt{NonLiving} base class.
 Note that treasure and potion share many similarities. They
 can only be picked up when players are near them, and they are immobile items
@@ -608,6 +585,18 @@ functionality, we have to provide another method with different parameters that
 controls things such as number and proportions. 
 
 
+
+
+
+
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{EXTRA CREDIT FEATURES}
 
@@ -636,6 +625,16 @@ the screen. If they choose not to enter a name, it will leave as anonymous.
 
 
 
+
+
+
+
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \section{FINAL QUESTIONS}
 
