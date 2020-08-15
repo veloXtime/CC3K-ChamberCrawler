@@ -150,9 +150,6 @@ int main(int argc, char* argv[])
 			else if (inp == "q")
 			{
 				GC.displayLose();
-				if (dlc){
-					GC.displayScoreboard();
-				}
 				return 0;
 			}
 			else if (inp == "l")
