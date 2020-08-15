@@ -3,3 +3,9 @@
 *.d
 cc3k
 cc3k.exe
+pdfs/design.aux
+pdfs/design.fdb_latexmk
+pdfs/design.fls
+pdfs/design.log
+pdfs/design.out
+scoreboard.txt
