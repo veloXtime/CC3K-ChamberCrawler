@@ -10,6 +10,16 @@ using namespace std;
 Score::Score(int score, string name)
     :score{score}, name{name} {}
 
+int Score::getScore()
+{
+	return score;
+}
+
+string Score::getName()
+{
+	return name;
+}
+
 // clear the scoreboard
 void ScoreBoard::clear(){
     score_board.clear();
@@ -34,7 +44,7 @@ void ScoreBoard::read(){
 void ScoreBoard::write(){
     ofstream outfile{"scoreboard.txt"};
     for (auto n : score_board) {
-        outfile << n->score << " " << n->name << endl;
+        outfile << n->getScore() << " " << n->getName() << endl;
     }
 }
 
@@ -47,7 +57,7 @@ void ScoreBoard::add(int score, string name){
 void ScoreBoard::sort(){
     std::sort(score_board.begin(), score_board.end(), 
     [] (const shared_ptr<Score> & score1, const shared_ptr<Score> & score2) {
-        return score1->score > score2->score;
+        return score1->getScore() > score2->getScore();
     });
 }
 
@@ -57,7 +67,7 @@ void ScoreBoard::display(){
     int ctr = 1;
     sort();
     for (auto n : score_board){
-        cout << left << setw(8) << ctr << left << setw(9) << n->score << n->name << endl;
+        cout << left << setw(8) << ctr << left << setw(9) << n->getScore() << n->getName() << endl;
         ++ctr;
     }
 }

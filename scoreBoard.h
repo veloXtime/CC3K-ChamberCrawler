@@ -4,17 +4,23 @@
 #include <vector>
 #include <memory>
 
-struct Score{
-    int score;
-    std::string name;
+class Score{
+	private: 
+		int score;
+		std::string name;
     
-    // Constructor
-    Score(int score, std::string name = "anonymous");
+    public:
+    	// Constructor
+    	Score(int score, std::string name = "anonymous");
+    	int getScore();
+		std::string getName();
+
 };
 
-struct ScoreBoard{
+class ScoreBoard{
     std::vector<std::shared_ptr<Score>> score_board;
 
+	public:
     // clear the scoreboard
     void clear();
     
