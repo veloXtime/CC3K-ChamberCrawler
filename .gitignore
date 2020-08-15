@@ -17,3 +17,5 @@ demo/demo.fls
 demo/demo.fdb_latexmk
 demo/demo.aux
 demo/demo.pdf
+ccfloor_output
+demo/demo.pdf
