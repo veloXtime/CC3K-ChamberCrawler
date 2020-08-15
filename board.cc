@@ -334,7 +334,7 @@ void Board::enemyDeath(shared_ptr<EnemyCharacter> e, int pc_x, int pc_y)
 			{
 				x1 = rand() % floor.size();
 				y1 = rand() % floor[0].size();
-				if (getChamberInd(x1, y1) == chamberInd && (x1 != x || y1 != y))
+				if (getChamberInd(x1, y1) == chamberInd && getChar(x1, y1) == '.' && (x1 != x || y1 != y))
 					break;
 			}
 			auto g2 = make_shared<Treasure>(x1, y1, tt);
