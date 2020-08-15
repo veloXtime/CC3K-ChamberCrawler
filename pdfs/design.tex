@@ -349,29 +349,22 @@ design.
 
 As discussed in section 2.1.2, to generate each race easily, 
 we apply the template method.
-We would create a class named \texttt{PlayerCharacter} as the abstract base
+We create a class named \texttt{PlayerCharacter} as the abstract base
 class. A player character must be one of the race type, thus an object of the
-parent PC (without race) will never be initialized, which means PC will have
-pure virtual method. Then, based on the template method, we
-will make each race a distinct sub class of PC which inherit accessors and
-mutators form \texttt{Living} and \textsf{attack} and \textsf{getAttacked}
-from \texttt{PlayerCharacter}.
-
-%For a player character of any race, it has common attributes of HP, ATK, DEF
-%and MAX HP. These are common behaviors of all races. Thus, these attributes
-%will be put into the parent class PC. Also, there will be accessor and mutator
-%methods for each field in the parent class. PC will also have methods called
-%“attack” and “attackedBy”. “Attack” is a method called upon the PC attacking an
-%enemy whereas “attackedBy” is a method called upon the PC being attacked by an
-%enemy. 
+parent \texttt{PlayerCharacter} (without race) will never be initialized, which 
+means \texttt{PlayerCharacter} will have pure virtual method. Then, based on 
+the template method, we will make each race a distinct sub class of 
+\texttt{PlayerCharacter} which inherit accessors and mutators from 
+\texttt{Living} and \textsf{attack} and \textsf{attackedBy} from 
+\texttt{PlayerCharacter}.
 
 Such solution makes adding additional races easily. If an additional race is to
 be added, then we would make the race a new sub class inherited from the base
-class PC. We would create a header file and a separate implementation file for
-the race. We can override any method required in the sub class. Doing so
-results in high cohesion and low coupling. The new header and implementation
-file serves solely for the purpose of creating a new race. Also, such
-implementation will not affect the base class or any other races.	\\
+class \texttt{PlayerCharacter}. We would create a header file and a separate 
+implementation file for the race. We can override any method required in the 
+sub class. Doing so results in high cohesion and low coupling. The new header 
+and implementation file serves solely for the purpose of creating a new race.
+Also, such implementation will not affect the base class or any other races.	\\
 
 \textbf{Question:}
 How does your system handle generating different enemies? Is it different from
@@ -384,15 +377,15 @@ answered in due date 1 design.
 Like for player characters, use template method to generate different enemies,
 \texttt{EnemyCharacter} is the abstract base class which will
 never tbe initialized, \texttt{EnemyCharacter} will also contain methods called
-“attack” and “attackedBy”. 
-“Attack” is a method called upon the enemy attacking a PC whereas
-“attackedBy” is a method called upon the enemy being attacked by a PC. 
+\textsf{attack} and \textsf{attackedBy}. 
+\textsf{attack} is a method called upon the enemy attacking a PC whereas
+\textsf{attackedBy} is a method called upon the enemy being attacked by a PC. 
 
 Based on the template method, make each race a 
 distinct subclass of \texttt{EnemyCharacter} like we did for player characters,
 then these subclasses all inherit accessors and
-mutators form \texttt{Living} and \textsf{attack} and \textsf{getAttacked}
-from \texttt{enemyCharacter}.
+mutators from \texttt{Living} and \textsf{attack} and \textsf{attackedBy}
+from \texttt{EnemyCharacter}.
 
 
 For the difference between generating player character and enemy character,
@@ -406,28 +399,29 @@ the required race PC.
 
 We have \texttt{Board} responsible for game component generation
 and management of pc-unrelated behaviours. At the beginning of initialization
-of every floor, enemies will be spawned. For the enemy generation, the Board
-will call its method “spawnEnemy”. SpawnEnemy has a helper named spawnOneEnemy
-that can spawn one specified enemy. SpawnEnemy determines an enemy race based o
-n the probability distribution, and calls spawnOneEnemy to generate such enemy.
+of every floor, enemies will be spawned. For the enemy generation, 
+\texttt{Board} will call its method \textsf{spawnEnemy}. \textsf{SpawnEnemy} 
+has a helper named \textsf{spawnOneEnemy} that can spawn one specified enemy. 
+\textsf{SpawnEnemy} determines an enemy race based on the probability 
+distribution, and calls \textsf{spawnOneEnemy} to generate such enemy.
 It repeats the process 20 times to get 20 random enemies. 
 
-On due date 1, we proposed to use Board class to controll the entire game flow.
-But in actual implementation, we decided to have Board and GameController
-taking different responsibilities of the game flow. Doing so increases the
-cohesion within the classes. We put PC generation in GameController, as its
-generation is related to user inputs. We put enemy generation in Board, as it
-belongs to part of the floor initialization and is unrelated to user’s
-behaviours. Such reason causes the generation of player character and enemy
-character to be different. \\
+On due date 1, we proposed to use \texttt{Board} class to controll the entire 
+game flow. But in actual implementation, we decided to have \texttt{Board} 
+and \texttt{GameController} taking different responsibilities of the game flow. 
+Doing so increases the cohesion within the classes. We put PC generation in 
+\texttt{GameController}, as its generation is related to user inputs. We put 
+enemy generation in \texttt{Board}, as it belongs to part of the floor 
+initialization and is unrelated to user’s behaviours. Such reason causes the 
+generation of player character and enemy character to be different. \\
 
 \textbf{Question:}
 How could you implement the various abilities for the enemy characters? Do you
 use the same techniques as for the player character races? Explain. 
 
 \textbf{Answer:}
-The answer for this question is slightly different from the answer in due date
-1 design. 
+The answer for this question is slightly \underline{different} from the answer 
+in due date 1 design. 
 
 The various abilities for the enemy characters will be implemented differently.
 We sort the abilities of enemy characters into three categories: attack
@@ -435,41 +429,42 @@ priority (for halfling), extra damage (for dwarf, elf, orcs), and others (for
 human, dragon).  
 
 First, we would expose our implementation of combat. In a combat, a character A
-attacking a character B has the following procedure: calling A.attack(B),
-A.attack(B) will call B.attackedBy(A), “attackedBy” calculates the actual
-damage and change the HP of B consequently. Here we exploits the observer
-pattern and visitor pattern. The observer pattern is used in such way: when a
-PC gets within 1 block radius of an enemy, it notifies the enemy so that the
-enemy get notified. As long as an enemy gets notified, it tries to attack PC.
-The visitor pattern is used so that the damage will be calculated differently
-based on the races of player character and enemy character. 
+attacking a character B has the following procedure: calling A.\textsf{attack}(B),
+A.\textsf{attack}(B) will call B.\textsf{attackedBy}(A), \textsf{attackedBy} 
+calculates the actual damage and change the HP of B consequently. Here we 
+exploits the observer pattern and visitor pattern. The observer pattern is used 
+in such way: when a PC gets within 1 block radius of an enemy, it notifies the 
+enemy so that the enemy get notified. As long as an enemy gets notified, it 
+tries to attack PC. The visitor pattern is used so that the damage will be 
+calculated differently based on the races of player character and enemy character. 
 
 To implement attack priority for halfling, when PC tries to attack a halfling,
-a 50% probability of successful attack is implemented in PC’s attack function.
-Also, halfling has 100% chance of successful attack, thus the getNotified
-function of EnemyCharacter is overridden by halfling. Normally, when an enemy
-gets notified by an PC, it has 50% chance of successful attack. For halfling,
-the probability check is removed so that an halfling always attacks the PC when
-getting notified. 
+a 50\% probability of successful attack is implemented in PC’s \textsf{attack} 
+function. Also, halfling has 100\% chance of successful attack, thus the 
+\textsf{getNotified} function of \texttt{EnemyCharacter} is overridden by halfling. 
+Normally, when an enemy gets notified by an PC, it has 50\% chance of successful 
+attack. For halfling, the probability check is removed so that an halfling always 
+attacks the PC when getting notified. 
 
 To implement extra damage, the template method will be applied here. In
-default, the base PlayerCharacter class has 7 “attackedBy” methods that each
-takes in a different enemy race with respect to the visitor pattern. Howevery,
-the enemy races belong to the extra damage categories do extra damage to
+default, the base \texttt{PlayerCharacter} class has 7 \textsf{attackedBy} methods 
+that each takes in a different enemy race with respect to the visitor pattern. 
+However, the enemy races belong to the extra damage categories do extra damage to
 specfic PC races. Specifically, vampires react to dwarves, all races except
 drow react to elfs, and goblins react to orcs. Thus, we will override the
-distinct “attackedBy” for the mentioned enemy race in the character race class.
-For example,  when attackedBy takes in an orc, goblin class will override
-attackedBy(orc) and special damage calculation will be done. When attackedBy
-takes in other races, it follows the default attackedBy defined in the
-PlayerCharacter class. 
+distinct \textsf{attackedBy} for the mentioned enemy race in the character race 
+class. For example,  when \textsf{attackedBy} takes in an orc, goblin class will 
+override \textsf{attackedBy}(orc) and special damage calculation will be done. 
+When \textsf{attackedBy} takes in other races, it follows the default 
+\textsf{attackedBy} defined in the \texttt{PlayerCharacter} class. 
 
 To implement the ability of human, upon the death of a human, extra gold pile
-generation is required. As mentioned before, we have a Board class responsible
-for management of pc-unrelated behaviours. Specifically, it is responsible for
-removing enemies from the board when the enemies are slained. Thus in Board’s
-function enemyDeath(), it checks the race of the dead enemy. If it’s determined
-to be a human, two piles of gold will be generated. 
+generation is required. As mentioned before, we have a \texttt{Board} class 
+responsible for management of pc-unrelated behaviours. Specifically, it is 
+responsible for removing enemies from the board when the enemies are slained. 
+Thus in \texttt{Board}’s function \textsf{enemyDeath()}, it checks the race of 
+the dead enemy. If it’s determined to be a human, two piles of gold will be 
+generated. 
 
 To implement the ability of dragon, its associared dragon hoard maintains a
 pointer to its dragon’s address. It means the dragon generation is isolated
@@ -481,6 +476,7 @@ has no special interaction with enemies. Thus, they can be implemented through
 changing the information of PC (I.e. fields and methods). But most enemy
 abilities have special interaction with PCs (they do damage differently), thus
 we use different design patterns and implementations to complete such features. \\
+
 
 \textbf{Question:}
 The Decorator and Strategy patterns are possible candidates to model the
@@ -542,8 +538,27 @@ controls things such as number and proportions.
 
 \section{EXTRA CREDIT FEATURES}
 
-In our project, we uses smart pointers to manage memory without leak. No delete
-statement exists in our program.  
+\textbf{Implicit Memory Handling: }
+
+In our project, we uses smart pointers to manage memory without leak. No delete 
+statement exists in our program.  \\
+
+\textbf{New PC race: }
+
+New player character race added: \\
+\indent ghost (80 HP, 30 Atk, 15 Def, causes enemy to 
+have 80\% chance to miss attacks). 
+
+Ghost is a race designed to have high attack missing probabilities. Thus, we 
+give them a relatively low character status to balance the game. \\
+
+\textbf{Scoreboard: }
+
+Our cc3k game supports displaying a global scoreboard. 
+
+Every time users win or lose the game, they have a choice of entering their 
+names. Then, a global scoreboard with their name and rank will be displayed on 
+the screen. If they choose not to enter a name, it will leave as anonymous.  
 
 
 
