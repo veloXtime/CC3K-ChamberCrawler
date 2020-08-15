@@ -346,7 +346,9 @@ void Board::enemyDeath(shared_ptr<EnemyCharacter> e, int pc_x, int pc_y)
 	{
 		if (floor[pc_x][pc_y][1]->getChar() == 'G')
 		{
-			auto t = dynamic_pointer_cast<Treasure>(board.floor[x][y][1]);
+			auto t = dynamic_pointer_cast<Treasure>(floor[pc_x][pc_y][1]);
+			auto pc = dynamic_pointer_cast<PlayerCharacter>(floor[pc_x][pc_y].back());
+			pc->pickup(t);
 			floor[pc_x][pc_y].erase(floor[pc_x][pc_y].begin() + 1);
 		}
 	}

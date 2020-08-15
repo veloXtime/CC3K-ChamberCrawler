@@ -455,11 +455,11 @@ void GameController::movePC(string direc)
 	}
 	else if (c == 'G')
 	{
-		shared_ptr<Treasure> t = dynamic_pointer_cast<Treasure>(board.floor[x][y].back());
+		auto t = dynamic_pointer_cast<Treasure>(board.floor[x][y].back());
 		if (pc->pickup(t))
 		{
 			board.revert(x, y);
-		};
+		}
 		
 		board.revert(pc);
 		pc->setXCoordinate(x);
