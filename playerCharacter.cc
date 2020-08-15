@@ -2,6 +2,7 @@
 #include <cmath>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 #include "potion.h"
 #include "shade.h"
 #include "drow.h"
@@ -26,12 +27,12 @@ PlayerCharacter::PlayerCharacter
 
 int PlayerCharacter::getAtk() const
 {
-    return atk + potions->effect().first;
+    return std::min(0, atk + potions->effect().first);
 }
 
 int PlayerCharacter::getDef() const
 {
-    return def + potions->effect().second;
+    return std::min(0, def + potions->effect().second);
 }
 
 int PlayerCharacter::getScore()
