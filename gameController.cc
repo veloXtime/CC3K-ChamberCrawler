@@ -106,6 +106,12 @@ void GameController::readGE(int x, int y, int & ind, char c, char race,
 		{
 			return;
 		}
+		else if(c == '\\')
+		{
+			sqr.push_back(make_shared<Architect>(x, y, '\\', ind));
+			stairX = x;
+			stairY = y;
+		}
 		else if (c == 'H')
 		{
 			auto enemy = make_shared<Human>(x,y);
@@ -270,7 +276,7 @@ void GameController::readFloor(istream & in, char race)	// version without defau
 	auto tile = dynamic_pointer_cast<Architect>(board.floor[x][y][0]);
 	cout << tile->getChamberInd();
 	setPCChamber(tile->getChamberInd());
-	spawnStair();
+	//spawnStair();
 }
 
 
