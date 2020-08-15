@@ -206,38 +206,31 @@ void GameController::readGE(int x, int y, int & ind, char c, char race,
 		}
 		else if (c == '@')
 		{
-			if (race == ' ')
+			if (pc == nullptr)
 			{
-				pc->setXCoordinate(x);
-				pc->setYCoordinate(y);
-				sqr.push_back(pc);
-				pc->resetPotion();
+				if (race == 's')
+				{
+					pc = make_shared<Shade>(x, y);
+				}
+				else if (race == 'd')
+				{
+					pc = make_shared<Drow>(x, y);
+				}
+				else if (race == 'v')
+				{
+					pc = make_shared<Vampire>(x, y);
+				}
+				else if (race == 'g')
+				{
+					pc = make_shared<Goblin>(x, y);
+				}
+				else if (race == 't')
+				{
+					pc = make_shared<Troll>(x, y);
+				}
 			}
-			else if (race == 's')
-			{
-				pc = make_shared<Shade>(x, y);
-				sqr.push_back(pc);
-			}
-			else if (race == 'd')
-			{
-				pc = make_shared<Drow>(x, y);
-				sqr.push_back(pc);
-			}
-			else if (race == 'v')
-			{
-				pc = make_shared<Vampire>(x, y);
-				sqr.push_back(pc);
-			}
-			else if (race == 'g')
-			{
-				pc = make_shared<Goblin>(x, y);
-				sqr.push_back(pc);
-			}
-			else if (race == 't')
-			{
-				pc = make_shared<Troll>(x, y);
-				sqr.push_back(pc);
-			}
+
+			sqr.push_back(pc);
 		}
 	}
 }
