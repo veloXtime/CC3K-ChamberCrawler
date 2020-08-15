@@ -3,23 +3,25 @@
 \usepackage{framed}        
 \geometry{letterpaper, margin=1in}                   
 \usepackage{color,amsmath,amsfonts,amssymb,amsthm,mathtools}
-\setlength{\parindent}{1cm}
+\usepackage{parskip}
+%\setlength{\parindent}{1cm}
 \usepackage{mathrsfs}
 \usepackage{IEEEtrantools}
 \usepackage{xcolor}
 %\usepackage[empty]{fullpage}
 \definecolor{easy-eyes}{gray}{0.1}
-%\color{easy-eyes}
+\theoremstyle{plain} 
+\color{easy-eyes}
 %\usepackage{graphicx}
 %\usepackage{tabularx}
 
 
 % header and footer
-\usepackage{fancyhdr}
-\pagestyle{fancyplain}
-\fancyhf{}
-\lhead{Name: }
-\rhead{}
+%\usepackage{fancyhdr}
+%\pagestyle{fancyplain}
+%\fancyhf{}
+%\lhead{Name: }
+%\rhead{}
 
 
 
@@ -37,9 +39,92 @@
 % \newcommand{\epi}{\varepsilon}
 
 \begin{document}
+\begin{center}
+{\LARGE \textbf{CS 246 Final Project Demo}}\\
+\vspace{0.15 in}
+Xinyan Lin, Hanyu Xu, Rivers Chen\\ 
+\vspace{0.07 in} August, 2020
+\end{center}
 
-Welcome to the world of CC3k, in this game, your goal is to reach the exist at the top floor in the dungeon
-with ever screeching monsters wandering around.
+\vspace{0.2 in}
+
+
+Need to show:
+
+\textbf{Initialization:}
+
+-empty board (with default.txt)
+
+-spawned board (both default.txt and readin version)\\
+explain: PC and enemy are in different chamber, show number of enemies,
+potions, and gold are correct.
+
+-initialize with each player character to show the initial stats are correct
+
+
+
+
+
+PC and Enemy:
+- attack each enemy and show that the stats are correct, also show the 
+special abilities of different enemies or pc are in effect.
+
+PC MOVE:
+
+- movePC towards an occupied postion
+
+- movePC through chambers and passages
+
+- movePC to next level
+
+- movePC to gold, move PC to dragonHoard
+
+- movePC near each enemy to show each enemy will attack PC
+
+- movePC near dragonHoard to show that Dragon will attack PC
+
+- movePC near merchant that is not hostile yet
+
+
+PC ATTACK:
+
+- PC attack each race of enemy, and get attacked back, show stats calculation
+and show the special effect of each enemy and PC, this will cause 
+
+race number of PC * race number of Enemy combinations
+
+- PC attack 
+\newpage
+
+
+Once upon the time, heros moved through the dungeon and slayed evil enemies 
+while collecting treasures along the way. However, the monsters have revolted
+and demanded to be made the heroes!
+Yes, you, in CC3K is a monster that climbs up floors in the dungeon to
+reach exit.
+
+
+\subsection{Game Setup}
+
+\begin{lstlisting}
+./cc3k 
+\end{lstlisting}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 \end{document}
+
