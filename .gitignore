@@ -9,3 +9,11 @@ pdfs/design.fls
 pdfs/design.log
 pdfs/design.out
 scoreboard.txt
+pdfs/design.synctex.gz
+demo/demo.synctex.gz
+pdfs/design.synctex.gz
+demo/demo.log
+demo/demo.fls
+demo/demo.fdb_latexmk
+demo/demo.aux
+demo/demo.pdf
