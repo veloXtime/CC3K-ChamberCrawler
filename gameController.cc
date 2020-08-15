@@ -235,6 +235,11 @@ void GameController::readGE(int x, int y, int & ind, char c, char race,
 					pc = make_shared<Troll>(x, y);
 				}
 			}
+			else
+			{
+				pc->setXCoordinate(x);
+				pc->setYCoordinate(y);
+			}
 
 			sqr.push_back(pc);
 		}
