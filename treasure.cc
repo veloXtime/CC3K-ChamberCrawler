@@ -40,3 +40,8 @@ int DragonHoard::getAmount() const
         return amount;
     return 0;
 }
+
+void DragonHoard::getNotified(PlayerCharacter& pc)
+{
+    doragon->getNotified(&pc);
+}

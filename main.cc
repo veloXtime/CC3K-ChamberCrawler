@@ -68,7 +68,7 @@ int main(int argc, char* argv[])
 			iss >> inp;
 			if (checkDirection(inp))
 			{
-				cout << inp;
+				//cout << inp;
 				GC.movePC(inp);
 				if (GC.levelComplete())
 				{
