@@ -376,6 +376,7 @@ void GameController::spawnPC(char c)
 		x = rand() % row;
 		y = rand() % col;
 	}
+	int ind = board.getChamberInd(x,y);
 	if (c == 's')
 	{
 		pc = make_shared<Shade>(x, y);
@@ -401,6 +402,7 @@ void GameController::spawnPC(char c)
 		pc = make_shared<Ghost>(x, y);
 	}
 	board.replace(pc);
+	setPCChamber(ind);
 }
 
 void GameController::setGameElement()
