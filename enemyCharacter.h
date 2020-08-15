@@ -8,6 +8,7 @@ class Drow;
 class Vampire;
 class Troll;
 class Goblin;
+class Ghost;
 
 // abstract, no instance of EnemyCharacter will be created
 class EnemyCharacter: public Living {
@@ -32,6 +33,9 @@ class EnemyCharacter: public Living {
 
         // Attacked by a goblin
         virtual void attackedBy(Goblin &goblin);
+
+        // Attacked by a ghost
+        virtual void attackedBy(Ghost &ghost);
 
         // Upon death of an enemy slained by pc
         virtual void death(PlayerCharacter &pc);
