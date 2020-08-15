@@ -4,21 +4,14 @@
 \usepackage[letterpaper, portrait, margin=0.7in]{geometry} \usepackage{parskip}
 
 % 
-\usepackage{geometry} 
-\geometry{ 
-	letterpaper, 
-	total={170mm,257mm}, 
-	left=27mm,
-	right=27mm, 
-	top=20mm, 
-	bottom=30mm }
+\usepackage{geometry} \geometry{ letterpaper, total={170mm,257mm}, left=27mm,
+right=27mm, top=20mm, bottom=20mm }
 
 % coloring
 \usepackage[dvipsnames]{xcolor}
 
 % font setting
-%\usepackage[10pt]{moresize}
-%\usepackage[utf8]{inputenc}
+%\usepackage[10pt]{moresize} \usepackage[utf8]{inputenc}
 
 % include graphics
 \usepackage{graphicx} \graphicspath{ {\string~/Documents/deposit/} }
@@ -38,7 +31,7 @@
 \usepackage{hyperref} \hypersetup{ colorlinks=true, linktoc=all,
 linkcolor=black,}
 
-//\usetkzobj{all}
+\usetkzobj{all}
 
 % for taking notes
 \theoremstyle{plain} \newtheorem{theorem*}{Theorem}[subsection]
@@ -87,146 +80,139 @@ linkcolor=black,}
 
 \begin{document}
 
-\begin{center}
-{\LARGE \textbf{CS 246 Final Project Design}}\\
-\vspace{0.15 in}
-Xinyan Lin, Hanyu Xu, Rivers Chen\\
-\vspace{0.07 in}
-August, 2020
-\end{center}
+\begin{center} {\LARGE \textbf{CS 246 Final Project Design}}\\ \vspace{0.15 in}
+Xinyan Lin, Hanyu Xu, Rivers Chen\\ \vspace{0.07 in} August, 2020 \end{center}
 
-\vspace{0.3 in}
-\section{OVERVIEW}
-The game of ChamberCrawler3000 is a roguelike game in which the player’s goal
-is to reach the exit at the top floor of the five-floor map.  
+\vspace{0.3 in} \section{OVERVIEW} The game of ChamberCrawler3000 is a
+roguelike game in which the player’s goal is to reach the exit at the top floor
+of the five-floor map.  
 
 The game follows the OOP design principle, where all actions from clients
 should be called in the GameController class.  
 
 
-\section{DESIGN}
-\subsection{System Components}
-%\begin{description}
-%\item 
+\section{DESIGN} \subsection{System Components}
+%\begin{description} \item 
 
 \subsubsection{Game Element}
 
-All objects are inherited under an abstract class \texttt{GameElement}, which
+All objects are inherited under an abstract class \texttt{GameElement}. which
 has game element's x and y positions and their char to display as attributes.
-\texttt{GameElement} has two direct subclasses \texttt{Living} and
-\texttt{NonLiving}.
+\texttt{GameElement} has three direct subclasses \texttt{Living} and
+\texttt{NonLiving}, and \texttt{Architect}.
 
 
 \subsubsection{Living Characters}
 
-The \texttt{Living} class inherits directly from \texttt{GameElement} subclass,
-and it an abstract superclass for \texttt{PlayerCharacter} and
-\texttt{EnemyCharacter}. \texttt{Living} contains 
-character's race, HP, Def, Atk
-as attributes, and provides their corresponding accessors and mutators.
+The \texttt{Living} class is an abstract superclass for
+\texttt{PlayerCharacter} and \texttt{EnemyCharacter}.  \texttt{Living} contains
+character's race, HP, Def, Atk as attributes, and provides their corresponding
+accessors and mutators.
 
-
-The \texttt{PlayerCharacter} class and \texttt{EnemyCharacter} class are 
-implemented using inheritance. 
-Since they are both classes for living elements with common
-features like hp, atk, def, and the ability to attack others, the common
-behaviours of \texttt{PlayerCharacter} and \texttt{EnemyCharacter}
-are put in the base class Living. 
-Then, both PlayerCharacter and EnemyCharacter inherit from the Living
-class, but also have extra features different from the base class. Under
-PlayerCharacter and EnemyCharacter, each distinct race is implemented as a
-subclass of them. 
-
-
-To implement different races of player characters, the different basic stats
-(hp, atk, def) of different races are initialized in the constructor of each
-race respectively. For the special ability of different races, the template
-method design pattern is applied. For example, shade has its score magnified by
-1.5. This is achieved by overriding the score accessor of
-\texttt{PlayerCharacter} in the \texttt{Shade} class. 
-Instead of returning the actual score, the returned score
-value will be multiplied by 1.5. For another example, goblin gains 5 gold for
-every slained enemy. This is achieved by overriding the slain function of
-\texttt{PlayerCharacter} in the \texttt{Goblin}class. 
-Beside the normal function flow, 5 extra
-gold is added to the score of the goblin.
-Using the template method allows each race to override and modify certain steps
-to implement their special abilities,
-but also reuses code for common features. The implementation of different
-enemy character races is similar to player characters, 
-which also applies template method.
+%The \texttt{PlayerCharacter} class and \texttt{EnemyCharacter} class are
+%features like hp, atk, def, and the ability to attack others, the common
+%behaviours of \texttt{PlayerCharacter} and \texttt{EnemyCharacter} are put in
+%the base class Living.  Then, both PlayerCharacter and EnemyCharacter inherit
+%from the Living class, but also have extra features different from the base
+%class.
+Under \texttt{PlayerCharacter} and \texttt{EnemyCharacter}, each distinct race
+is implemented as a subclass of them.  For player characters, the different
+basic stats (hp, atk, def) of different races are initialized with default
+value in the constructor of each race respectively.  For the special ability of
+different races, the template method design pattern is applied. For example,
+shade has its score magnified by 1.5. This is achieved by overriding the score
+accessor of \texttt{PlayerCharacter} in the \texttt{Shade} class and return 1.5
+* score instead of actual score. For another example, goblin gains 5 gold for
+every slained enemy. This is achieved by overriding the \textsf{slain} function
+of \texttt{PlayerCharacter} in the \texttt{Goblin} class.  Beside the normal
+function flow, 5 extra gold is added to the score of the goblin.  Using the
+template method allows each race to override and modify certain steps to
+implement their special abilities, but also reuses code for common features.
+The implementation of different enemy character races is similar to player
+characters, which also applies template method.
 
 \subsubsection{NonLiving Items}
 
-The \texttt{Potion} classes use the decorator design pattern. 
-The potions player
-character drinks exist as decorators to the player character’s status, and PC
-holds a pointer to a concrete component class of “no effect” potion initially.
-This way potions can be easily added and removed when needed, and their effects
-can be calculated independent of player character. Since potions affecting
-attack and defense are only effective in the current floor, they are removed
-when the PC reaches the next floor.  
+Both \texttt{Potion} and \texttt{Treasure} inherit the \texttt{NonLiving}
+superclass which inherits from \texttt{GameElement}.
 
-The \texttt{Treasure}
-class uses a similar design as the potion class. For each of the
-gold size, a specific enum class type exists in the header file which integer
-value corresponds to its size. When constructing a treasure, the client does
-not need to know necessarily the actual size of the treasure type. Unlike the
-\texttt{Potion}
-class, the player character is responsible for adding the value of the
-treasure to its score field. Since the Dragon Hoard can only be picked up after
-the dragon guarding it is slain, a dragon hoard will return 0 from its
-getAmount method, indicating that it cannot be picked up yet.  
+The \texttt{Potion} classes use the decorator design pattern.  The potions
+player character drinks exist as decorators to the player character’s status,
+and PC holds a pointer to a concrete component class of “no effect” potion
+initially.  This way potions can be easily added and removed when needed, and
+their effects can be calculated independent of player character. Since potions
+affecting attack and defense are only effective in the current floor, they are
+removed when the PC reaches the next floor.  
+
+The \texttt{Treasure} class uses a similar design as the potion class. For each
+of the gold size, a specific enum class type exists in the header file which
+integer value corresponds to its size. When constructing a treasure, the client
+does not need to know necessarily the actual size of the treasure type. Unlike
+\texttt{Potion} class, the player character is responsible for adding the value
+of the treasure to its score field. A special case is for Dragon Hoard, since
+it can only be picked up after the dragon guarding it is slain, a dragon hoard
+will return 0 from its \textsf{getAmount} method, indicating that it cannot be
+picked up yet.  
+
 
 \subsubsection{Architecture}
 
-Architecture class, named \texttt{Architect}, like \texttt{Living} and
-\texttt{NonLiving} is also a direct subclass of \texttt{GameElement}. 
-Except the three attributes inherited from \texttt{GameElement}, 
-\texttt{Architect} also contains \textsf{chamberInd} as an attribute, 
-the use of \textsf{chamberInd} will be further explained in the GameController
-and Board setup section.
-When initializing Architectures, the constructor takes four parameters.
-The x, y coordinate, their char for display, and also \textsf{chamberInd}.
-The \textsf{chamberInd} for each floor tiles (`\ .\,') is the index of chamber
-it is in, and other architectures it's just the default value $0$.
+The \texttt{Architect} class, for \texttt{Architecture}, is a direct subclass 
+of \texttt{GameElement}. It is used for floor tiles, walls, passages, doorways,
+and also empty spaces. Except the three attributes inherited from
+\texttt{GameElement}, \texttt{Architect}
+also contains \textsf{chamberInd} as an attribute.
+The \textsf{chamberInd} for each floor tiles (`\ .\,') is initialized to
+the index of chamber it is in, and other architectures it's just the default
+value $0$.
+%\texttt{Architect}s will fill the first positions of 1-dimensional
+%vectors in the \textsf{floor} of \texttt{Board}. 
+
 
 \subsubsection{Board}
 
-All gameElements are stored in \texttt{Board} as shared pointers. 
+The \texttt{Board} class stores all gameElements as shared pointers. 
+It contains a 3d vector \textsf{floor}, which each 
+\textsf{floor[i][j]} represents a square on the board, and is implemented as an
+1-dimensional vector of game element shared pointers. The first position is
+always an \texttt{Architect} object, 
+and any other game elements ``standing" on this
+position is pushed back onto this 1-dimensional vector.
 
-\texttt{Board} contains a 3d vector \textsf{floor}, which each
-\textsf{floor[i][j]} represents a square on the board, and is implemented 
-as an 1-dimensional vector of game element shared pointers.
-The first position is always a \texttt{Architect}, and any other game elements
-``standing" on this position is pushed back onto this 1-dimensional vector.
-
-\texttt{Board} also contains vector of shared pointer of \texttt{EnemyCharacter}
-named \textsf{enemyList}, {\color{red}
-used when enmey moves(discussed in section ... ).}
+\texttt{Board} also contains vector of shared pointer of 
+\texttt{EnemyCharacter} named \textsf{enemyList} which is renewed at each level.
+This vector has all enemies on current \textsf{floor} that moves 
+(so dragons will not be in this vector).
+When we move enemies at the end of each round, each enemy in the vector 
+that are not beside pc will
+be removed from \textsf{floor} in order then randonly assign a new position.
+After that, this \textsf{enemyList} will be sorted according to new position.
 
 
 
 \subsubsection{GameController}
 
-\texttt{GameController} acts as a controller of the whole game, it is a 
-friend class of \texttt{Board}. The functions in \texttt{GameController}
-will access the game elements on \textsf{floor} to handle tasks such as
-setup of \textsf{floor}, spawn of PC and enemies, move PC and enemies, etc.
-The specific design of how these are complished will be in
-{\color{red} in section}.
+The \texttt{GameController} acts as a controller of the whole game,
+it is a friend class of \texttt{Board}. 
+The functions in \texttt{GameController} will access
+the game elements on \textsf{floor} to handle tasks such as setup of
+\textsf{floor}, spawn of PC and enemies, move PC and enemies, etc.  The
+specific design of how these are complished will be in section 2.2.3.
 
-\texttt{GameController} holds a shared pointer to our player character
-and also the x and y position of the stair of current floor.
+\texttt{GameController} holds a shared pointer to our player character and also
+the x and y position of the stair of current floor.
 
-\subsubsection{Display}
-By design, everything relating to output of the game components should
-be handled by \texttt{display}. \texttt{display} defines a set of flags
-corresponding to various possible states of the game. Only one display
-object exists in the program as a global variable, so that any other
-objects can pass one of the flags to \texttt{display} when needed.
-In addition, to increase flexibility, \texttt{display} can accept a 
-string directly and append/prepend it to the game message.
+\subsubsection{Display} 
+
+By design, everything relating to output of the game
+components should be handled by \texttt{display}. \texttt{display} defines a
+set of flags corresponding to various possible states of the game. Only one
+display object exists in the program as a global variable, so that any other
+objects can pass one of the flags to \texttt{display} when needed.  In
+addition, to increase flexibility, \texttt{display} can accept a string
+directly and append/prepend it to the game message.\\
+
+
 
 
 
@@ -234,71 +220,94 @@ string directly and append/prepend it to the game message.
 
 \subsubsection{Setup}
 
-If we are at the initial level, 
-the game will ask player to give a valid player character race char.
+If we are at the initial level, the game will ask player to give a valid player
+character race char.
 
-Each level, \texttt{floor} in the board will be reset, so all game elements of 
-last floor will be discarded except pc. The \textsf{enmeyList} will be reset.
+Each level, \texttt{floor} in the board will be reset, so all game elements of
+last floor will be discarded except pc.
+The \textsf{enmeyList} will also be reset.
 
 If no command line argument is provided, then, a default layout of floor which
-only contains architectures will be used to build to fstream. 
-\texttt{gameController} will use this fstream to setup an initial empty
-board, then use the char player provide to spawn PC. Afterwards, 
-\texttt{gameController} will spawn other game elements, when spawning 
-enemy, each enemy will be added to the \textsf{enemyList}. And, each
-dragon hoard will have its dragon as a field.
+only contains architectures will be used to build to fstream.
+\texttt{gameController} will use this fstream to setup an initial empty board,
+then use the char player provide to spawn PC. Afterwards,
+\texttt{gameController} will spawn other game elements, when spawning enemy,
+each enemy will be added to the \textsf{enemyList}. And, each dragon hoard will
+have its dragon as a field.
 
 If a single command line argument which is the name of a file that specifies
-the layout of each of the 5 floors is provided, then, \textsf{readFloor}
-of \texttt{gameController} will be called to change each char in the file to
-an object on our board. 
+the layout of each of the 5 floors is provided, then, \textsf{readFloor} of
+\texttt{gameController} will be called to change each char in the file to an
+object on our board. 
 
 
-\subsubsection{ During the game }
+\subsubsection{ Beginning of one round }
 
-The player may choose to move pc, attack enemy, 
+At the beginning of each round, the player input a char to indicate the 
+action they want to take. 
+
+If that input is used to do game settings. For example, if to reset the game,
+the \texttt{gameController} will reset floor level to and break the inner
+loop. If the input is to quit the game, then \textsf{displayLose()} of
+\texttt{gameController} will be called and game is quit.
+
+Or the player may play the game by move pc(which may include pick of gold),
+attack enemy or drink potion, which is discussed below.
 
 
-\subsubsection{Move}
+\subsubsection{Middle of one round}
 
-\textit{Combat: }
+\textbf{Move:} Check the direction is unoccupied, then revert where it was on
+board \textsf{floor} to a floor tile, and push back pc on its new position on
+\textsf{floor}.  If that direction has a gold of type not dragon hoard, then
+pick gold and move to that position.  If that direction is a dragon hoard, then
+check if dragon is dead, pick gold and move to that position.
 
-When implementing the combat system between player character and enemy
-character, observer, visitor and template method are all in use. When the
-player character gets within 1 block radius to an enemy, observer pattern is
-used to notify the enemy so that the enemy will attack the player character.
+\textbf{Combat:} When implementing the combat system between player character
+and enemy character, observer, visitor and template method are all in use. When
+the player character gets within 1 block radius to an enemy, observer pattern
+is used to notify the enemy so that the enemy will attack the player character.
 Since the damage dealt by an enemy varies based both the race of the enemy and
 the player character, visitor pattern and double dispatch are used to implement
 an attack. Whenever a character A is trying to attack a character B, it calls
-the function A.attack(B), then A.attack(B) calls B.attackedBy(A), which is an
+the function \textsf{A.attack(B)}, then \textsf{A.attack(B)} calls \textsf{B.attackedBy(A)}, which is an
 equivalent visit function that behaves differently based on the concrete class
 type of A (races of A in this case). Such design pattern makes the combat
 system clear and straight forward. For different races, damage will be
 calculated differently. Furthermore, some races have special interaction
-between each other. For example, orcs do 50\% more damage to goblins. This is
-where template method is applied. In the Goblin class, its function
-attackedBy(Orc) is overwritten such that the normal damage is multiplied by
-1.5. 
+between each other. And template method is applied to handle these interactions.
+If pc dies during combat, lose message will be displayed and player will be
+asked if they want to start again. If enemy is dead, it will be removed from
+\textsf{enemyList} and \textsf{floor}.
+%For example, orcs do 50\% more damage to goblins. This is where template method
+%is applied. In the Goblin class, its function
+%attackedBy(Orc) is overwritten such that the normal damage is multiplied by
+%1.5. 
 
-PC-unrelated Control: 
+\textbf{Use Potion:} again, \texttt{gameController} will check there is a potion
+at the direction inputted. Then, it will call \textsf{pc}'s
+\textsf{drink(std::shared\_ptr<Potion>)} to attach potions to \textsf{pc} as 
+decorators. How potions work has been discussed in section 2.1.3. The potion
+will then be removed from its position. 
 
-board 
+\subsubsection{End of one Round}
 
-User Input Interpretation: 
-
-Main.cc? 
-
-Game Flow Control: 
-
-display 
-%\end{description}
+After these actions are completed, \textsf{MoveEnemy(int, int)} will be called, 
+then \texttt{gameController} will use \textsf{enmeyList} in \texttt{Board}
+to move enemy as described in section 2.1.5. Also, \texttt{gameController}
+will call \textsf{flushDisplay()} to display the board and stats of pc and
+action taken.
 
 
-\section{Resilience to Change}
+\newpage
 
-The living class involves player character and enemy character. It is designed
-to follow high cohesion and low coupling. In the living class, each distinct
-race has its own header and implementation files. Thus, a header and an
+
+\section{RESILIENCE TO CHANGE}
+
+The \texttt{Living} class involves player characters and enemy characters. 
+It is designed to follow high cohesion and low coupling. 
+In the \texttt{Living} class, each distinct race has its own header and 
+implementation files. Thus, a header and an
 implementation serves on a single purpose of implementing the specific race. It
 demonstrates the high cohesion in our code. The communication between player
 character and enemy character happens in combat only. In a combat, function
@@ -328,11 +337,13 @@ no need to change the code of display if other player characters and/or enemies
 are added to the board.  
 
 
-Answers to Questions 
+\section{ANSWERS TO QUESTIONS}
 
+\textbf{Question:}
 How could your design your system so that each race could be easily generated?
 Additionally, how difficult does such a solution make adding additional races? 
 
+\textbf{Answer:}
 The answer for this question is basically the same as answered in due date 1
 design. 
 
@@ -357,11 +368,13 @@ class PC. We would create a header file and a separate implementation file for
 the race. We can override any method required in the sub class. Doing so
 results in high cohesion and low coupling. The new header and implementation
 file serves solely for the purpose of creating a new race. Also, such
-implementation will not affect the base class or any other races. 
+implementation will not affect the base class or any other races.	\\
 
+\textbf{Question:}
 How does your system handle generating different enemies? Is it different from
 how you generate the player character? Why or why not? 
 
+\textbf{Answer:}
 For how our system handle generating different enemies, the answer is same as
 answered in due date 1 design. 
 
@@ -404,11 +417,13 @@ cohesion within the classes. We put PC generation in GameController, as its
 generation is related to user inputs. We put enemy generation in Board, as it
 belongs to part of the floor initialization and is unrelated to user’s
 behaviours. Such reason causes the generation of player character and enemy
-character to be different. 
+character to be different. \\
 
+\textbf{Question:}
 How could you implement the various abilities for the enemy characters? Do you
 use the same techniques as for the player character races? Explain. 
 
+\textbf{Answer:}
 The answer for this question is slightly different from the answer in due date
 1 design. 
 
@@ -463,11 +478,13 @@ The implementation of enemy abilities is different from of PC races. PC races
 has no special interaction with enemies. Thus, they can be implemented through
 changing the information of PC (I.e. fields and methods). But most enemy
 abilities have special interaction with PCs (they do damage differently), thus
-we use different design patterns and implementations to complete such features. 
+we use different design patterns and implementations to complete such features. \\
 
+\textbf{Question:}
 The Decorator and Strategy patterns are possible candidates to model the
 effects of potions, in your opinion, which pattern would work better? 
 
+\textbf{Answer:}
 To adhere the decorator design pattern, potions would be concrete classes of
 Decorator. While any player character or mobile who can use potions owns a
 concrete class of Component corresponding to the “base” potion effect, which
@@ -499,8 +516,9 @@ only handle a small amount of combinations of potions, which is not a problem
 in this case.  
 
 In my opinion, the decorator pattern would work better, as it allows us to
-easily add functionalities. 
+easily add functionalities. \\
 
+\textbf{Question:}
 How could you generate items so that the generation of Treasure and Potions
 reuses as much code as possible? That is, how would you structure your system
 so that the generation of a potion and then generation of treasure does not
@@ -520,7 +538,7 @@ controls things such as number and proportions.
 
 
 
-Extra Credit Features 
+\section{Extra Credit Features }
 
 In our project, we uses smart pointers to manage memory without leak. No delete
 statement exists in our program.  
@@ -528,7 +546,7 @@ statement exists in our program.
 
 
 
-Final Questions 
+\section{Final Questions}
 
 What lessons did this project teach you about developing software in teams? 
 
@@ -554,7 +572,11 @@ all call made to display should only contain flags. This increases the
 complexity of the class, but it also allows several game messages to be
 combined into one sentence, making it more user friendly.  
 
-Conclusion 
+
+
+
+\section{Conclusion}
+
 
 
 
@@ -563,3 +585,4 @@ Conclusion
 
 
 \end{document}
+
