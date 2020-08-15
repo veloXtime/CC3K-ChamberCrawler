@@ -125,7 +125,7 @@ int main(int argc, char* argv[])
 			}
 			else if (inp == "q")
 			{
-				//GC.displayLose();
+				GC.displayLose();
 				return 0;
 			}
 			
