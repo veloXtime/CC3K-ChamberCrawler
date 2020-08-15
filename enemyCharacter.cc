@@ -9,6 +9,7 @@
 #include "vampire.h"
 #include "troll.h"
 #include "goblin.h"
+#include "ghost.h"
 #include "human.h"
 #include "dwarf.h"
 #include "elf.h"
@@ -145,6 +146,22 @@ void EnemyCharacter::attackedBy(Goblin &goblin){
     gameDisplay.newAction(s);*/
 }
 
+// Attacked by a ghost
+void EnemyCharacter::attackedBy(Ghost &ghost){
+    int dmg = ceil(100.0/(100 + this->getDef()) * ghost.getAtk());
+    this->setHp(this->getHp() - dmg);
+
+    gotAttaked(dmg, &ghost, this);
+
+    /*
+    std::string sdmg = std::to_string(dmg);
+    std::string shp = std::to_string(this->getHp());
+    std::string s = "PC deals " + sdmg + " to ";
+    s.push_back(this->getChar());
+    s += " (" + shp + " HP). ";
+    gameDisplay.newAction(s);*/
+}
+
 // Upon death of an enemy slained by pc
 void EnemyCharacter::death(PlayerCharacter &pc){
     pc.slain(this->getChar());
@@ -153,10 +170,19 @@ void EnemyCharacter::death(PlayerCharacter &pc){
 
 // Get notified by a pc
 void EnemyCharacter::getNotified(PlayerCharacter & pc){
-    int success = rand() % 2;
-    if (success == 1) this->attack(pc);
+    if(pc.getRace() == "ghost"){
+        int success = rand() % 5;
+        if (success == 1) this->attack(pc);
+        else{
+            gameDisplay.newAction(getRace() + " misses attack on PC. ", true);
+        }
+    }
     else{
-        gameDisplay.newAction(getRace() + " misses attack on PC. ", true);
+        int success = rand() % 2;
+        if (success == 1) this->attack(pc);
+        else{
+            gameDisplay.newAction(getRace() + " misses attack on PC. ", true);
+        }
     }
 }
 
