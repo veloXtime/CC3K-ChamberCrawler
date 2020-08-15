@@ -1307,7 +1307,7 @@ ATK: 35
 DEF: 20
 PC misses attack. halfling dealed 13 damage to you. 
 \end{Verbatim}
-
+\newpage
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -1452,7 +1452,7 @@ ATK: 35
 DEF: 20
 You picked up 2 piece(s) of gold. 
 \end{Verbatim}
-
+\newpage
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -1492,6 +1492,8 @@ You picked up 1 piece(s) of gold.
           and its value will be added to the Gold field.
     \item PC will not know the size of the gold until its picked up
 \end{itemize}
+
+\newpage
 \textbf{7. Goes to next floor}
 
 Command: no ea ...
@@ -1568,7 +1570,8 @@ You moved east.
     \item The current floor is displayed at the right of the first status line
 \end{itemize}
 
-\textbf{9. Dragon and Dragon Hoard}
+\newpage
+\textbf{8. Dragon and Dragon Hoard}
 
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
@@ -1635,7 +1638,7 @@ ATK: 30
 DEF: 10
 orcs misses attack on PC. You dealed 24 damage to orcs. dragon dealed 19 damage to you. 
 \end{Verbatim}
-
+\newpage
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -1713,7 +1716,8 @@ You picked up 6 piece(s) of gold.
     \item After killing the dragon, PC proceeds to collect the dragon hoard.
 \end{itemize}
 
-\textbf{8. Merchant Behaviour}
+\newpage
+\textbf{9. Merchant Behaviour}
 
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
@@ -1782,7 +1786,7 @@ DEF: 15
 You dealed 29 damage to merchant. All merchants are now hostile to PC. merchant dealed 61 damage to you.
 \end{Verbatim}
 
-
+\newpage
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -1824,14 +1828,48 @@ You dealed 39 damage to merchant. PC slains M. Some gold is left on the floor. Y
     \item When a merchant is killed, it will drop a mechant gold on the floor.
 \end{itemize}
 
-
+\newpage
+\textbf{End Game}
 
 
 \begin{Verbatim}[fontsize=\scriptsize]
-   
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |..........P...............|        |.....E........GD.......|               |
+| |.........P................+########+.......................|-------|       |
+| |O.........................|   #    |...........................GD..|--|    |
+| |..........L...............|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |P..............| |
+|            #                 #     |............|         |...............| |
+|            ###################     |.........P..|   ######+....O..........| |
+|            #                 #     |.........W..|   #     |....W..........| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....\@..............|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |.........L...........|     #           #                    |P..........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.................P.....................| |
+|  |.....................+##########+..............H........................| |
+|  |..G.......G..........|          |................G.............H.....G..| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 16                                                   Floor: 5
+HP: 120
+ATK: 40
+DEF: 25
+You moved west. You reached the final stair. Your score is 16.  
 \end{Verbatim}
 
-
+\begin{itemize}
+    \item When the player reaches the stair at the final (fifth) floor, the game
+    is ended.
+    \item The score is calculated as the pieces of gold PC collects at each floor.
+\end{itemize}
 
 \end{document}
 
