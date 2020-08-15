@@ -45,7 +45,8 @@ int DragonHoard::getAmount() const
 
 void DragonHoard::getNotified(PlayerCharacter& pc)
 {
-    if(abs(pc.getXCoordinate() - doragon->getXCoordinate()) > 1 
-    || abs(pc.getYCoordinate() - doragon->getYCoordinate()) > 1)
-        doragon->getNotified(&pc);
+    if(doragon->getHp() > 0)
+        if(abs(pc.getXCoordinate() - doragon->getXCoordinate()) > 1 
+        || abs(pc.getYCoordinate() - doragon->getYCoordinate()) > 1)
+            doragon->getNotified(&pc);
 }
