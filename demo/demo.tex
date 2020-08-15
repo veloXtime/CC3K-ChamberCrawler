@@ -12,6 +12,7 @@ right=27mm, top=15mm, bottom=10mm }
 \usepackage{fancyvrb}
 \usepackage{IEEEtrantools}
 \usepackage{xcolor}
+\usepackage{enumitem}
 %\usepackage[empty]{fullpage}
 \definecolor{easy-eyes}{gray}{0.1}
 \theoremstyle{plain} 
@@ -26,7 +27,7 @@ right=27mm, top=15mm, bottom=10mm }
 %\fancyhf{}
 %\lhead{Name: }
 %\rhead{}
-
+\setlist[itemize]{itemsep=-8pt}
 \usepackage{listings}
 
 \definecolor{mygreen}{rgb}{0,0.6,0}
@@ -74,7 +75,7 @@ right=27mm, top=15mm, bottom=10mm }
 % \newcommand{\F}{\mathbb{F}}
 % \newcommand{\C}{\mathbb{C}}
 % \newcommand{\epi}{\varepsilon}
-\newenvironment{gameMap}{\begin{Verbatim}[fontsize=\small]}{\end{Verbatim}}
+\newenvironment{gameMap}{\begin{Verbatim}[fontsize=\scriptsize]}{\end{Verbatim}}
 
 \begin{document}
 \begin{center}
@@ -183,7 +184,7 @@ are shown in this demo1.
 In ``input", we chose troll for demo, after t and return, the board will be 
 displayed, which is read in from ``cc3kfloor.txt", the following is the initial
 interatction.
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 Please select a race:
 t
 
@@ -224,7 +225,7 @@ are all correct as you may check.
 \textbf{2. PC moves and Enemy Moves}
 
 Command: ea
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -269,12 +270,11 @@ In this round, the following features are shown:
 \end{itemize}
 
 
-\vspace{1.0 in}
-
+\newpage
 \textbf{3. Drink Potion}
 
 Command: ea
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -308,7 +308,7 @@ You moved east. You saw an unknown potion. You saw an unknown potion. halfling d
 \end{Verbatim}
 
 Command: u ea
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -341,18 +341,21 @@ DEF: 10
 You drinked WD. You saw an unknown potion. halfling dealed 14 damage to you. 
 \end{Verbatim}
 
-In these two truns
+In these two turns
 \begin{itemize}
-    \item PC moves east
+	\item PC moves east
     \item Since the halfling is still near PC, it continues to deal damage to pc
     \item PC then use the unknown potion in the east
     \item The potion is a WD(wound Defence), the DEF line in the status area decreases by 10
 \end{itemize}
 
+
+
+\newpage
 \textbf{4. PC Moves Through Chambers And Passages}
 
 Command: ea so so so...
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -385,7 +388,7 @@ DEF: 10
 You moved south. You saw an unknown potion. halfling dealed 14 damage to you. 
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -424,11 +427,12 @@ You moved south.
     \item Also note that HP is recovered at 5 per turn due to troll's ability
 \end{itemize}
 
+\newpage
 \textbf{5. Attack Enemy}
 
 Command: a \underline{direction}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -461,7 +465,7 @@ DEF: 20
 You moved west. halfling dealed 13 damage to you. 
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -494,7 +498,7 @@ DEF: 20
 PC misses attack. halfling dealed 13 damage to you. 
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -527,7 +531,7 @@ DEF: 20
 You dealed 30 damage to halfling. halfling dealed 13 damage to you.
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -568,9 +572,12 @@ You dealed 30 damage to halfling. PC slains L.
     \item After PC killed the enemy, the Gold PC has automatically increases by 1
 \end{itemize}
 
+
+
+\newpage
 \textbf{6. Collect Gold}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -603,7 +610,7 @@ DEF: 20
 You moved east. You saw some gold. 
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -636,7 +643,7 @@ DEF: 20
 You picked up 2 piece(s) of gold. 
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -679,7 +686,7 @@ You picked up 1 piece(s) of gold.
 
 Command: no ea ...
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -711,7 +718,7 @@ ATK: 35
 DEF: 20
 You moved east. 
 \end{Verbatim}
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -753,7 +760,7 @@ You moved east.
 
 \textbf{9. Dragon and Dragon Hoard}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -786,7 +793,7 @@ DEF: 10
 You moved east. dragon dealed 19 damage to you. 
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -819,7 +826,7 @@ DEF: 10
 orcs misses attack on PC. You dealed 24 damage to orcs. dragon dealed 19 damage to you. 
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -852,7 +859,7 @@ DEF: 10
 You dealed 25 damage to dragon. PC slains D.
 \end{Verbatim}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -898,7 +905,7 @@ You picked up 6 piece(s) of gold.
 
 \textbf{8. Merchant Behaviour}
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -932,7 +939,7 @@ You moved north.
 \end{Verbatim}
 
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -966,7 +973,7 @@ You dealed 29 damage to merchant. All merchants are now hostile to PC. merchant 
 \end{Verbatim}
 
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -1010,7 +1017,7 @@ You dealed 39 damage to merchant. PC slains M. Some gold is left on the floor. Y
 
 
 
-\begin{Verbatim}[fontsize=\small]
+\begin{Verbatim}[fontsize=\scriptsize]
    
 \end{Verbatim}
 
