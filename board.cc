@@ -138,9 +138,9 @@ void Board::spawnGold()
 
 void Board::spawnOneEnemy(int x, int y, int prob)
 {
-		auto enemy = make_shared<Merchant>(x, y);
-	floor[x][y].push_back(enemy);
-	enemyList.push_back(enemy);
+	//auto enemy = make_shared<Merchant>(x, y);
+	//floor[x][y].push_back(enemy);
+	//enemyList.push_back(enemy);
 	if (prob <= 4)
 	{
 		auto enemy = make_shared<Human>(x, y);
