@@ -518,7 +518,7 @@ void GameController::attackEnemy(string direc)
 		if(e->getHp() == 0)
 		{
 			e->death(*pc);
-			board.enemyDeath(e);
+			board.enemyDeath(e, pc->getXCoordinate(), pc->getYCoordinate());
 		}
 	}
 }

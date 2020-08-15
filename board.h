@@ -42,7 +42,7 @@ class Board
 		void revert(std::shared_ptr<GameElement> ge);		// complete
 		void revert(int x, int y);		// complete
 
-		void enemyDeath(shared_ptr<EnemyCharacter> e);
+		void enemyDeath(shared_ptr<EnemyCharacter> e, int, int);
 		void replace(std::shared_ptr<GameElement> ge);		// complete
 		int getChamberIndHelp(int x, int y);
 		int getChamberInd(int x, int y);	// complete

@@ -309,13 +309,14 @@ void Board::setRow(vector<vector<shared_ptr<GameElement>>> newRow)
 	floor.push_back(newRow);
 }
 
-void Board::enemyDeath(shared_ptr<EnemyCharacter> e)
+void Board::enemyDeath(shared_ptr<EnemyCharacter> e, int pc_x, int pc_y)
 {
 	char c = e->getChar();
 	int x = e->getXCoordinate();
 	int y = e->getYCoordinate();
 	revert(x, y);
 	int chamberInd = getChamberInd(x, y);
+
 	if (e->getChar() != 'D')
 	{
 		enemyList.erase(find(enemyList.begin(), enemyList.end(), e));
@@ -339,6 +340,14 @@ void Board::enemyDeath(shared_ptr<EnemyCharacter> e)
 			}
 			auto g2 = make_shared<Treasure>(x1, y1, tt);
 			replace(g2);
+		}
+	}
+	else if (c == 'D')
+	{
+		if (floor[pc_x][pc_y][1]->getChar() == 'G')
+		{
+			auto t = dynamic_pointer_cast<Treasure>(board.floor[x][y][1]);
+			floor[pc_x][pc_y].erase(floor[pc_x][pc_y].begin() + 1);
 		}
 	}
 }
