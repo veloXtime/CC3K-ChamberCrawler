@@ -1,6 +1,8 @@
 #include "treasure.h"
 #include "display.h"
 #include "dragon.h"
+#include <cstdlib>
+#include "playerCharacter.h"
 Treasure::Treasure(int x, int y, TreasureType val)
 :NonLiving(x, y, 'G'), amount{static_cast<int> (val)}
 {
@@ -43,5 +45,7 @@ int DragonHoard::getAmount() const
 
 void DragonHoard::getNotified(PlayerCharacter& pc)
 {
-    doragon->getNotified(&pc);
+    if(abs(pc.getXCoordinate() - doragon->getXCoordinate()) > 1 
+    || abs(pc.getYCoordinate() - doragon->getYCoordinate()) > 1)
+        doragon->getNotified(&pc);
 }

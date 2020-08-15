@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 			{
 				std::istringstream iss{line};
 				iss >> race;
-				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't', race == 'h')
+				if (race == 's' || race == 'd' || race == 'v' || race == 'g' || race == 't' || race == 'h')
 				{
 					break;
 				}
