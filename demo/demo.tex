@@ -4,8 +4,11 @@
 \geometry{letterpaper, margin=1in}                   
 \usepackage{color,amsmath,amsfonts,amssymb,amsthm,mathtools}
 \usepackage{parskip}
+\usepackage{geometry} \geometry{ letterpaper, total={170mm,257mm}, left=27mm,
+right=27mm, top=10mm, bottom=10mm }
 %\setlength{\parindent}{1cm}
 \usepackage{mathrsfs}
+\usepackage{fancyvrb}
 \usepackage{IEEEtrantools}
 \usepackage{xcolor}
 %\usepackage[empty]{fullpage}
@@ -37,11 +40,11 @@
 
 \lstset{
 	%backgroundcolor=\color{backcolour},   
-    commentstyle=\color{codegreen},
-    keywordstyle=\color{magenta},
-    numberstyle=\tiny\color{codegray},
-    stringstyle=\color{codepurple},
-    basicstyle=\fontsize{11}{11}\ttfamily,
+    %commentstyle=\color{codegreen},
+    %keywordstyle=\color{magenta},
+    %numberstyle=\tiny\color{codegray},
+    %stringstyle=\color{codepurple},
+    basicstyle=\fontsize{9}{9}\ttfamily,
     breakatwhitespace=false,         
     breaklines=true,                 
     captionpos=b,                    
@@ -52,7 +55,8 @@
     showstringspaces=false,
     showtabs=false,                  
     tabsize=4,
-    xleftmargin=.25in
+    %linespread = 0.8,
+    xleftmargin=.25in,
 }
 
 
@@ -125,8 +129,7 @@ and show the special effect of each enemy and PC, this will cause
 
 race number of PC * race number of Enemy combinations
 
-- PC attack 
-\newpage
+- PC attack \\\\\\
 
 
 Once upon the time, heros moved through the dungeon and slayed evil enemies 
@@ -135,10 +138,10 @@ and demanded to be made the heroes!
 Yes, you, in CC3K is a monster that climbs up floors in the dungeon to
 reach exit.
 
-
+\newpage
 \section{Game Setup}
 
-To read cc3kfloor.txt as input file, run as follows:
+To read ``cc3kfloor.txt" as input file, run as follows:
 \begin{lstlisting}
 ./cc3k cc3kfloor.txt
 \end{lstlisting}
@@ -152,12 +155,59 @@ For the demo, we use the following command to generate the game
 \begin{lstlisting}
 ./cc3k cc3kfloor.txt 1
 \end{lstlisting}
-
 The game will ask us to choose a race:
-\begin{verbatim}
-	Please select a race:
-\end{verbatim}
-We can choose 
+Player character races we can choose from:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	races	& HP	& Atk	& Def	\\	\hline
+	shade	& 125	& 25	& 25	\\	\hline
+	drow	& 150	& 25	& 15	\\	\hline
+	vampire & 50	& 25	& 5		\\	\hline
+	troll	& 120	& 25	& 15	\\	\hline
+	goblin	& 110	& 15	& 20	\\	\hline
+\end{tabular}
+\end{center}
+We choose troll for demo, after we input t and return, the board will be 
+displayed, which is read in from ``cc3kfloor.txt"
+
+\begin{Verbatim}[fontsize=\small]
+Please select a race:
+t
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |.......@..P.......M.......|        |..............GD.......|               |
+| |.........P................+########+.......E...............|-------|       |
+| |........L.................|   #    |..................O........GD..|--|    |
+| |....O............P........|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |........W......| |
+|            #                 #     |-----+------|         |P..............| |
+|            #                 #     |............|         |...............| |
+|            ###################     |....W....P..|   ######+...............| |
+|            #                 #     |............|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....\..P........P...|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |.........P.......P...|     #           #                    |P..........| |
+|  |...L.................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.................P.....................| |
+|  |.....................+##########+..........H.................H..........| |
+|  |..G.......G..........|          |................G...................G..| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 0                                                    Floor: 1
+HP: 120
+ATK: 25
+DEF: 15
+\end{Verbatim}
+
+
+
 
 
 
