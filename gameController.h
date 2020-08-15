@@ -37,6 +37,7 @@ class GameController
 		void attackEnemy(std::string direc);	// complete
 		void displayLose();
 		void displayWin();
+		void displayScoreboard();
 		//void newBoard(int level);
 		
 		bool levelComplete();		// complete

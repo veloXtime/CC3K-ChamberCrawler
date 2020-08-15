@@ -23,6 +23,7 @@
 #include "dragon.h"
 #include "treasure.h"
 #include "potion.h"
+#include "scoreBoard.h"
 using namespace std;
 
 void GameController::pcNotifyAround()
@@ -528,6 +529,7 @@ void GameController::displayLose()
 	gameDisplay.newAction("Your score is " + to_string(pc->getScore()) + ". ", false);
 	cout << gameDisplay;
 	gameDisplay.clearAction();
+	displayScoreboard();
 }
 
 void GameController::displayWin()
@@ -535,6 +537,23 @@ void GameController::displayWin()
 	gameDisplay.newAction("You reached the final stair. Your score is " + to_string(pc->getScore()) + ". ", false);
 	cout << gameDisplay;
 	gameDisplay.clearAction();
+	displayScoreboard();
+}
+
+void GameController::displayScoreboard(){
+	ScoreBoard sb{};
+	sb.read();
+	cout << "Enter your name to leave on the score board (hit enter if you want to leave as anonymous):" << endl;
+	string line;
+	getline(cin,line);
+	if (line == ""){
+		sb.add(pc->getScore(), "anonymous");
+	}
+	else{
+		sb.add(pc->getScore(),line);
+	}
+	sb.display();
+	sb.write();
 }
 
 bool GameController::levelComplete()
