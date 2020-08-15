@@ -26,14 +26,8 @@ bool Merchant::getHostile(){
 void Merchant::death(PlayerCharacter &pc){
     pc.slain('M');
 
-    std::string s = "Some gold is left on the floor. All merchants are now hostile to PC. ";
+    std::string s = "Some gold is left on the floor. ";
     gameDisplay.newAction(s, false);
-
-   // board.revert(x, y);
-    //board.enemyDeath(*this);
-
-	//auto mh = std::make_shared<Treasure>(x, y, TreasureType::MERCHANT);
-    //board.replace(mh);
 }
 
 // Override notify
@@ -47,6 +41,7 @@ Merchant::~Merchant() {}
 inline void gotAttaked(int dmg, PlayerCharacter* pc, EnemyCharacter* enemy)
 {
     gameDisplay.action(ACTION::AtkEnemy, dmg, pc , enemy);
+    gameDisplay.newAction("All merchants are now hostile to PC. ", false);
 }
 
 // Attacked by a shade
@@ -56,14 +51,6 @@ void Merchant::attackedBy(Shade &shade){
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &shade, this);
-/*
-    std::string sdmg = std::to_string(dmg);
-    std::string shp = std::to_string(this->getHp());
-    std::string s = "PC deals " + sdmg + " to ";
-    s.push_back(this->getChar());
-    s += " (" + shp + " HP). ";
-    gameDisplay.newAction(s);
-    */
 }
 
 // Attacked by a drow
@@ -73,14 +60,6 @@ void Merchant::attackedBy(Drow &drow){
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &drow, this);
-/*
-    std::string sdmg = std::to_string(dmg);
-    std::string shp = std::to_string(this->getHp());
-    std::string s = "PC deals " + sdmg + " to ";
-    s.push_back(this->getChar());
-    s += " (" + shp + " HP). ";
-    gameDisplay.newAction(s);
-    */
 }
 
 // Attacked by a vampire
@@ -91,12 +70,6 @@ void Merchant::attackedBy(Vampire &vampire){
     vampire.setHp(vampire.getHp() + 5);
 
     gotAttaked(dmg, &vampire, this);
-    // std::string sdmg = std::to_string(dmg);
-    // std::string shp = std::to_string(this->getHp());
-    // std::string s = "PC deals " + sdmg + " to ";
-    // s.push_back(this->getChar());
-    // s += " (" + shp + " HP). ";
-    // gameDisplay.newAction(s);
 }
 
 // Attacked by a troll
@@ -106,26 +79,13 @@ void Merchant::attackedBy(Troll &troll){
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &troll, this);
-    // std::string sdmg = std::to_string(dmg);
-    // std::string shp = std::to_string(this->getHp());
-    // std::string s = "PC deals " + sdmg + " to ";
-    // s.push_back(this->getChar());
-    // s += " (" + shp + " HP). ";
-    // gameDisplay.newAction(s);
-}
 
 // Attacked by a goblin
-void Merchant::attackedBy(Goblin &goblin){
+void Merchant::attackedBy(Goblin &goblin)
+{
     Merchant::hostile = true;
     int dmg = ceil(100.0/(100 + this->getDef()) * goblin.getAtk());
     this->setHp(this->getHp() - dmg);
 
     gotAttaked(dmg, &goblin, this);
-    // std::string sdmg = std::to_string(dmg);
-    // std::string shp = std::to_string(this->getHp());
-    // std::string s = "PC deals " + sdmg + " to ";
-    // s.push_back(this->getChar());
-    // s += " (" + shp + " HP). ";
-    // gameDisplay.newAction(s);
-}
 
