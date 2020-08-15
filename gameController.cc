@@ -57,7 +57,9 @@ void GameController::spawnStair()
 		//cout << x << y << endl;
 		if (board.getChar(x, y) == '.' && board.getChamberInd(x, y) == ind)
 		{
+			#ifdef DEBUG
 			cout << board.getChamberInd(x,y);
+			#endif
 			break;
 		}
 	}

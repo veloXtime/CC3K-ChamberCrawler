@@ -135,7 +135,7 @@ std::ostream& operator<<(std::ostream& out, const display& ac)
     }
     out << ac.status << '\n' << ac.hp << '\n' << ac.atk << '\n'
     << ac.def << '\n' << ac.actline << '\n';
-
+    out << std::flush;
     return out;
 }
 
