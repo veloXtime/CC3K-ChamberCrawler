@@ -10,6 +10,7 @@
 #include "vampire.h"
 #include "troll.h"
 #include "goblin.h"
+#include "ghost.h"
 #include "architect.h"
 #include "treasure.h"
 #include "display.h"
@@ -394,6 +395,10 @@ void GameController::spawnPC(char c)
 	else if (c == 't')
 	{
 		pc = make_shared<Troll>(x, y);
+	}
+	else if (c == 'h')
+	{
+		pc = make_shared<Ghost>(x, y);
 	}
 	board.replace(pc);
 }
