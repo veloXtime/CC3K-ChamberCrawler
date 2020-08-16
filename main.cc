@@ -71,6 +71,7 @@ int main(int argc, char* argv[])
 				}
 			}
 		}
+		if (race == ' ') return 1;
 
 		if (fname == "default.txt")
 		{
