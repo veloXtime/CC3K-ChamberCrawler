@@ -3,7 +3,7 @@
 \usepackage{geometry} \geometry{ letterpaper, total={170mm,257mm}, left=27mm,
 right=27mm, top=20mm, bottom=20mm }
 \usepackage[dvipsnames]{xcolor}
-\usepackage{graphicx} \graphicspath{ {\string~/Documents/deposit/} }
+\usepackage{graphicx} %\graphicspath{ {\string~/Documents/deposit/} }
 \usepackage{latexsym,amsfonts,amssymb,amsthm,amsmath}
 \usepackage{graphpap}
 \usepackage{tkz-euclide}
@@ -324,7 +324,11 @@ If \textsf{pc} reach the stair of last floor, that is, the coordinates of
 and \texttt{ScoreBoard} will be displayed (\texttt{ScoreBoard} discussed in
 Section 5.3)
 
-
+\subsubsection{General}
+In general, \texttt{GameController}, \texttt{Board} and \texttt{Display} 
+follows the Model-View-Controller Architecture (see flow chart in overview). 
+\texttt{GameController} acts as the controller, \texttt{Board} acts as the model, 
+and \texttt{Display} acts as the view.
 
 
 
