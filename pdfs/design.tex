@@ -3,14 +3,16 @@
 \usepackage{geometry} \geometry{ letterpaper, total={170mm,257mm}, left=27mm,
 right=27mm, top=20mm, bottom=20mm }
 \usepackage[dvipsnames]{xcolor}
-\usepackage{graphicx} \graphicspath{ {\string~/Documents/deposit/} }
+\usepackage{graphicx}
+%\graphicspath{ {\string~/Documents/deposit/} }
 \usepackage{latexsym,amsfonts,amssymb,amsthm,amsmath}
 \usepackage{graphpap}
 \usepackage{tkz-euclide}
 \usepackage{enumitem} 
 \setlist[enumerate]{itemsep=0mm}
 \usepackage{cases}
-\usepackage{hyperref} \hypersetup{ colorlinks=true, linktoc=all,
+\usepackage{hyperref}
+\hypersetup{ colorlinks=true, linktoc=all,
 linkcolor=black,}
 %\usetkzobj{all}
 \theoremstyle{plain} \newtheorem{theorem*}{Theorem}[subsection]
@@ -33,7 +35,7 @@ Xinyan Lin, Hanyu Xu, Rivers Chen\\
 The game of ChamberCrawler3000 is a roguelike game in which the player’s goal
 is to reach the exit at the top floor of the five-floor map.  
 
-Basic structure:
+aBasic structure:
 
 The game follows the OOP design principle, where all actions from clients
 should be processed in the \texttt{GameController} class. The 
