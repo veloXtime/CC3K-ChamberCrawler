@@ -85,75 +85,48 @@ Xinyan Lin, Hanyu Xu, Rivers Chen\\
 \vspace{0.07 in} August, 2020
 \end{center}
 
-\vspace{0.2 in}
-
-
-Need to show:
-
-\textbf{Initialization:}
-
--empty board (with default.txt)
-
--spawned board (both default.txt and readin version)\\
-explain: PC and enemy are in different chamber, show number of enemies,
-potions, and gold are correct.
-
--initialize with each player character to show the initial stats are correct
-
-
-
-
-
-PC and Enemy:
-- attack each enemy and show that the stats are correct, also show the 
-special abilities of different enemies or pc are in effect.
-
-PC MOVE:
-
-- movePC towards an occupied postion
-
-- movePC through chambers and passages
-
-- movePC to next level
-
-- movePC to gold, move PC to dragonHoard
-
-- movePC near each enemy to show each enemy will attack PC
-
-- movePC near dragonHoard to show that Dragon will attack PC
-
-- movePC near merchant that is not hostile yet
-
-
-PC ATTACK:
-
-- PC attack each race of enemy, and get attacked back, show stats calculation
-and show the special effect of each enemy and PC, this will cause 
-
-race number of PC * race number of Enemy combinations
-
-- PC attack \\\\\\
-
-
 Once upon the time, heros moved through the dungeon and slayed evil enemies 
 while collecting treasures along the way. However, the monsters have revolted
 and demanded to be made the heroes!
 Yes, you, in CC3K is a monster that climbs up floors in the dungeon to
 reach exit.
 
-\newpage
-\section{ Demo using input }
+In this document, we show two demos of the game, one reads in the default
+floor layout ``default.txt" and the other reads in ``cc3kfloor.txt".
+And we showcase any features not included in the two demos in section 3.
 
-To read ``cc3kfloor.txt" as input file, run as follows:
+Our program can be run in the following ways:
+
+1. to read ``cc3kfloor.txt" as input file, run as follows:
 \begin{lstlisting}
 ./cc3k cc3kfloor.txt
 \end{lstlisting}
-to use the default file and randomly generate game elements, run as follows:
+2. to use the default file and randomly generate game elements, run as follows:
 \begin{lstlisting}
 ./cc3k
 \end{lstlisting}
-to fix a seed, pass ``cc3kfloor.txt" as the first commandline argument,
+3. to fix a seed, use either txt file as the first commandline argument,
 then pass a number as the second commandline argment. 
+\begin{lstlisting}
+./cc3k cc3kfloor.txt 1
+./cc3k default.txt 4
+\end{lstlisting}
+
+The game will ask us to choose a race:
+Player character races we can choose from:
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+	\hline
+	races	& HP	& Atk	& Def	\\	\hline
+	shade	& 125	& 25	& 25	\\	\hline
+	drow	& 150	& 25	& 15	\\	\hline
+	vampire & 50	& 25	& 5		\\	\hline
+	troll	& 120	& 25	& 15	\\	\hline
+	goblin	& 110	& 15	& 20	\\	\hline
+\end{tabular}
+\end{center}
+
+
 
 
 
@@ -161,20 +134,20 @@ then pass a number as the second commandline argment.
 
 
 \newpage
-\subsection{Demo 1}
+\section{Demo 1}
 \textbf{For Demo 1, use the following command to generate the game.}
-``input4" is the file that contains a list of commands that plays the game from 
-the start to the end (cat input4 to see the commands inside).
+``default\_input" is the file that contains a list of commands that plays the 
+game from the start to the end.
 \begin{lstlisting}
-./cc3k default.txt 4 < input4
+./cc3k default.txt 4 < default_input
 \end{lstlisting}
 All graphs displayed in this subsection can be found in the ouput of
 this command when running in terminal. Here, we highlight the features that
 are shown in this demo1. 
 
-To see commands in inpu4 and the layout of default.txt, use following commands,
+To see inputs in input4 and the layout of default.txt, use following commands,
 \begin{lstlisting}
-cat input4 
+cat default_input
 cat default.txt
 \end{lstlisting}
 
@@ -223,9 +196,13 @@ DEF: 15
 The default.txt is read-in, pc, stair, potion, gold, enemies are spawn.
 Display shows the initial board.
 
+You may choose other player characters, but we are using troll here as demo.
+
 
 \newpage
-\textbf{2. }
+\textbf{2. PC move}
+
+Command: ea
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -259,6 +236,9 @@ DEF: 15
 You moved east. 
 \end{Verbatim}
 
+PC moves east, enemies move randomly. 
+
+Other directions of move will be follows a similar procedure.
 
 
 
@@ -266,7 +246,7 @@ You moved east.
 
 
 \newpage
-\textbf{3. }
+\textbf{3. PC move and get attacked}
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -300,14 +280,27 @@ DEF: 15
 You moved east. human dealed 18 damage to you. 
 \end{Verbatim}
 
+When you get near an enemy, that enemy will be notified and attack you 
+(except for merchant that is initially neutral).
 
+The damage calculation according to
+cc3k-villain.pdf was
 
+\textsf{Damage(Defender) = ceiling((100/(100+Def (Defender)))∗Atk(Attacker))}
+
+In this case, the enemy is Human(H) which has Atk 20, then
+
+\textsf{Damage(pc) = ceiling((100/(100+15)) * 20) = ceiling(17.3)=18}
+
+so the damage was correct.
 
 
 
 
 \newpage
-\textbf{4. }
+\textbf{4. PC attack enemy and enemy miss attack}
+
+command: a se
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -341,8 +334,12 @@ DEF: 15
 human misses attack on PC. You dealed 21 damage to human. 
 \end{Verbatim}
 
+This showcases a combat which the enemy misses the attack.
+
 \newpage
-\textbf{5. }
+\textbf{5. pc attack enemy and enemy miss}
+
+command: a se
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -376,9 +373,15 @@ DEF: 15
 You dealed 21 damage to human. human dealed 18 damage to you. 
 \end{Verbatim}
 
+Our pc and enemy both successfully attack each other.
+
+As you can vertify, the damage made was correct.
+
 
 \newpage
-\textbf{6. }
+\textbf{6. PC slay human and two gold spawned}
+
+command: a se
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -409,51 +412,57 @@ Race: troll Gold: 2                                                    Floor: 1
 HP: 94
 ATK: 25
 DEF: 15
-You dealed 21 damage to human. PC slains H. Some gold is left on the floor. 
-You saw some gold. 
+You dealed 21 damage to human. PC slains H. Some gold is left on the floor. You saw some gold. 
 \end{Verbatim}
+
+After intense combat, we slayed Human! Human drops one gold at his position
+and another gold is randomy put in this chamber.
 
 
 \newpage
-\textbf{7. }
+\textbf{7. PC pick gold}
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
-| |.........................L|        |.........M............L|               |
-| |.....G........H...........+########+.......................|-------|       |
-| |..............GE..........|   #    |.............................P.|--|    |
-| |.....G....................|   #    |.....P..................@...P.....|--| |
-| |----------+---------------|   #    |----+----------------|...G...........| |
+| |..............H.........L.|        |..........M............|               |
+| |.....G..........E.........+########+.....................L.|-------|       |
+| |..............G...........|   #    |.............................P.|--|    |
+| |.....G....................|   #    |.....P......................P.....|--| |
+| |----------+---------------|   #    |----+----------------|...@...........| |
 |            #                 #############                |...............| |
 |            #                 #     |-----+------|         |...............| |
-|            #                 #     |.P..........|         |........G......| |
-|            ###################     |...M....H...|   ######+....G..........| |
-|            #                 #     |.......G.P..|   #     |.M.............| |
+|            #                 #     |.P.......H..|         |........G......| |
+|            ###################     |....M.......|   ######+.M..G..........| |
+|            #                 #     |.......G.P..|   #     |...............| |
 |            #                 #     |-----+------|   #     |--------+------| |
 |  |---------+-----------|     #           #          #              #        |
-|  |................D....|     #           #          #         |----+------| |
-|  |W.......G.....O..G...|     ########################         |..H........| |
-|  |....H................|     #           #                    |...........| |
-|  |.W.....H...........P.|     #    |------+--------------------|...........| |
-|  |.....................|     #    |............G.........D..L.............| |
-|  |...........P.........+##########+...P.DH....P.......\.G................W| |
-|  |......L......P.H.....|          |....G..................................| |
+|  |.W.............OD....|     #           #          #         |----+------| |
+|  |...H....G........G...|     ########################         |...........| |
+|  |.W.....H.............|     #           #                    |..H........| |
+|  |...................P.|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.....H......G.........D...............W| |
+|  |.......L...P.........+##########+...P.D.....P.......\.G....L............| |
+|  |.............PH......|          |....G..................................| |
 |  |---------------------|          |---------------------------------------| |
 |                                                                             |
 |-----------------------------------------------------------------------------|
-Race: troll Gold: 2                                                    Floor: 1
-HP: 94
+Race: troll Gold: 4                                                    Floor: 1
+HP: 99
 ATK: 25
 DEF: 15
-You dealed 21 damage to human. PC slains H. Some gold is left on the floor. 
-You saw some gold. 
+You picked up 2 piece(s) of gold. You saw some gold. 
 \end{Verbatim}
+
+You picked up gold that was dropped by Human, which notified you that
+it was there.
 
 
 
 \newpage
-\textbf{8. }
+\textbf{8. PC near dragon hoard}
+
+command: we
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -487,9 +496,16 @@ DEF: 15
 You moved west. dragon dealed 18 damage to you. 
 \end{Verbatim}
 
+Although you are not near dragon, you are near its dragon hoard! It will 
+attack you even you are not close to it!
+
 
 \newpage
-\textbf{9. }
+\textbf{9. Go to next floor}
+
+Command: \\
+we\\
+no
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -554,11 +570,11 @@ DEF: 15
 You moved north. 
 \end{Verbatim}
 
-
+Nice, you reached the stair of first floor and climbed to second floor!
 
 
 \newpage
-\textbf{10. }
+\textbf{10. Sees potion}
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -592,47 +608,17 @@ DEF: 15
 You saw an unknown potion. 
 \end{Verbatim}
 
+You are sees an unknown potion! You will see what potion it is after you
+drink it for the first time.
 
 
-\newpage
-\textbf{11. }
-\begin{Verbatim}[fontsize=\scriptsize]
 
-|-----------------------------------------------------------------------------|
-|                                                                             |
-| |--------------------------|        |-----------------------|               |
-| |..........L...G...........|        |.......................|               |
-| |...P...O...........G......+########+......H.............P..|-------|       |
-| |...........H..............|   #    |...............................|--|    |
-| |..H..W........G........P..|   #    |................G.....G...........|--| |
-| |----------+---------------|   #    |----+----------------|...............| |
-|            #                 #############                |...............| |
-|            #                 #     |-----+------|         |..........G....| |
-|            #                 #     |.....G.GD...|         |.............P.| |
-|            ###################     |....D.P..OH.|   ######+...............| |
-|            #                 #     |...G..H....G|   #     |..............\| |
-|            #                 #     |-----+------|   #     |--------+------| |
-|  |---------+-----------|     #           #          #              #        |
-|  |.....................|     #           #          #         |----+------| |
-|  |P................O...|     ########################         |...........| |
-|  |...........L......W..|     #           #                    |...........| |
-|  |............P@.......|     #    |------+--------------------|...........| |
-|  |............M........|     #    |............P..........O.......W.......| |
-|  |....................H+##########+.O.....................L....P.......P..| |
-|  |.....W......W........|          |.......................................| |
-|  |---------------------|          |---------------------------------------| |
-|                                                                             |
-|-----------------------------------------------------------------------------|
-Race: troll Gold: 8                                                    Floor: 2
-HP: 106
-ATK: 25
-DEF: 15
-You saw an unknown potion. 
-\end{Verbatim}
 
 
 \newpage
-\textbf{12. }
+\textbf{11. Drink Potion}
+
+command: u we
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -666,8 +652,17 @@ DEF: 10
 You drinked WD. 
 \end{Verbatim}
 
+You drinked Potion WD and lost 5 defence! Now you will know if a potion is WD
+after you get close to it, avoid them!\\
+
+
+
+
+
 \newpage
-\textbf{13. }
+\textbf{12. Near multiple enemies}
+
+Command: se
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -701,11 +696,14 @@ DEF: 10
 dwarf misses attack on PC. You moved southeast. orcs dealed 28 damage to you. 
 \end{Verbatim}
 
+When you are close to multiple enemies, they will all try to attack you,
+be careful not to die.
+
 
 
 
 \newpage
-\textbf{14. }
+\textbf{13. Drink Potion that has been drunk before}
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -770,10 +768,20 @@ DEF: 10
 You drinked WD. 
 \end{Verbatim}
 
+You have drank WD before, so the message will tell you this is a WD potion.
+If you drink it, sad, you lose 5 def again!\\\\
+
+This shows that our potion can be added up.
+
+
+
+
 
 
 \newpage
-\textbf{15. }
+\textbf{14. Sees gold}
+
+Command: ne
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -807,12 +815,44 @@ DEF: 15
 You moved northeast. You saw some gold. 
 \end{Verbatim}
 
+The message will tell you if some gold is near.
+
 
 
 
 \newpage
-\textbf{16. }
+\textbf{15. Dragon and Dragon Hoard }
 \begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |.....H........\...........|        |.......................|               |
+| |.M......O...H............E+########+.O.....G...............|-------|       |
+| |.P....G..W.............D..|   #    |....L..........M.....O.........|--|    |
+| |...........H.....W......G.|   #    |.......W.................P........|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |...............| |
+|            #                 #     |.L........G.|         |...............| |
+|            ###################     |....G....D..|   ######+P....P.........| |
+|            #                 #     |GP...O......|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.........O...........|     ########################         |...GD......| |
+|  |.................O...|     #           #                    |...........| |
+|  |...................P.|     #    |------+--------------------|..P........| |
+|  |.....................|     #    |.............O........................P| |
+|  |..P..................+##########+.........L......................D......| |
+|  |........W............|          |..............................@GG......| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 13                                                   Floor: 5
+HP: 102
+ATK: 20
+DEF: 15
+You moved east. dragon dealed 18 damage to you. 
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
@@ -845,50 +885,90 @@ DEF: 15
 dragon misses attack on PC. Dragon is still alive, you cannot pick up the Dragon Hoard. You saw some gold. 
 \end{Verbatim}
 
+If you step onto a dragon hoard which the dragon is still alive, then you
+CANNOT pick it up. You will have to kill the dragon.
+
+The other gold you saw which is on the right side 
+is not attached to any dragon, you can pick it up.
+
 
 
 
 \newpage
-\textbf{17. }
+%\textbf{16. }
+%\begin{Verbatim}[fontsize=\scriptsize]
+%|-----------------------------------------------------------------------------|
+%|                                                                             |
+%| |--------------------------|        |-----------------------|               |
+%| |............H.\..........E|        |.......................|               |
+%| |...M...H..O.W.............+########+O......G...............|-------|       |
+%| |.P....G................D..|   #    |.....L.........................|--|    |
+%| |............H.....W.....G.|   #    |........W........M..O....P........|--| |
+%| |----------+---------------|   #    |----+----------------|...............| |
+%|            #                 #############                |...............| |
+%|            #                 #     |-----+------|         |...............| |
+%|            #                 #     |....L.....G.|         |...............| |
+%|            ###################     |....GO...D..|   ######+P....P.........| |
+%|            #                 #     |GP..........|   #     |...............| |
+%|            #                 #     |-----+------|   #     |--------+------| |
+%|  |---------+-----------|     #           #          #              #        |
+%|  |........O............|     #           #          #         |----+------| |
+%|  |.....................|     ########################         |...GD......| |
+%|  |.....................|     #           #                    |...........| |
+%|  |...................P.|     #    |------+--------------------|..P........| |
+%|  |..................O..|     #    |........L.............................P| |
+%|  |..P......W...........+##########+..............O.................D......| |
+%|  |.....................|          |...............................@.......| |
+%|  |---------------------|          |---------------------------------------| |
+%|                                                                             |
+%|-----------------------------------------------------------------------------|
+%Race: troll Gold: 15                                                   Floor: 5
+%HP: 99
+%ATK: 20
+%DEF: 15
+%Dragon is still alive, you cannot pick up the Dragon Hoard. dragon dealed 18 damage to you. 
+%\end{Verbatim}
+%
+
+
+
+\newpage
+\textbf{16. Move to invalid position}
+
+Command:\\
+we\\
+we
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
 | |--------------------------|        |-----------------------|               |
-| |............H.\..........E|        |.......................|               |
-| |...M...H..O.W.............+########+O......G...............|-------|       |
-| |.P....G................D..|   #    |.....L.........................|--|    |
-| |............H.....W.....G.|   #    |........W........M..O....P........|--| |
+| |.H...H....M.E.\...........|        |.........M........O....|               |
+| |..........................+########+.......G.......W.......|-------|       |
+| |.P....G..............H.D..|   #    |L...........O..................|--|    |
+| |....W...O.............W.G.|   #    |.........................P........|--| |
 | |----------+---------------|   #    |----+----------------|...............| |
 |            #                 #############                |...............| |
 |            #                 #     |-----+------|         |...............| |
-|            #                 #     |....L.....G.|         |...............| |
-|            ###################     |....GO...D..|   ######+P....P.........| |
-|            #                 #     |GP..........|   #     |...............| |
+|            #                 #     |..........G.|         |...............| |
+|            @##################     |.L..G....D..|   ######+P....P.........| |
+|            #                 #     |GP...O......|   #     |...............| |
 |            #                 #     |-----+------|   #     |--------+------| |
 |  |---------+-----------|     #           #          #              #        |
-|  |........O............|     #           #          #         |----+------| |
+|  |.....................|     #           #          #         |----+------| |
 |  |.....................|     ########################         |...GD......| |
-|  |.....................|     #           #                    |...........| |
+|  |..O..................|     #           #                    |...........| |
 |  |...................P.|     #    |------+--------------------|..P........| |
-|  |..................O..|     #    |........L.............................P| |
-|  |..P......W...........+##########+..............O.................D......| |
-|  |.....................|          |...............................@.......| |
+|  |..........O..........|     #    |................O.....................P| |
+|  |..PW.................+##########+................................D......| |
+|  |.....................|          |.............L.................G.......| |
 |  |---------------------|          |---------------------------------------| |
 |                                                                             |
 |-----------------------------------------------------------------------------|
 Race: troll Gold: 15                                                   Floor: 5
-HP: 99
+HP: 120
 ATK: 20
 DEF: 15
-Dragon is still alive, you cannot pick up the Dragon Hoard. dragon dealed 18 damage to you. 
-\end{Verbatim}
-
-
-
-
-\newpage
-\textbf{18. }
-\begin{Verbatim}[fontsize=\scriptsize]
+You moved west. 
 
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -919,12 +999,21 @@ Race: troll Gold: 15                                                   Floor: 5
 HP: 120
 ATK: 20
 DEF: 15
-
 \end{Verbatim}
+
+If you move to a position that cannot be moved to, in this case, it is an
+empty space, then the board will still be displayed, pc will not move, 
+but enemies will still move.
+
+*Behaviour when pc tries to move to potion, onto an enemy or a wall is
+similar.
+
 
 
 \newpage
-\textbf{19. }
+\textbf{17. Reach final stair}
+
+Command: ea
 \begin{Verbatim}[fontsize=\scriptsize]
 |-----------------------------------------------------------------------------|
 |                                                                             |
@@ -958,6 +1047,13 @@ DEF: 15
 You moved east. You reached the final stair. Your score is 15. 
 \end{Verbatim}
 
+Congratulations, you reached the stair of final floor, you win! 
+And you score is 15.
+
+
+In this game, we also implemented a scoreboard feature, which a demo is this 
+feature can be found later in this document.
+
 
 
 
@@ -974,7 +1070,7 @@ start.
 \end{lstlisting}
 All graphs displayed in this subsection can be found in the ouput of
 this command when running in terminal. Here, highlight the features that
-are shown in this demo2.
+are shown in this demo2.\\\\
 
 %The game will ask us to choose a race:
 %Player character races we can choose from:
@@ -1150,8 +1246,6 @@ ATK: 25
 DEF: 10
 You drinked WD. You saw an unknown potion. halfling dealed 14 damage to you. 
 \end{Verbatim}
-
-In these two turns
 \begin{itemize}
 	\item PC moves east
     \item Since the halfling is still near PC, it continues to deal damage to pc
@@ -1870,6 +1964,941 @@ You moved west. You reached the final stair. Your score is 16.
     is ended.
     \item The score is calculated as the pieces of gold PC collects at each floor.
 \end{itemize}
+
+
+
+
+\newpage
+\section{Other Features}
+
+For features that are not included in the above two demos, we include them
+in this section.
+
+
+
+\vspace{0.2in}
+\textbf{1. Player inputs 'q'}
+
+If player input 'q' when seleting race, then the game is immediately quitted.
+\begin{center}
+\includegraphics[width=0.8\textwidth]{quit.png}
+\end{center}
+
+\vspace{0.5 in}
+
+If player input 'q' during the game, player admits loss, the game ends.
+\begin{Verbatim}[fontsize=\scriptsize]
+q
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |.....P...........P....L...|        |.......................|               |
+| |.........L.E........E.....+########+.........H........L....|-------|       |
+| |............H.............|   #    |............................G..|--|    |
+| |...G.............L.....L..|   #    |.......................H..........|--| |
+| |----------+---------------|   #    |----+----------------|...........G...| |
+|            #                 #############                |......P........| |
+|            #                 #     |-----+------|         |......P........| |
+|            #                 #     |...........G|         |..........P....| |
+|            ###################     |........GGP.|   ######+..H...........@| |
+|            #                 #     |P..W..P\.GL.|   #     |......W........| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.......G.............|     ########################         |...........| |
+|  |.....................|     #           #                    |.....L.....| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.......................................| |
+|  |.....................+##########+..............M...L.........P....G.....| |
+|  |...L.................|          |..........L..G...P..................W..| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: vampire Gold: 0                                                  Floor: 1
+HP: 50
+ATK: 25
+DEF: 25
+Your score is 0. 
+\end{Verbatim}
+$\uparrow$ this is the end of game
+
+
+
+
+\newpage
+\textbf{2. Player inputs 'f'}
+
+If player inputs 'f' for the first time, the enemies no longer moves
+until player hit 'f' for the next time.\\\\
+
+Hit 'f' for the first time:
+\begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |................W..M......|        |.................P.....|               |
+| |...................DG.....+########+.......................|-------|       |
+| |........OL................|   #    |...............................|--|    |
+| |.....P....................|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |....H....L.....| |
+|            #                 #     |P....GP.PGP.|         |...............| |
+|            ###################     |.D...HP.MO..|   ######+..............G| |
+|            #                 #     |.G......HGG.|   #     |.......L......D| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |............G........|     ########################         |....H....\.| |
+|  |O..H......@..W..G....|     #           #                    |...........| |
+|  |P....................|     #    |------+--------------------|........G..| |
+|  |.....................|     #    |................P.....P.............L..| |
+|  |.................W...+##########+..............................E........| |
+|  |................L....|          |...........................H...........| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: vampire Gold: 0                                                  Floor: 1
+HP: 50
+ATK: 25
+DEF: 25
+
+f
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |................W..M......|        |.................P.....|               |
+| |...................DG.....+########+.......................|-------|       |
+| |........OL................|   #    |...............................|--|    |
+| |.....P....................|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |....H....L.....| |
+|            #                 #     |P....GP.PGP.|         |...............| |
+|            ###################     |.D...HP.MO..|   ######+..............G| |
+|            #                 #     |.G......HGG.|   #     |.......L......D| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |............G........|     ########################         |....H....\.| |
+|  |O..H......@..W..G....|     #           #                    |...........| |
+|  |P....................|     #    |------+--------------------|........G..| |
+|  |.....................|     #    |................P.....P.............L..| |
+|  |.................W...+##########+..............................E........| |
+|  |................L....|          |...........................H...........| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: vampire Gold: 0                                                  Floor: 1
+HP: 50
+ATK: 25
+DEF: 25
+
+
+
+
+f
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |....................M.....|        |.................P.....|               |
+| |.................W.DG.....+########+.......................|-------|       |
+| |..........L...............|   #    |...............................|--|    |
+| |.....P..O.................|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |...............| |
+|            #                 #     |P....GPMPGP.|         |...H....L......| |
+|            ###################     |.D....PHO...|   ######+......L.......G| |
+|            #                 #     |.G...H...GG.|   #     |..............D| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.O..........G........|     ########################         |.........\.| |
+|  |..H.......@.....G....|     #           #                    |....H......| |
+|  |P.............W......|     #    |------+--------------------|........G..| |
+|  |.....................|     #    |................P.....P................| |
+|  |................W....+##########+...............................E....L..| |
+|  |...............L.....|          |..........................H............| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: vampire Gold: 0                                                  Floor: 1
+HP: 50
+ATK: 25
+DEF: 25
+\end{Verbatim}
+
+
+
+\newpage
+\textbf{3. Player inputs 'r'}
+
+During the game, if player fit 'r', player will need to reinput race, 
+the game restarts from level 1.
+\begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |.............P........P...|        |.......................|               |
+| |.....O.................L.L+########+.................E.....|-------|       |
+| |....L...P.................|   #    |...........G...................|--|    |
+| |@...........G.H.E.........|   #    |..................P...............|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |...............| |
+|            #                 #     |...L...M....|         |...............| |
+|            ###################     |G....G....G.|   ######+...............| |
+|            #                 #     |.H....G....P|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.......P.............|     #           #          #         |----+------| |
+|  |....................L|     ########################         |...........| |
+|  |....W\.............P.|     #           #                    |..L........| |
+|  |...G.................|     #    |------+--------------------|.W.........| |
+|  |..................LG.|     #    |...............................P.......| |
+|  |...........P.........+##########+.......................................| |
+|  |L...............M..G.|          |..H.G...P........................M...L.| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: vampire Gold: 0                                                  Floor: 2
+HP: 50
+ATK: 25
+DEF: 25
+You moved west. 
+r
+Please select a race:
+v
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |..........................|        |...........P.........G.|               |
+| |.......................L..+########+.......................|-------|       |
+| |.............E............|   #    |........................P......|--|    |
+| |..WP................G.....|   #    |.............G................G...|--| |
+| |----------+---------------|   #    |----+----------------|........E......| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |......P....L...| |
+|            #                 #     |......H.....|         |...............| |
+|            ###################     |....P...G..L|   ######+.L.............| |
+|            #                 #     |L.....G.....|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |......M...G.........L|     #           #          #         |----+------| |
+|  |....G...............P|     ########################         |....L......| |
+|  |...P........\........|     #           #                    |.GD......W.| |
+|  |....................L|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.@.W...................................| |
+|  |..........P..P.......+##########+..G..........W..P.................E....| |
+|  |.....................|          |......H.....H......................H...| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: vampire Gold: 0                                                  Floor: 1
+HP: 50
+ATK: 25
+DEF: 25
+You saw some gold. 
+\end{Verbatim}
+
+
+
+\newpage
+\textbf{4. When selecting race}
+
+When seleting race, the program will not start until player input a valid
+race char.
+\begin{Verbatim}[fontsize=\scriptsize]
+Please select a race:
+a
+b
+c
+d
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |..EW............PP........|        |.................L.....|               |
+| |............GP............+########+.......................|-------|       |
+| |.......L.........L.....G.L|   #    |.........G..G..........@.......|--|    |
+| |........................H.|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...........M..H| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |............G..| |
+|            #                 #     |..........LL|         |....EG.........| |
+|            ###################     |O....G......|   ######+...............| |
+|            #                 #     |..L.......PL|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |....................P|     ########################         |...........| |
+|  |......P...P......W...|     #           #                    |...........| |
+|  |....P................|     #    |------+--------------------|...........| |
+|  |...G.....W...........|     #    |.............E..................G......| |
+|  |.....................+##########+..L....G...........L.....P.............| |
+|  |....................P|          |.................................\.....| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: drow Gold: 0                                                     Floor: 1
+HP: 125
+ATK: 25
+DEF: 15
+\end{Verbatim}
+
+If player input 'q' during race selection, 
+the program is immediately quitted as we have discussed before.
+
+If player input 'ctrl-d'  during race selection, 
+the program also immediately quits.
+
+
+
+
+\newpage
+\textbf{5. If PC gets killed}
+
+If PC gets killed, the score is outputted, and the game restarts with
+player choosing a player character race.
+\begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |......P...................|        |.......G...............|               |
+| |..................G.......+########+O....W............G..L.|-------|       |
+| |......H..........H........|   #    |................G.........DG.P.|--|    |
+| |............L.....G.......|   #    |.....W....................P.......|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |..P............| |
+|            #                 #     |.G..GP..HG..|         |...............| |
+|            ###################     |..H.....P.P.|   ######+.....@W...L....| |
+|            #                 #     |.L........W.|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |..............H......|     ########################         |...........| |
+|  |.....................|     #           #                    |....P.....P| |
+|  |.....................|     #    |------+--------------------|.W...O.....| |
+|  |.....................|     #    |.....\.................................| |
+|  |.......L........L....+##########+................................M......| |
+|  |.........G.........P.|          |....H..................................| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: vampire Gold: 0                                                  Floor: 1
+HP: 0
+ATK: 25
+DEF: 25
+dwarf dealed 16 damage to you. You died. Your score is 0. 
+Please select a race:
+\end{Verbatim}
+
+
+
+
+\newpage
+\textbf{6. PC drinks potion unsuccessfully}
+\begin{Verbatim}[fontsize=\scriptsize]
+u no
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |....H..........L..........|        |.......................|               |
+| |..........L...............+########+.......................|-------|       |
+| |.........DG..DL.H..P......|   #    |..G...................W\.......|--|    |
+| |.....P......G...W.......L.|   #    |.........................G........|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |.H.............| |
+|            #                 #     |-----+------|         |...............| |
+|            #                 #     |..G.........|         |.........G.....| |
+|            ###################     |..P..PE.W.G.|   ######+.H......P......| |
+|            #                 #     |.........LH.|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.@...................|     ########################         |...........| |
+|  |...............P....O|     #           #                    |...........| |
+|  |..H...G..............|     #    |------+--------------------|...........| |
+|  |.....P............G..|     #    |.......................P...............| |
+|  |........W.......W....+##########+..........PE...P.................L.....| |
+|  |.....................|          |..................................G....| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: vampire Gold: 0                                                  Floor: 1
+HP: 50
+ATK: 25
+DEF: 25
+\end{Verbatim}
+
+If you the direction you choose to drink does not have a potion, of course
+this drink potion try is unsuccessful but no message indicating the failure
+will be displayed. The board will still be displayed and enemies will still
+move.
+
+
+
+
+
+
+
+\newpage
+\textbf{7. PC slays an enemy other than human and merchant}
+
+\begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |G...................G.....|        |................G...G..|               |
+| |...............@O..L......+########+......................G|-------|       |
+| |.........G............G...|   #    |...............................|--|    |
+| |..........................|   #    |...............L.....L............|--| |
+| |----------+---------------|   #    |----+----------------|.......M.......| |
+|            #                 #############                |.........P....E| |
+|            #                 #     |-----+------|         |.............G.| |
+|            #                 #     |P.......E.W.|         |........W..L...| |
+|            ###################     |W....D......|   ######+...............| |
+|            #                 #     |..H.GG.P.PP.|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |............W.....P.P|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |...............E.....|     #           #                    |...........| |
+|  |.....................|     #    |------+--------------------|..........H| |
+|  |.....................|     #    |.......\...P................P..........| |
+|  |.....................+##########+.....W.........O...........G...........| |
+|  |....................H|          |.......................................| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 6                                                    Floor: 1
+HP: 69
+ATK: 20
+DEF: 15
+orcs misses attack on PC. You dealed 16 damage to orcs. 
+a ea
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |G...................G.....|        |................G...G..|               |
+| |...............@..........+########+......................G|-------|       |
+| |.........G.........L..G...|   #    |..............L................|--|    |
+| |..........................|   #    |....................L.......M.....|--| |
+| |----------+---------------|   #    |----+----------------|..............E| |
+|            #                 #############                |.........P.....| |
+|            #                 #     |-----+------|         |...........L.G.| |
+|            #                 #     |P........E..|         |.........W.....| |
+|            ###################     |..H..D....W.|   ######+...............| |
+|            #                 #     |.W..GG.P.PP.|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |...........W......P.P|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |.....................|     #           #                    |...........| |
+|  |...............E.....|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.......\...P................P........H.| |
+|  |...................H.+##########+......W....................G...........| |
+|  |.....................|          |................O......................| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 8                                                    Floor: 1
+HP: 74
+ATK: 20
+DEF: 15
+You dealed 16 damage to orcs. PC slains O. 
+\end{Verbatim}
+If PC slays an enemy other than human and merchant, that enemy is removed
+from board and no gold will be spawned. In this case, and orcs is 
+killed, an message saying "PC slains O" is displayed.
+
+
+
+\newpage
+\textbf{8. Merchant and Merchant Hoard spawned}
+\begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |....................G.....|        |................G...G..|               |
+| |..........................+########+.................L....G|-------|       |
+| |...........L..........G...|   #    |.........................M.....|--|    |
+| |......H.......O...........|   #    |...............L..................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |.........P.L...| |
+|            #                 #     |-----+------|         |.............G.| |
+|            #                 #     |P....WE.H...|         |....E..........| |
+|            ###################     |.....DW.....|   ######+..............W| |
+|            #                 #     |....GG.P.PP.|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |..................P.P|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |.G...................|     #           #                    |...........| |
+|  |..@........H.W.......|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.......\...P.....O..........P..........| |
+|  |.....................+##########+...........................G...........| |
+|  |............E........|          |.....................W............H....| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 3                                                    Floor: 1
+HP: 64
+ATK: 20
+DEF: 15
+You dealed 20 damage to merchant. All merchants are now hostile to PC. PC slains M. Some gold is left on the floor. You saw some gold. 
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |....................G.....|        |................G.L.G..|               |
+| |............L.............+########+......................G|-------|       |
+| |......H.......O.......G...|   #    |................L..............|--|    |
+| |..........................|   #    |.........................M........|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |.........P.....| |
+|            #                 #     |-----+------|         |.....E....L..G.| |
+|            #                 #     |P........H..|         |...............| |
+|            ###################     |....WDEW....|   ######+...............| |
+|            #                 #     |....GG.P.PP.|   #     |.............W.| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |..................P.P|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |.@............W......|     #           #                    |...........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |...........H.........|     #    |.......\...P................P..........| |
+|  |.....................+##########+..................O........G...........| |
+|  |...........E.........|          |....................W............H.....| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 5                                                    Floor: 1
+HP: 69
+ATK: 20
+DEF: 15
+You picked up 2 piece(s) of gold. 
+\end{Verbatim}
+
+After merchant is killed, the gold spawned is Merchant hoard which has value
+2.
+
+
+\newpage
+\textbf{9. Extra Feature: Scoreboard}
+
+During the game, if we type in command 'l', the scoreboard feature of our
+game will be on.
+\begin{Verbatim}[fontsize=\scriptsize]
+l
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |.......@..P.......M.......|        |..............GD.......|               |
+| |.........P................+########+.......E...............|-------|       |
+| |........L.................|   #    |..................O........GD..|--|    |
+| |....O............P........|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |........W......| |
+|            #                 #     |-----+------|         |P..............| |
+|            #                 #     |............|         |...............| |
+|            ###################     |....W....P..|   ######+...............| |
+|            #                 #     |............|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....\..P........P...|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |.........P.......P...|     #           #                    |P..........| |
+|  |...L.................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.................P.....................| |
+|  |.....................+##########+..........H.................H..........| |
+|  |..G.......G..........|          |................G...................G..| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 0                                                    Floor: 1
+HP: 120
+ATK: 25
+DEF: 15
+
+DLC is on.
+\end{Verbatim}
+
+
+\vspace{0.2 in}
+If we win, the game will ask us to enter name and a scoreboard will be displayed.
+\begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |...........M.@\...........|        |.....L.........O.......|               |
+| |...H......E..O............+########+.......G..M............|-------|       |
+| |.P....GH............HW.D..|   #    |...............................|--|    |
+| |....W...................G.|   #    |...............WO........P........|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |...............| |
+|            #                 #     |..........G.|         |...............| |
+|            ###################     |..O.G....D..|   ######+P....P.........| |
+|            #                 #     |GP.L........|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...GD......| |
+|  |..................O..|     #           #                    |...........| |
+|  |...................P.|     #    |------+--------------------|..P........| |
+|  |.O......W............|     #    |.......................O..............P| |
+|  |..P..................+##########+...............L................D......| |
+|  |.....................|          |...............................G.......| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 15                                                   Floor: 5
+HP: 76
+ATK: 20
+DEF: 15
+You moved east. You reached the final stair. Your score is 15. 
+Enter your name to leave on the score board (hit enter if you want to leave as anonymous):
+rank    score    player  
+1       15       newplayer
+\end{Verbatim}
+
+\vspace{0.2 in}
+If we complete another game, the score of all past games will displayed in
+decreasing order:
+\begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |..........P...............|        |.....E........GD.......|               |
+| |.........P................+########+.......................|-------|       |
+| |O.........................|   #    |...........................GD..|--|    |
+| |..........L...............|   #    |..................................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |P..............| |
+|            #                 #     |............|         |...............| |
+|            ###################     |.........P..|   ######+....O..........| |
+|            #                 #     |.........W..|   #     |....W..........| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....\@..............|     #           #          #         |----+------| |
+|  |.....................|     ########################         |...........| |
+|  |.........L...........|     #           #                    |P..........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.................P.....................| |
+|  |.....................+##########+..............H........................| |
+|  |..G.......G..........|          |................G.............H.....G..| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: troll Gold: 16                                                   Floor: 5
+HP: 120
+ATK: 40
+DEF: 25
+You moved west. You reached the final stair. Your score is 16. 
+Enter your name to leave on the score board (hit enter if you want to leave as anonymous):
+rank    score    player  
+1       16       we
+2       15       newplayer
+
+\end{Verbatim}
+
+
+
+\newpage
+\textbf{10. Extra Feature: Our PC Race Ghost}
+
+At the beginning of the game, we choose an arbitrary basic player character,
+then type command 'l' to open DLC, then revert the game using 'r' and 
+select 'h' for race, you can get our ``hidden" player character race
+Ghost!
+
+\begin{Verbatim}[fontsize=\scriptsize]
+l
+DLC is on.
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |.....PE..WH...............|        |.P...............P.....|               |
+| |E.........................+########+.....................G.|-------|       |
+| |...........P............G.|   #    |........E......................|--|    |
+| |.....E....................|   #    |......@...........................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |.....GE........| |
+|            #                 #     |-----+------|         |.........M.....| |
+|            #                 #     |.....P......|         |...............| |
+|            ###################     |..........M.|   ######+.E.............| |
+|            #                 #     |...H.......E|   #     |.............G.| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |..L.H................|     #           #          #         |----+------| |
+|  |.....G...P...........|     ########################         |...........| |
+|  |P.G..O...............|     #           #                    |...........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.P...................|     #    |..............E..L.....................| |
+|  |\.......D............+##########+......................P....H...G.G.....| |
+|  |.....P...G...........|          |.H........................G........E...| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: goblin Gold: 0                                                   Floor: 1
+HP: 110
+ATK: 15
+DEF: 20
+
+r
+Please select a race:
+h
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |...............M..P.......|        |....L..................|               |
+| |..............H..P........+########+..................@....|-------|       |
+| |.....W.................G..|   #    |......G........................|--|    |
+| |P........G...........LW...|   #    |.....................P.........HP.|--| |
+| |----------+---------------|   #    |----+----------------|........P......| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |...............| |
+|            #                 #     |.HH....L\...|         |.............M.| |
+|            ###################     |....L.......|   ######+...............| |
+|            #                 #     |..HP........|   #     |...G...........| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |..G..................|     #           #          #         |----+------| |
+|  |...G.................|     ########################         |...........| |
+|  |......P..............|     #           #                    |...........| |
+|  |...........G.........|     #    |------+--------------------|...L.......| |
+|  |...........W.........|     #    |.......D..............G.............W..| |
+|  |O....................+##########+.G.....G.M.............................| |
+|  |.............L.......|          |..H...P.................P..............| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: ghost Gold: 0                                                    Floor: 1
+HP: 80
+ATK: 30
+DEF: 15
+\end{Verbatim}
+
+However, if you choose 'h' at the beginning of the game, it will be a invalid
+choice of race since you have not turned on DLC.
+
+The characteristic of our ghost is enemies have a high chance of missing
+an attack on ghost, except for halfling as halfling takes priority over player
+character’s ability to never miss. For example, in the combat below, 
+dwarf misses in three consecutive rounds and got killed.
+\begin{Verbatim}[fontsize=\scriptsize]
+a ea
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |................D..E.....G|        |...................G...|               |
+| |................G......H.H+########+.....P......G..G.......|-------|       |
+| |G......................P..|   #    |...............................|--|    |
+| |...H......................|   #    |.\...........G.G..................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |..........P....| |
+|            #                 #     |-----+------|         |.H...H.........| |
+|            #                 #     |.......E.P..|         |.O.............| |
+|            ###################     |LE....H.....|   ######+.O.............| |
+|            #                 #     |..PG..PP.L..|   #     |...H...........| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.........P...........|     ########################         |...........| |
+|  |.....................|     #           #                    |.@W........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |....L.................G.......L........| |
+|  |..........H..HH......+##########+.......................................| |
+|  |.....................|          |P................................P.....| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: ghost Gold: 0                                                    Floor: 1
+HP: 62
+ATK: 30
+DEF: 15
+dwarf misses attack on PC. You dealed 24 damage to dwarf. 
+a ea
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |................D...E...HG|        |...................G...|               |
+| |................G.....H...+########+.....P......G..G.......|-------|       |
+| |G...H..................P..|   #    |...............................|--|    |
+| |..........................|   #    |.\...........G.G..................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |.H........P....| |
+|            #                 #     |-----+------|         |O.....H........| |
+|            #                 #     |.........P..|         |...............| |
+|            ###################     |.......HE.L.|   ######+...............| |
+|            #                 #     |LEPG..PP....|   #     |.OH............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.........P...........|     ########################         |...........| |
+|  |.....................|     #           #                    |.@W........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |.....L................G................| |
+|  |...............H.....+##########+.............................L.........| |
+|  |..........H.H........|          |P................................P.....| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: ghost Gold: 0                                                    Floor: 1
+HP: 62
+ATK: 30
+DEF: 15
+dwarf misses attack on PC. You dealed 24 damage to dwarf. 
+a ea
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |................D........G|        |...................G...|               |
+| |...H............G....E.H..+########+.....P......G..G.......|-------|       |
+| |G.....................HP..|   #    |...............................|--|    |
+| |..........................|   #    |.\...........G.G..................|--| |
+| |----------+---------------|   #    |----+----------------|...............| |
+|            #                 #############                |..H....H..P....| |
+|            #                 #     |-----+------|         |.O.............| |
+|            #                 #     |......H.EP..|         |...............| |
+|            ###################     |E...........|   ######+.HO............| |
+|            #                 #     |.LPG..PP..L.|   #     |...............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.........P...........|     ########################         |...........| |
+|  |.....................|     #           #                    |.@W........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |..............H......|     #    |......L...............G................| |
+|  |.....................+##########+............................L..........| |
+|  |.........H...H.......|          |P................................P.....| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: ghost Gold: 0                                                    Floor: 1
+HP: 62
+ATK: 30
+DEF: 15
+dwarf misses attack on PC. You dealed 24 damage to dwarf. 
+a ea
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |................D.......HG|        |...................G...|               |
+| |..H.............G.....EH..+########+.....P......G..G.......|-------|       |
+| |G......................P..|   #    |...............................|--|    |
+| |..........................|   #    |.\...........G.G..................|--| |
+| |----------+---------------|   #    |----+----------------|...H...........| |
+|            #                 #############                |..O.....H.P....| |
+|            #                 #     |-----+------|         |...............| |
+|            #                 #     |.........P..|         |.O.............| |
+|            ###################     |.E.....HEL..|   ######+...............| |
+|            #                 #     |L.PG..PP....|   #     |H..............| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |.....................|     #           #          #         |----+------| |
+|  |.........P...........|     ########################         |...........| |
+|  |.....................|     #           #                    |.@.........| |
+|  |.....................|     #    |------+--------------------|...........| |
+|  |.....................|     #    |......................G.....L..........| |
+|  |.............H.......+##########+.....L.................................| |
+|  |........H.....H......|          |P................................P.....| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: ghost Gold: 1                                                    Floor: 1
+HP: 62
+ATK: 30
+DEF: 15
+You dealed 24 damage to dwarf. PC slains W. 
+
+\end{Verbatim}
+
+\newpage
+But when ghost confronts a halfling, this advantage disappears.
+\begin{Verbatim}[fontsize=\scriptsize]
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |.L...G........G...........|        |E......................|               |
+| |..........................+########+.....L...........E.....|-------|       |
+| |......P....L...........P..|   #    |....................G..........|--|    |
+| |.................H....W..P|   #    |............L.P...P...............|--| |
+| |----------+---------------|   #    |----+----------------|.....W.........| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |.......W.......| |
+|            #                 #     |............|         |...............| |
+|            ###################     |.....HW.P...|   ######+...............| |
+|            #                 #     |..G......L..|   #     |............P..| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |............L@.......|     #           #          #         |----+------| |
+|  |G...........G........|     ########################         |...........| |
+|  |.G..............M....|     #           #                    |......H....| |
+|  |......L..............|     #    |------+--------------------|...........| |
+|  |....................P|     #    |.................................P.....| |
+|  |.G...................+##########+...........W..........G................| |
+|  |.................P...|          |..L.............W......D.\....G........| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: ghost Gold: 0                                                    Floor: 1
+HP: 38
+ATK: 30
+DEF: 15
+You dealed 25 damage to halfling. halfling dealed 14 damage to you. You saw some gold. 
+a we
+
+|-----------------------------------------------------------------------------|
+|                                                                             |
+| |--------------------------|        |-----------------------|               |
+| |.....G........G...........|        |.E...L.................|               |
+| |..L.......................+########+.......................|-------|       |
+| |......P................P..|   #    |.............L..E...G..........|--|    |
+| |..........L.....H....W...P|   #    |..............P...P...............|--| |
+| |----------+---------------|   #    |----+----------------|......W........| |
+|            #                 #############                |...............| |
+|            #                 #     |-----+------|         |...............| |
+|            #                 #     |.....W......|         |.......W.......| |
+|            ###################     |....H...P.L.|   ######+...............| |
+|            #                 #     |..G.........|   #     |............P..| |
+|            #                 #     |-----+------|   #     |--------+------| |
+|  |---------+-----------|     #           #          #              #        |
+|  |............L@.......|     #           #          #         |----+------| |
+|  |G...........G....M...|     ########################         |...........| |
+|  |.G.....L.............|     #           #                    |...........| |
+|  |.....................|     #    |------+--------------------|.......H...| |
+|  |....................P|     #    |..........W......................P.....| |
+|  |.G...................+##########+...L.............W....G................| |
+|  |.................P...|          |.......................D.\....G........| |
+|  |---------------------|          |---------------------------------------| |
+|                                                                             |
+|-----------------------------------------------------------------------------|
+Race: ghost Gold: 0                                                    Floor: 1
+HP: 24
+ATK: 30
+DEF: 15
+PC misses attack. halfling dealed 14 damage to you. You saw some gold. 
+\end{Verbatim}
+
+
+
 
 \end{document}
 
