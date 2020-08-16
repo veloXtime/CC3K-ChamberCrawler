@@ -3,8 +3,8 @@
 \usepackage{geometry} \geometry{ letterpaper, total={170mm,257mm}, left=27mm,
 right=27mm, top=20mm, bottom=20mm }
 \usepackage[dvipsnames]{xcolor}
-\usepackage{graphicx}
-%\graphicspath{ {\string~/Documents/deposit/} }
+\usepackage{graphicx} 
+%\graphicspath{ {\string~/Desktop/UW/CS\ 246/project/cc3k-dd2/} }
 \usepackage{latexsym,amsfonts,amssymb,amsthm,amsmath}
 \usepackage{graphpap}
 \usepackage{tkz-euclide}
@@ -35,7 +35,10 @@ Xinyan Lin, Hanyu Xu, Rivers Chen\\
 The game of ChamberCrawler3000 is a roguelike game in which the player’s goal
 is to reach the exit at the top floor of the five-floor map.  
 
-aBasic structure:
+Basic structure:
+\begin{center}
+\includegraphics[width=0.7\textwidth]{Flow Chart Cutted.png}
+\end{center}
 
 The game follows the OOP design principle, where all actions from clients
 should be processed in the \texttt{GameController} class. The 
@@ -49,7 +52,7 @@ methods to accomplish any tasks required.\\
 
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-%------------------------------------------------------------------------------
+%-----------------------------------------------------------------------------
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
@@ -324,7 +327,11 @@ If \textsf{pc} reach the stair of last floor, that is, the coordinates of
 and \texttt{ScoreBoard} will be displayed (\texttt{ScoreBoard} discussed in
 Section 5.3)
 
-
+\subsubsection{General Structure}
+In general, \texttt{GameController}, \texttt{Board} and \texttt{Display} 
+follows the Model-View-Controller Architecture (see flow chart in overview). 
+\texttt{GameController} acts as the controller, \texttt{Board} acts as the model, 
+and \texttt{Display} acts as the view.\\\\
 
 
 
@@ -341,8 +348,6 @@ Section 5.3)
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
 %------------------------------------------------------------------------------
-
-\newpage
 \section{RESILIENCE TO CHANGE}
 \subsection{Adding player and enemy characters}
 The \texttt{Living} class involves player characters and enemy characters. 
