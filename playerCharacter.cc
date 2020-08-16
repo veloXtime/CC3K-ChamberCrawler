@@ -9,6 +9,7 @@
 #include "vampire.h"
 #include "troll.h"
 #include "goblin.h"
+#include "ghost.h"
 #include "human.h"
 #include "dwarf.h"
 #include "elf.h"
@@ -115,6 +116,11 @@ void PlayerCharacter::attack(EnemyCharacter &c)
                 Goblin & g = static_cast<Goblin &> (*this);
                 c.attackedBy(g);
             }
+            else if (this->getRace() == "ghost")
+            {
+                Ghost & h = static_cast<Ghost &> (*this);
+                c.attackedBy(h);
+            }
         }
         else{
             std::string s = "PC misses attack. ";
@@ -146,6 +152,11 @@ void PlayerCharacter::attack(EnemyCharacter &c)
         {
             Goblin & g = static_cast<Goblin &> (*this);
             c.attackedBy(g);
+        }
+        else if (this->getRace() == "ghost")
+        {
+            Ghost & h = static_cast<Ghost &> (*this);
+            c.attackedBy(h);
         }
     }
 }
