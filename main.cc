@@ -18,7 +18,10 @@ int main(int argc, char* argv[])
 {
 	if (argc > 2)
 	{
-		int seed = atoi(argv[2]);
+		string argseed(argv[2]);
+		stringstream ss(argseed);
+		int seed;
+		ss >> seed;
 		srand(seed);
 	}
 	else srand(time(NULL));
